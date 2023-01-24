@@ -418,7 +418,7 @@ public class HelloServlet implements Servlet {
 在ServletContext中同样内置了两个方法用来读取这些初始化的数据
 
 ```java
-jakarta.servlet.ServletContext context = getServletContext();
+jakarta.servlet.ServletContext application = getServletContext();
 
         Enumeration<String> names = application.getInitParameterNames();
         while (names.hasMoreElements()) {
@@ -439,11 +439,9 @@ jakarta.servlet.ServletContext context = getServletContext();
 ##### 4.ServletContext目录获取
 
 ```java
-String contextPath = context.getContextPath();
+String contextPath = request.getContextPath();
 //获取该webapp的根目录
 ```
-
-
 
 ```java
 String realPath = application.getRealPath("path");
@@ -493,8 +491,6 @@ getServletPath();//获取Servlet的访问路径
 getServletContext();//获取应用域配置文件
 getServletConfig();//获取请求域配置文件
 ```
-
-
 
 ---
 
@@ -1274,7 +1270,7 @@ public class JDBCUtils {
 
 ---
 
-### 15.使用模板方法改造oa项目
+### 15.使用模板方法改造OA项目
 
 对于之前的项目，我们使用了六个类来解决六个问题，显然这是非常复杂且浪费资源的方法，那么有什么方法去优化呢？
 
@@ -1648,3 +1644,14 @@ JSP语法总结
     + out.print(翻译到这里)
 + <%@page %>
     + page指令可以设置响应的内容类型
+
+---
+
+### 4.使用JSP改造OA项目
+
+使用JSP改造OA项目的步骤：
+
++ 使用Servlet处理业务，收集数据，使用JSP展示数据
++ 将之前的HTML页面原型全部修改为JSP文件（如果页面中有中文要使用`@page contentType="text/html;charset=UTF-8"`防止乱码），将所有的JSP文件拷贝至web目录下
++ 修改源代码完成页面的流转
+

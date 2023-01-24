@@ -38,6 +38,7 @@ public class DeptServlet extends HttpServlet {
         }else if (name.equals("/dept/modify")) {
             doModify(request,response);
         }
+
     }
 
     private void doModify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
