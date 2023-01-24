@@ -1,0 +1,134 @@
+/*Set the icon style*/
+.shop_icon, .shop_ww_icon, .three_icon span {
+    width: 15px;
+    height: 15px;
+    background-color: aquamarine;
+    display: inline-block;
+}
+/*Set the shop style*/
+.shops{
+    width: 1200px;
+    /*background-color: bisque;*/
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 15px;
+    color: #555555;
+}
+/*Set the position of the shop_name*/
+.shop_name{
+    position: relative;
+    bottom: 1px;
+}
+
+.shop_checkbox{
+
+}
+
+/*Set icon pos*/
+.shop_checkbox, .shop_icon, .shop_name, .shop_ww_icon{
+    margin-right: 10px;
+}
+/*Set item style*/
+.item{
+    /*弹性布局*/
+    display: flex;
+    background-color: #FAFAFA;
+    border: 1px solid #DAD9D9;
+    padding: 20px;
+}
+/*Set img style*/
+.item_img{
+    width: 100px;
+    height: 100px;
+    background-color: bisque;
+}
+/*Set header*/
+.header{
+    margin-bottom: 10px;
+}
+/*Set the checkbox*/
+.item_checkbox, .item_img{
+    margin-right: 10px;
+}
+/*Set item details*/
+.item_details{
+
+    display: flex;
+    /*弹性布局的方向默认是横向，修改为纵向*/
+    flex-direction: column;
+    /*两端对齐*/
+    justify-content: space-between;
+    width: 250px;
+    margin-right: 40px;
+}
+/**/
+.sku{
+    margin-right: 150px;
+}
+
+.price{
+    margin-right: 45px;
+    font-weight: 600;
+}
+
+.price1{
+    color: #8A8989;
+}
+
+.num input{
+    width: 40px;
+    height: 25px;
+    text-align: center;
+}
+
+.num, .item_final_price{
+    margin-right: 50px;
+}
+
+.item_final_price{
+    font-weight: 600;
+    color: #F31919;
+}
+
+.num{
+    background-color: #DAD8D8;
+    /*width: 80px;*/
+    height: 30px;
+}
+.shop{
+    margin-top: 30px;
+}
+.checkout{
+    display: flex;
+    justify-content: space-between;
+    background-color: #DAD8D8;
+    height: 60px;
+    margin-top: 20px;
+    border: 1px solid #cfcfcf;
+}
+
+.checkout2{
+    /*margin-right: 20px;*/
+    width: 400px;
+    /*top: 30px*/
+    padding: 18px;
+
+
+}
+
+.totalPrice{
+    margin-right: 20px;
+}
+
+.checkAllDiv{
+    width: 200px;
+    padding: 18px;
+}
+
+.checked em{
+    font-weight: 700;
+    color: #e2231a;
+    margin: 0 3px;
+
+}
+

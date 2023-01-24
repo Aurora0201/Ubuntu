@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+    <link rel="stylesheet" href="css/first.css">
+</head>
+<style>
+
+
+
+</style>
+<body bgcolor="#bc8f8f" background="../img/Azhen.png">
+    <script type="text/javascript" src="../js/first.js">
+
+    </script>
+    <form action="http://localhost:8080/jd/register" method="get">
+        <div>
+            <table>
+                <tr>
+                    <td>UserName</td>
+                    <td>
+                        <input type="text" name="userName"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td>
+                        <input type="password" name="password"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td>
+                        <input type="radio" name="gender" value="1"/>Man
+                        <input type="radio" name="gender" value="0"/>Women
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Education</td>
+                    <td>
+                        <select name="Edcation">
+                            <option value="1">博士</option>
+                            <option value="2">硕士</option>
+                            <option value="3" selected>本科</option>
+                            <option value="4">带专</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Interest</td>
+                    <td>
+                        <textarea rows="10" cols="20" name="interst"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Submit" onclick="alert('Register Successful')">
+                        <input type="reset" value="Reset">
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+        <script>
+            function getUserName(){
+                var userName = document.getElementById("userName")
+                alert(userName.value)
+            }
+
+        </script>
+
+        UserName<input type="text" id="userName">
+        <input type="button" value="GetUserName" onclick="getUserName()">
+    </form>
+
+</body>
+</html>

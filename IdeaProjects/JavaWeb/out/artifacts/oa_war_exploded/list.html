@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List</title>
+</head>
+<body>
+<script type="text/javascript">
+  function del(no) {
+    document.location = "oa/dept/delete?deptno=" + no;
+  }
+</script>
+<h1 align="center">Department</h1>
+<hr/>
+<table align="center" border="2px" width="50%">
+  <tr>
+    <th>Deptno</th>
+    <th>Dname</th>
+    <th>Loc</th>
+    <th>Operation</th>
+  </tr>
+  <tr>
+    <td>123</td>
+    <td>123</td>
+    <td>123</td>
+    <td>
+      <a href="" onclick="del(20)">Delete</a>
+      <a href="edit.html">Edit</a>
+      <a href="">Details</a>
+    </td>
+  </tr>
+</table>
+<a href="/oa/dept/add">Add item</a>
+</body>
+</html>
