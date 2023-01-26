@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-@WebServlet({"/dept/list", "/dept/add", "/dept/edit","/dept/delete","/dept/detail","/dept/modify"})
+@WebServlet({"/dept/list", "/dept/add", "/dept/edit","/dept/delete","/dept/detail","/dept/modify","/dept/login"})
 /*
     Also we can use like
     @WebServlet("/dept/*")
@@ -44,6 +44,28 @@ public class DeptServlet extends HttpServlet {
             doDetail(request,response);
         }else if (name.equals("/dept/modify")) {
             doModify(request,response);
+        } else if (name.equals("/dept/login")) {
+            doLogin(request, response);
+        }
+    }
+
+    private void doLogin(HttpServletRequest request, HttpServletResponse response) {
+        String userName = request.getParameter("userName");
+        String password = request.getParameter("password");
+        try {
+            conn = JDBCUtils.getConnection();
+            String sql = "select * from t_user where userName = ? and password = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,userName);
+            ps.setString(2,password);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                response.sendRedirect(request.getContextPath() + "/dept/list");
+            } else response.sendRedirect(request.getContextPath() + "/loginFailed.html");
+        } catch (SQLException | IOException e) {
+            throw new RuntimeException(e);
+        } finally{
+            JDBCUtils.close(conn, ps, rs);
         }
     }
 
@@ -93,11 +115,6 @@ public class DeptServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath()+(cot == 1?"/dept/list":"/error.html"));
     }
 
-    /**
-     * Query data from MySQL
-     * @param request
-     * @param response
-     */
     private void doList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        List<Dept> depts = new ArrayList<>();
         try {
@@ -163,8 +180,6 @@ public class DeptServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath()+(cot == 1?"/dept/list":"/error.html"));
     }
 
-
-
     private void doModify(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String deptno = request.getParameter("deptno");
         String dname = request.getParameter("dname");
@@ -185,5 +200,6 @@ public class DeptServlet extends HttpServlet {
         }
         response.sendRedirect(request.getContextPath() + ((cot == 1)?"/dept/list":"error.html"));
     }
+
 
 }

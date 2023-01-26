@@ -1653,5 +1653,229 @@ JSP语法总结
 
 + 使用Servlet处理业务，收集数据，使用JSP展示数据
 + 将之前的HTML页面原型全部修改为JSP文件（如果页面中有中文要使用`@page contentType="text/html;charset=UTF-8"`防止乱码），将所有的JSP文件拷贝至web目录下
-+ 修改源代码完成页面的流转
+
+
+
+同样的，从用户的角度去编写代码，那么首先用户会跳转至list界面，展示数据的概括信息，这个功能的实现由两部分组成
+
++ 先使用Servlet从数据库查询数据
+
+    + 那么我们就需要在service方法中新建一个Dolist方法，同时在注解中将这个Servlet注册
+
+    + ```java
+        private void doList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        	//Use list to store the data and forward to jsp
+            List<Dept> depts = new ArrayList<>();
+            try {
+                conn = JDBCUtils.getConnection();
+                String sql = "select * from DEPT";
+                ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    String deptno = rs.getString("deptno");
+                    String dname = rs.getString("dname");
+                    String loc = rs.getString("loc");
+                    depts.add(new Dept(deptno,dname,loc));
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }finally {
+                JDBCUtils.close(conn,ps,rs);
+            }
+           	//Store the data to local variable
+            request.setAttribute("depts",depts);
+            request.getRequestDispatcher("/list.jsp").forward(request,response);
+        }
+        ```
+
++ 然后在JSP页面展示数据
+
+    + ```jsp
+        	<%
+        		//get the data
+              List<Dept> depts = (List<Dept>)request.getAttribute("depts");
+              int cot = 0;
+              for (Dept dept : depts) {
+              cot++;
+            %>
+              <tr>
+                <td><%=cot%></td>
+                <td><%=dept.getDeptno()%></td>
+                <td><%=dept.getDname()%></td>
+                <td>
+                  <a href="javascript:void(0)" onclick="del(<%=dept.getDeptno()%>)">Delete</a>
+                  <a href="<%=request.getContextPath()%>/dept/edit?deptno=<%=dept.getDeptno()%>">Edit</a>
+                  <a href="<%=request.getContextPath()%>/dept/detail?deptno=<%=dept.getDeptno()%>">Details</a>
+                </td>
+              </tr>
+            <%}%>
+        ```
+
++ 那么list页面的展示功能就已经完成了
+
+
+
+下面是一个更加复杂功能-edit的实现
+
++ 首先，用户会从list页面的edit按钮进入编辑功能
+
+    + 所以这里我们先将list页面中跳转至edit页面的路径修改，测试是否能成功跳转至doEdit方法
+
++ 然后进入doEdit功能，将要修改的数据查询出来，将数据发送到modify页面，modify页面修改的数据发送至doModify方法
+
+    + 在doEdit方法中查询将要显示的数据，然后发送至JSP页面显示
+
+    + ```java
+        private void doEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            String deptno = request.getParameter("deptno");
+        
+            try {
+                conn = JDBCUtils.getConnection();
+                String sql = "select * from DEPT where deptno = ?";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, deptno);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    String dname = rs.getString("dname");
+                    String loc = rs.getString("loc");
+        			//A small amount of data, store directly in local variable
+                    request.setAttribute("deptno", deptno);
+                    request.setAttribute("dname", dname);
+                    request.setAttribute("loc", loc);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }finally {
+                JDBCUtils.close(conn,ps,rs);
+            }
+            request.getRequestDispatcher("/edit.jsp").forward(request, response);
+        }
+        ```
+
+    + JSP页面进行显示，并将数据发送到服务器
+
+    + ```jsp
+        <%
+            String deptno = (String) request.getAttribute("deptno");
+            String dname = (String) request.getAttribute("dname");
+            String loc = (String) request.getAttribute("loc");
+        %>
+        <body>
+        <form action="<%=request.getContextPath()%>/dept/modify" method="post">
+            deptno<input type="text" name="deptno" value="<%=deptno%>" readonly><br>
+            dname<input type="text" name="dname" value="<%=dname%>"><br>
+            loc<input type="text" name="loc" value="<%=loc%>"><br>
+            <input type="submit" value="Edit">
+        </form>
+        ```
+
+    + 发送至modify方法，对数据库中的数据进行修改操作
+
+    + ```java
+        private void doModify(HttpServletRequest request, HttpServletResponse response) throws IOException {
+            String deptno = request.getParameter("deptno");
+            String dname = request.getParameter("dname");
+            String loc = request.getParameter("loc");
+        
+            int cot;
+            try {
+                conn = JDBCUtils.getConnection();
+                String sql = "update DEPT set dname = ?, loc = ? where deptno = " + deptno;
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, dname);
+                ps.setString(2,loc);
+                cot = ps.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }finally {
+                JDBCUtils.close(conn,ps,null);
+            }
+            response.sendRedirect(request.getContextPath() + ((cot == 1)?"/dept/list":"error.html"));
+        }
+        ```
+
++ 修改完成后，跳转至list页面
+
+
+
+#### 1.改造OA过程中遇到的问题
+
+上面就是这个项目通过JSP改造的大致过程，下面还是总结一下遇到的问题：
+
++ 首先就是路径问题，发送到Servlet的数据都是要使用`注册的路径`访问，而其他合法资源的访问，都是通过从`app根目录下的相对路径`进行访问的
++ 动态路径问题，本项目同时使用了动态路径访问的方法，使用了`request.getContextPath()`来替换`/oa`，动态的路径能让程序解耦合，提高了编程的效率
++ 请求域变量和转发的问题，对于在一个Servlet中完成数据查询的功能，然后使用JSP打印数据，明显使用了数据共享，所以这里要使用资源转发和请求域变量，这里使用了两个主要的方法`request.setAttribute()/request.getAttribute()`，这里需要注意的地方有，这两个方法存取的都是`Object`对象，所以在取出数据时，要使用强制类型转换，否则可能出现数据错误的问题
+
+#### 2.当前OA仍然存在的问题
+
++ 任何一个用户都可以对系统的数据进行增删改查的操作，如何去解决这个问题？添加一个用户登录的系统
+
+---
+
+### 5.实现登录功能
+
+#### 1.实现一个简单的登录系统
+
++ 步骤1
+
+    + 首先在数据库中添加一个用户表`t_user`，储存用户最基本的信息包括`UserName/Password`
+
+    + 密码在数据库中一般以密文的形式显示（这里先用明文）
+
++ 步骤2
+
+    + 实现一个登录页面，页面中有一个表单，有用户输入信息的表单
+    + 用户点击登录，表单以post方式提交
+
++ 步骤3
+
+    + 验证登录信息，正确则进入系统
+    + 否则进入登录失败界面
+
+
+
+#### 2.实现步骤
+
++ 首先在数据库中建立一个表，这里我们就事先插入数据
+
++ 实现一个登录界面，这里直接用之前实现好的
+
++ 验证登录信息，在service中定义一个doLogin方法，同时注册为`/dept/login`，只要数据库返回了结果即可登录成功
+
++ ```java
+    private void doLogin(HttpServletRequest request, HttpServletResponse response) {
+        String userName = request.getParameter("userName");
+        String password = request.getParameter("password");
+        try {
+            conn = JDBCUtils.getConnection();
+            String sql = "select * from t_user where userName = ? and password = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,userName);
+            ps.setString(2,password);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                response.sendRedirect(request.getContextPath() + "/dept/list");
+            } else response.sendRedirect(request.getContextPath() + "/loginFailed.html");
+        } catch (SQLException | IOException e) {
+            throw new RuntimeException(e);
+        } finally{
+            JDBCUtils.close(conn, ps, rs);
+        }
+    }
+    ```
+
++ 这样一个简单的登录功能就实现好了
+
+
+
+#### 3.登录系统存在的问题
+
++ 这样的登录系统就是个摆设，只要用户知道后端的地址，照样可以不登录直接进行操作，没有起到拦截作用，那么怎么改进
++ 使用会话
+
+---
+
+### 6.B/S结构系统中的Session机制
+
+
 
