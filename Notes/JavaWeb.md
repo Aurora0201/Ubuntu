@@ -631,6 +631,7 @@ jakarta.servlet.http.HttpServlet extends GenericServlet(abstract class);
 ```java
 Map<String, String[]> parameterMap = request.getParameterMap();//返回请求的name和value集合
 Enumeration<String> names = request.getParameterNames();//获取所有的key
+//下面两个最常用
 String[] values = request.getParameterValues();//获取Value集合
 String value = request.getParameter("key");//获取value集合中的第一个元素
 ```
@@ -1877,5 +1878,62 @@ JSP语法总结
 
 ### 6.B/S结构系统中的Session机制
 
+#### 1.什么是session？
+
++ session的中文翻译是“会话”
++ 用户从开启浏览器以及后续的一系列操作到最后关闭浏览器，这整个过程称为一次会话，会话在服务端有个对应的java对象：Session
++ 一次会话中包含多次请求
 
 
+
+#### 2.Java中的session对象
+
++ 在Java的Servlet规范中，session对应的类名是：HttpSession(jakarta.servlet.http.httpSession)
++ session机制属于B/S结构的一部分，session实际上是一个规范，在不同的语音中都会有对session机制的实现
+
+
+
+#### 3.session的作用
+
++ session对象最重要的作用就是：保存会话状态
++ 用户登录成功了，这是一种状态，我们需要通过一种手段把这种状态保存下来，这就是session的作用
+
+
+
+#### 4.为什么需要session来保存会话状态
+
++ 因为HTTP协议是一种无状态协议
++ 什么是无状态，请求的时候，B/S是建立连接的，请求结束后，连接就切断了
++ HTTP设计成这样是因为这样可以极大的缓解服务器的压力
+
+
+
+#### 5.为什么不使用request对象或者ServletContext对象保存会话状态
+
++ request是请求域对象，请求域对象的生命周期是从请求开始创建，请求结束销毁，存在的时间过短
++ ServletContext对象是应用域对象，应用域对象的生命周期是从服务器开机开始创建，到服务器关闭销毁，存在时间过长
++ session对象是会话域对象，生命周期是从浏览器发送第一次请求开始，到关闭浏览器结束时销毁，但是一般来说如果不是安全退出，服务器是不会知道你关闭了浏览器的，所以实际上关闭浏览器时session对象是不会销毁的，服务器中会有一个session超时机制，只要一段时间内没有发送新的请求，就会把session对象销毁
++ 生命周期以及范围：request < session < servletContext
+
+
+
+#### 6.session的获取
+
++ ```java
+    Httpsession session = request.getSession();
+    //从当前服务器获取session对象，没有则新建一个session
+    ```
+
+
+
+#### 7.session的实现原理
+
++ 在web服务器中有一个session列表类似于map集合，map集合中key是sessionID，value是session对象
++ 在用户第一次发起请求的时候，服务器会创建一个新的session对象，同时给对象一个id，然后将id发送给浏览器，浏览器将id保存在`缓存`中
++ 用户再次发送请求时，会将缓存中sessionID发送给服务器，服务器通过sessionID获取到session对象
+
++ JSESSIONID="..." 这个是以cookie的形式保存在浏览器中的，浏览器只要关闭，这个cookie就没有了
+
+#### 8.为什么关闭浏览器后会话结束？
+
++ 因为关闭浏览器后，浏览器缓存中保留的sessionID会被释放，下次打开浏览器时这个id已经消失了，服务器只能再次新建一个session，所以之前的会话相当于已经结束了
