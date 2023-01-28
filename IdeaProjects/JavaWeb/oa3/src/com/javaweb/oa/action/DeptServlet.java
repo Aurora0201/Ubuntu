@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-@WebServlet({"/dept/list", "/dept/add", "/dept/edit","/dept/delete","/dept/detail","/dept/modify","/dept/login"})
+@WebServlet({"/dept/list", "/dept/add", "/dept/edit","/dept/delete","/dept/detail","/dept/modify"})
 /*
     Also we can use like
     @WebServlet("/dept/*")
@@ -31,42 +32,23 @@ public class DeptServlet extends HttpServlet {
     ResultSet rs = null;
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
         String name = request.getServletPath();
-        if (name.equals("/dept/list")) {
-            doList(request,response);
-        } else if (name.equals("/dept/add")) {
-            doAdd(request,response);
-        }else if (name.equals("/dept/edit")) {
-            doEdit(request,response);
-        }else if (name.equals("/dept/delete")) {
-            doDel(request,response);
-        }else if (name.equals("/dept/detail")) {
-            doDetail(request,response);
-        }else if (name.equals("/dept/modify")) {
-            doModify(request,response);
-        } else if (name.equals("/dept/login")) {
-            doLogin(request, response);
-        }
-    }
-
-    private void doLogin(HttpServletRequest request, HttpServletResponse response) {
-        String userName = request.getParameter("userName");
-        String password = request.getParameter("password");
-        try {
-            conn = JDBCUtils.getConnection();
-            String sql = "select * from t_user where userName = ? and password = ?";
-            ps = conn.prepareStatement(sql);
-            ps.setString(1,userName);
-            ps.setString(2,password);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                response.sendRedirect(request.getContextPath() + "/dept/list");
-            } else response.sendRedirect(request.getContextPath() + "/loginFailed.html");
-        } catch (SQLException | IOException e) {
-            throw new RuntimeException(e);
-        } finally{
-            JDBCUtils.close(conn, ps, rs);
-        }
+        if (session != null && session.getAttribute("userName") != null) {
+            if (name.equals("/dept/list")) {
+                doList(request,response);
+            } else if (name.equals("/dept/add")) {
+                doAdd(request,response);
+            }else if (name.equals("/dept/edit")) {
+                doEdit(request,response);
+            }else if (name.equals("/dept/delete")) {
+                doDel(request,response);
+            }else if (name.equals("/dept/detail")) {
+                doDetail(request,response);
+            }else if (name.equals("/dept/modify")) {
+                doModify(request,response);
+            }
+        } else response.sendRedirect(request.getContextPath() + "/login.jsp");
     }
 
     private void doDetail(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

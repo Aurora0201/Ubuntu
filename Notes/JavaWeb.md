@@ -1574,7 +1574,7 @@ public class JDBCUtils {
 ### 2.什么是JSP？
 
 + JSP是一套规范，所有的web容器/web服务器都会遵循这一套规范进行翻译，每一个web容器/web服务器都会内置一个jsp翻译器，当`.jsp`文件被访问时，实际上会自动的翻译生成`_jsp.java`文件，并且自动编译生成`_jsp.class`文件
-+ JSP和Servlet的生命周期是一样的，他们完全是一个东西
++ JSP和Servlet的生命周期是一样的，他们完全是一个东西，也就是说`JSP就是Servlet`
 + 对JSP调试时，还是要打开JSP文件对应的java文件，检测java代码
 + JSP在第一次访问时都比较慢，第二次比较块，为什么？
     + 第一次访问时，要把jsp文件翻译生成java源文件，java源文件要编译生成class字节码文件，然后通过class文件去生成servlet对象，然后调用`构造方法，init()，service()`方法
@@ -1932,8 +1932,185 @@ JSP语法总结
 + 在用户第一次发起请求的时候，服务器会创建一个新的session对象，同时给对象一个id，然后将id发送给浏览器，浏览器将id保存在`缓存`中
 + 用户再次发送请求时，会将缓存中sessionID发送给服务器，服务器通过sessionID获取到session对象
 
-+ JSESSIONID="..." 这个是以cookie的形式保存在浏览器中的，浏览器只要关闭，这个cookie就没有了
++ JSESSIONID="..." 这个是以`cookie`的形式保存在浏览器中的，浏览器只要关闭，这个cookie就没有了
 
 #### 8.为什么关闭浏览器后会话结束？
 
 + 因为关闭浏览器后，浏览器缓存中保留的sessionID会被释放，下次打开浏览器时这个id已经消失了，服务器只能再次新建一个session，所以之前的会话相当于已经结束了
+
+#### 9.cookie禁用了，session还能找到么？
+
++ cookie禁用是指，虽然服务器会生成一个sessionID返回到浏览器，但是浏览器拒收了
++ 禁用后，因为每一次都没有id，所以每次服务器都会重新生成一个session
++ 那有什么办法能在禁用后找到session么？
+    + URL重写机制，通过在URL的末尾加上`;jsessionid=...`，即使禁用了cookie也能找到session
+    + URL重写机制会提高开发者的成本，开发者在编写任何请求路径的时候都要添加一个sessionID，给开发带来了很大的难度
+
+### 7.改造登录系统
+
+#### 1.对于系统存在的问题
+
++ 在上文提到过，登录系统目前的主要问题就是没有对用户进行过滤，只要知道后端的访问地址，用户不用登录也能对后台进行操作
++ 对于这个问题的解决，我们将使用session对用户进行过滤，没有登录的用户无法访问后端的地址
++ 缺少安全退出功能，退出浏览器后，还要等待session超时自动销毁
+
+
+
+#### 2.改造过程
+
++ 首先新建一个Servlet，我们将用户登录和退出的代码写在这个Servlet中
+
++ ```java
+    @WebServlet({"/dept/login","/dept/exit"})
+    public class DeptUser extends HttpServlet {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        @Override
+        protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            String servletPath = request.getServletPath();
+            if (servletPath.equals("/dept/login")) {
+                doLogin(request, response);
+            } else if (servletPath.equals("/dept/exit")) {
+                doExit(request, response);
+            }
+        }
+    
+        private void doExit(HttpServletRequest request, HttpServletResponse response) {
+            HttpSession session = request.getSession();
+            if (session != null) {
+                session.invalidate();
+            }
+            try {
+                response.sendRedirect(request.getContextPath() + "/login.jsp");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    
+        private void doLogin(HttpServletRequest request, HttpServletResponse response) {
+            HttpSession session = request.getSession();
+            String userName = request.getParameter("userName");
+            String password = request.getParameter("password");
+            try {
+                conn = JDBCUtils.getConnection();
+                String sql = "select * from t_user where userName = ? and password = ?";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1,userName);
+                ps.setString(2,password);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    session.setAttribute("username",userName);
+                    response.sendRedirect(request.getContextPath() + "/dept/list");
+                } else response.sendRedirect(request.getContextPath() + "/loginFailed.html");
+            } catch (SQLException | IOException e) {
+                throw new RuntimeException(e);
+            } finally{
+                JDBCUtils.close(conn, ps, rs);
+            }
+        }
+    }
+    ```
+
++ 这里我们可以看到，当用户访问login.jsp页面并输入账号密码时，会将数据发送到这个Servlet中，我们首先要做的就是先在数据库中对数据进行验证，验证成功后，在session域中添加一个对象“username”同时跳转至list页面，失败则跳转至error页面
+
++ 同时在安全退出时，获取到session对象后将session对象销毁然后跳转回登录界面
+
++ 然后对DeptServlet中的代码添加session过滤的部分
+
++ ```java
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        String name = request.getServletPath();
+        if (session != null && session.getAttribute("username") != null) {
+            if (name.equals("/dept/list")) {
+                doList(request,response);
+            } else if (name.equals("/dept/add")) {
+                doAdd(request,response);
+            }else if (name.equals("/dept/edit")) {
+                doEdit(request,response);
+            }else if (name.equals("/dept/delete")) {
+                doDel(request,response);
+            }else if (name.equals("/dept/detail")) {
+                doDetail(request,response);
+            }else if (name.equals("/dept/modify")) {
+                doModify(request,response);
+            }
+        } else response.sendRedirect(request.getContextPath() + "/login.jsp");
+    }
+    ```
+
++ 可以看到，我们添加了一行过滤信息`session != null && session.getAttribute("username") != null`，表示当session对象不存在或者当验证未通过时，无法对后端进行访问
+
+
+
+#### 3.调试中存在的一些问题
+
++ 在调试的过程中，我们发现，即使我们没有登录过，进入list页面时，假如过滤条件中没有`session.getAttribute("username") != null`，那么仍然是可以访问成功的，如果使用debug模式发现，此时Servlet仍然可以获取到session，这是为什么呢？
+    + 因为第一次我们访问的是login.jsp页面，访问jsp时，jsp中自动创建了session对象，所以即使我们没有进行登录，一样可以获取到session，所以这第二个条件就尤为重要
+    + 同时，如果我们想要让jsp不创建session对象，直接就在login.jsp的页眉位置添加一行`<%@page session="false"%>`，这样在访问jsp的过程中，session对象就不会自动创建
+
+
+
+### 8.Cookie机制
+
+#### 1.什么是cookie，cookie是怎么去发送的？
+
++ cookie和session一样都是HTTP协议的一部分
+
++ cookie是一个由name和value两个字符串组成的对象，由服务器生成，然后发送给浏览器，由浏览器储存
+
++ HTTP中规定，浏览器发送请求时，会自动携带`/path`下的cookie一起发送到服务器
+
+#### 2.cookie储存在哪？
+
++ cookie是存储在客户端的
+
++ cookie可以存储在浏览器缓存中（暂时储存）
++ cookie也可存储在本地磁盘中（永久储存）
+
+
+
+#### 3.cookie有什么作用？
+
++ cookie和session一样，都是用来保存会话状态的
++ cookie是在客户端的
++ session是在服务器端的
++ session和cookie存在的原因，HTTP协议是无状态，无连接协议
+
+
+
+#### 4.在Java中怎么使用cookie？
+
++ 在Java中有一个类提供了cookie，jakarta.servlet.http.Cookie
+
++ ```java
+    Cookie coo = new Cookie(name, value);
+    //Cookie中只提供了有参构造，意味着我们必须传入两个参数
+    coo.setMaxAge(seconds);
+    /**
+    Cookie中提供了设置Cookie生命周期的方法，
+    参数 > 0 	设置cookie在多少秒之后到期（会被存储到本地磁盘）
+    参数 = 0	销毁当前服务器中的同名cookie
+    参数 < 0 	当服务器关闭时就会销毁，不会存储到本地磁盘
+    */
+    coo.setPath(path);
+    //设置cookie的默认路径，访问地址是当前路径以及当前路径下的所有servlet都会发送该cookie
+    
+    
+    response.addCookie(coo);
+    //因为cookie是在服务器生成的，所以要在响应中加入cookie，才会发送到浏览器
+    request.getCookies();
+    //返回一个cookie数组，如果没有cookie，则返回null，这是一个需要注意的点
+    ```
+
+
+
+
+
+
+
+
+
+
+

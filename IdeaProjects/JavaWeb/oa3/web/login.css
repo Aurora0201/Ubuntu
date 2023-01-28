@@ -150,3 +150,9 @@
 #signUp{
     background-color: #8A8989;
 }
+
+.noLogin{
+    padding-left: 20px;
+    padding-top: 20px;
+    font-family: Ubuntu;
+}

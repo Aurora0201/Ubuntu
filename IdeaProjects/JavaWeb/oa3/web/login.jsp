@@ -1,3 +1,4 @@
+<%@page session="false" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,25 +34,6 @@
             </span>
         </div>
 
-<!--        <div class="header">-->
-<!--&lt;!&ndash;            &lt;!&ndash; Mail text &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;            <div class="mail_text">&ndash;&gt;-->
-<!--&lt;!&ndash;                <span class="m_text" id="m_text">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <em>Mail</em>&ndash;&gt;-->
-<!--&lt;!&ndash;                </span>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;            &lt;!&ndash;  Mail input  &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;            <div class="mail_input">&ndash;&gt;-->
-<!--&lt;!&ndash;                <span class="m_input">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <input type="text" class="m_in_box" id="m_in_box" name="userMail">&ndash;&gt;-->
-<!--&lt;!&ndash;                </span>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;            <span class="tips" id="illMail">&ndash;&gt;-->
-
-<!--&lt;!&ndash;            </span>&ndash;&gt;-->
-<!--        </div>-->
-
         <div class="foot">
             <!--  Password text  -->
             <div class="pwd_text">
@@ -63,19 +45,11 @@
             <div class="pwd_input">
                 <input type="password" class="p_in_box" id="p_in_box" name="password"/>
             </div>
-<!--           Repeat the password -->
-<!--            <div class="pwd_text">-->
-<!--                <span class="p_text" id="rp_text">-->
-<!--                    <em>Repeat Password</em>-->
-<!--                </span>-->
-<!--            </div>-->
 
-<!--            &lt;!&ndash;  RePassword input  &ndash;&gt;-->
-<!--            <div class="pwd_input">-->
-<!--                <input type="password" class="p_in_box" id="rp_in_box"/>-->
-<!--            </div>-->
-<!--            <span class="tips" id="illPwd">-->
-<!--            </span>-->
+            <div class="noLogin">
+                <input type="checkbox" id="noLogin" value="true" name="noLogin">No Login for ten days
+            </div>
+
         </div>
         <div class="butBox">
             <div class="but">

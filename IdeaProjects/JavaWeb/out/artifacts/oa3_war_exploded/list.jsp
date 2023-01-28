@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>List</title>
+  <title>DataSystem</title>
   <script>
     function del(no) {
       if (window.confirm("Are you sure to delete the data?")) {
@@ -16,6 +16,7 @@
 </head>
 <body>
 <h1 align="center">Department</h1>
+<h2>Welcome <%=session.getAttribute("username")%> !<a href="<%=request.getContextPath()%>/dept/exit">Log out</a></h2>
 <hr/>
 <table align="center" border="2px" width="50%">
   <tr>
