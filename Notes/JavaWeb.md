@@ -2050,7 +2050,7 @@ JSP语法总结
     + 因为第一次我们访问的是login.jsp页面，访问jsp时，jsp中自动创建了session对象，所以即使我们没有进行登录，一样可以获取到session，所以这第二个条件就尤为重要
     + 同时，如果我们想要让jsp不创建session对象，直接就在login.jsp的页眉位置添加一行`<%@page session="false"%>`，这样在访问jsp的过程中，session对象就不会自动创建
 
-
+----
 
 ### 8.Cookie机制
 
@@ -2104,13 +2104,434 @@ JSP语法总结
     //返回一个cookie数组，如果没有cookie，则返回null，这是一个需要注意的点
     ```
 
+---
+
+### 9.实现10天免登陆
+
+#### 1.需求分析
+
++ 我们需要对登录系统进行改进，首先是在登录界面添加`10天内免登陆`的选项
++ 添加`Welcome`Servlet对`cookie`信息进行查询并验证，实现自动登录
 
 
 
+#### 2.实现过程
+
++ JSP中添加代码
+
++ ```html
+    <div class="noLogin">
+        <input type="checkbox" id="noLogin" value="true" name="noLogin">No Login for ten days
+    </div>
+    ```
+
++ 编写Servlet
+
++ ```java
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        String userName = null;
+        String password = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                String name = cookie.getName();
+                if ("userName".equals(name)) {
+                    userName = cookie.getValue();
+                }else if ("password".equals(name)) {
+                    password = cookie.getValue();
+                }
+            }
+        }
+        if (userName != null && password != null) {
+            try {
+                conn = JDBCUtils.getConnection();
+                String sql = "select * from t_user where username = ? and password = ?";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, userName);
+                ps.setString(2, password);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("userName", userName);
+                    response.sendRedirect(request.getContextPath() + "/dept/list");
+                }else response.sendRedirect(request.getContextPath() + "/login.jsp");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }else response.sendRedirect(request.getContextPath()+"/login.jsp");
+    }
+    ```
+
++ 系统功能验证，改造完成
+
+---
+
+### 10.JSP指令
+
+#### 1.JSP指令的作用
+
++ 指导JSP翻译引擎如何工作
 
 
 
+#### 2.指令
+
++ include指令：基本不用，不做要求
++ taglib指令：引入标签库的指令，到JSTL再学习
++ page指令：当前重点学习
 
 
 
+#### 3.语法
 
++ ```jsp
+    <%@指令名 属性名=属性 属性名=属性...%>
+    ```
+
+
+
+#### 4.Page中常用属性
+
++ ```jsp
+    <%@page contentType="text/html;charset=UTF-8"%> //设置响应的类型和字符集
+    <%@page pageEncoding="UTF-8"%> //设置页面字符集
+    <%@page session=false|true%> //是否创建session
+    <%@page errorPage="/error.jsp"%> //设置错误页面，页面发生错误时会跳转到这给页面 
+    <%@page isELIgnored="true"%> //是否忽略EL表达式，也可以使用\进行局部忽略
+    ```
+    
++ ```jsp
+    //在错误页面的处理，但我们想要打印出错误信息时，可以在错误页面这样写
+    <%@page isErrorPage=true%>
+    <%
+    	exception.printStackTrace();
+    	//在后台打印错误信息
+    %>
+    ```
+
+
+
+#### 5.JSP九大内置对象
+
++ pageContext 页面作用域
++ request 请求作用域
++ session 会话作用域
++ application 应用作用域
+    + pageContext < request < session < application
+    + 尽量使用小的域
++ exception 异常对象
++ out 输出
++ config 配置
++ response 响应
++ page 当前页面，其实就是this
+
+---
+
+### 11.EL表达式
+
+#### 1.什么是EL表达式？
+
++ Expression Language 表达式语言
++ EL表达式可以代替JSP中的Java代码，让代码看起来更简洁，美观
++ EL表达式也算是JSP语法的一部分
+
+
+
+#### 2.EL表达式的作用
+
++ 从某个作用域取出数据，转换成字符串，然后输出到浏览器，这就是EL表达式的功效
+
+
+
+#### 3.EL表达式的使用
+
+基础EL表达式的使用
+
++ ```jsp
+    <%
+    	request.setAttribute("obj",new Object());//请求域中存入数据
+    %>
+    
+    ${obj}  
+    
+    //在页面中输出存入的变量，当变量不是字符串时，会自动调用toString()方法，等同于<%=request.getAttribute("obj")%>
+    //特殊的是，如果不存在这个变量，EL表达式会返回空串而不是null
+    ```
+
++ 那假如我们想要访问存入的对象的成员变量呢？
+
++ ```jsp
+    <%
+    	request.setAttribute("student",new student("zhangsan",15));
+    %>
+    //使用下面两个语句的前提是类中定义了get方法getName(),getAge()，不一定要存在字段，只要有get方法就行，因为他们的底层实际是调用了get方法
+    
+    ${student.name} //或者写成${student["name"]} 这个语法用来规避标识符中带有"."的情况
+    ${student.age}
+    ```
+
++ 对于不同域中的同名变量，会优先取最小的域中存在的变量，也就是先取pageContext,然后是request...
+
+
+
+使用EL表达式从Map集合中存取数据
+
++ ```jsp
+    <%
+    	request.setAttribute("userMap",map)
+    %>
+    
+    ${userMap.key} //这里的key是存入map的key
+    ```
+
+
+
+使用EL表达式从数组中获取元素
+
++ ```jsp
+    <%
+    	request.setAttribute("array",String[]);
+    %>
+    
+    ${String[0]}
+    ${String[1]}
+    ```
+
+
+
+使用EL表达式从Set集合中获取数据
+
++ ```jsp
+    <%
+    	request.setAttribute("set",set)
+    %>
+    
+    ${set}//不能通过下标访问
+    ```
+
+
+
+使用EL表达式获取应用根路径
+
++ ```jsp
+    ${pageContext.request.contextPath}
+    ```
+
+
+
+EL表达式中的隐含对象
+
+1. pageContext
+
+    1. ```jsp
+        <!-- 用户发送的连接:localhost:8080/jsp?aihao=lanqiu&aihao=xizao -->
+        ${param.aihao} //得到lanqiu
+        ```
+
+2. param
+
+3. paramValues
+
+    1. 通过EL表达式获取多个参数
+
+    2. ```jsp
+        ${paramValues.aihao[0]} //lanqiu
+        ${paramValues.aihao[1]} //xizao
+        ```
+
+4. initParam
+
+    1. 假如我们在xml文件中配置了全局配置，那么我们可以通过EL表达式取到其中的配置信息
+
+    2. ```jsp
+        <context-param>
+            <param-name>pageSize</param-name>
+            <param-value>5</param-value>
+        </context-param>
+        
+        ${initParam.pageSize}
+        ```
+
+5. 其他（不是重点）
+
+---
+
+### 12.JSTL标签库
+
+#### 1.什么是JSTL标签库？
+
++ Java Standard Tag Lib Java标准标签库
++ JSTL通常与EL表达式一起使用，目的是为了让JSP中的Java代码消失
+
+---
+
+### 13.Filter过滤器
+
+#### 1.当前OA项目存在的问题
+
++ 项目中存在多个Servlet，但是每个Servlet执行之前都需要判断用户是否登录，这段判断用户是否登录的代码是相同的，显然代码没有得到重复利用，而且在某些项目中都要处理乱码问题，存在相同代码执行多次的情况
+
+
+
+#### 2.Filter过滤器是什么?
+
++ Filter可以在Servlet目标程序之前添加过滤代码，也可在之后添加过滤代码，用于过滤用户的请求和响应
++ 一般情况下，都在过滤器中编写公共的代码
+
+
+
+#### 3.过滤器的生命周期
+
++ Filter是Servlet规范中的一元
+
++ Filter实际上就是一个Servlet，所以他的生命周期和Servlet是一样的，唯一的不同是，他在服务器启动时就会实例化而Servlet是在用户第一次发送请求时才会实例化
++ 他们都是单例的
+
+
+
+#### 4.如何实现一个过滤器？
+
++ 编写一个类实现Filter接口并实现类中的方法
++ 在注解`WebFilter`中注册需要过滤的路径
+    + "/dept/*" 前缀匹配
+    + "*.do" 部分匹配，前面不要加`/`
+    + "/a.do","/dept/list" 精确匹配
+    + "/*" 完全匹配
++ 在doFilter中编写过滤代码，在代码的最后添加一行`chain.doFilter(request,response)`，这样才会继续向下执行Servlet
+
+
+
+#### 5.Filter和Servlet的执行顺序
+
++ 对于多个过滤器来说在xml中和使用WebFilter注释注册的执行顺序是不同的
+    + 在xml中，同级的过滤器会按照`filter-mapping`的先后顺序来执行
+    + 在WebFilter中，则是按照过滤器名的字典序执行
++ 由于Filter的优先级高于Servlet所以Filter一定会在Servlet之前执行
+
+
+
+#### 6.OA项目的改造
+
++ 我们知道，在DeptServlet中会对没有登录过的用户进行过滤，现在我们学习了过滤器，我们就可以在过滤器中实现这个功能，解决代码冗余问题
++ 首先，移除我们在每个Servlet中编写的过滤代码
++ 编写一个Filter类继承Filter接口并实现接口中的方法
++ 在Filter中编写过滤的功能代码
+
+    + ```java
+        @WebFilter({"/dept/*"})
+        public class FilterA implements Filter {
+            @Override
+            public void init(FilterConfig filterConfig) throws ServletException {
+                Filter.super.init(filterConfig);
+            }
+        
+            @Override
+            public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
+                HttpServletRequest request = ((HttpServletRequest) req);
+                HttpSession session = request.getSession();
+                String path = request.getServletPath();
+                if ("/dept/login".equals(path) || "/dept/exit".equals(path) || session != null && session.getAttribute("userName") != null) {
+                    chain.doFilter(req, resp);
+                } else {
+                    ((HttpServletResponse) resp).sendRedirect(((HttpServletRequest) req).getContextPath() + "/welcome");
+                }
+            }
+        
+            @Override
+            public void destroy() {
+                Filter.super.destroy();
+            }
+        }
+        ```
+
++ 使用注解的方式注册过滤器
++ 细节处理，首先我们不能在登录和退出的时候进行过滤，这样会导致程序bug
+
+---
+
+### 14.Listener监听器
+
+#### 1.什么是监听器？
+
++ 监听器是Servlet规范中的一员
++ 在Servlet中，监听器接口都是以Listener为结尾的
+
+
+
+#### 2.监听器有什么用？
+
++ 监听器其实是Servlet规范留给Java程序员的一个特殊时机
++ 特殊的时刻想要执行一段代码时，需要使用相应的监听器
+
+
+
+#### 3.Servlet规范提供的监听器
+
++ Jakarta.servlet：
+    + ServletContextListener
+    + ServletContextAttributeListener
+    + ServletRequestListener
+    + ServletResponseListener
++ Jakarta.servlet.http：
+    + HttpSessionListener
+    + HttpSessionAttributeListener
+        + 该监听器需要使用`@WebListener`注册
+        + 该监听器监听的对象是Session域中的变量，其中存储的数据发生变化时（增加，修改，删除），执行相应的代码
+    + HttpSessionBindingListener
+        + 该监听器不需要注册
+        + 该监听器监听的对象是继承这个接口的类
+        + 当这个类的`实例`放入Session域时触发Bind事件，从Session域中删除时触发Unbind事件
+    + HttpSessionIdListener
+    + HttpSessionActivationListener
+
+
+
+#### 4.监听器如何去使用？
+
++ 只要我们编写了一个监听器，那么监听器会由服务器去调用，每当有事件触发监听器，监听器中相应的代码就会执行
+
+
+
+#### 5.OA项目的改造
+
++ 现在我们想要在List页面上能够显示当前已经登录的用户，这该怎么实现呢？
+
+    + 首先就是选择合适的监听器，对于已经登录的用户，我们可以使用一个User类来进行储存，那么这个User类显然要作为监听的对象，所以这里我们选择`httpSessionBindListener`
+    + 准备好User类之后，在`valueBound`方法中编写用户登录时的代码，在`valueUnbound`编写用户登出的代码
+    + 因为之前我们只是在`Session`中存储一个字符串，现在要把他们修改为User类
+
++ 首先是修改JSP页面，让他显示在线的人数，这里我们直接在登出的后面添加一个EL表达式来显示人数，因为人数我们肯定要存储在`Context`域中
+
++ 然后是在User类中编写功能代码
+
+    + ```java
+        public void valueBound(HttpSessionBindingEvent event) {
+            HttpSession session = event.getSession();
+            ServletContext application = session.getServletContext();
+            Object obj = application.getAttribute("count");
+            if (obj == null) {
+                application.setAttribute("count", 1);
+            } else {
+                int count = ((Integer) obj);
+                count++;
+                application.setAttribute("count",count);
+            }
+        }
+        public void valueUnbound(HttpSessionBindingEvent event) {
+            HttpSession session = event.getSession();
+            ServletContext application = session.getServletContext();
+            Object obj = application.getAttribute("count");
+            int count = ((Integer) obj);
+            count--;
+            application.setAttribute("count",count);
+        }
+        ```
+
++ 修改所有Servlet中的对于Session域存取的对象
+
++ 改造完成
+
+---

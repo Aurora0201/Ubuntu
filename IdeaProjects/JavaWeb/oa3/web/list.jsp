@@ -16,7 +16,7 @@
 </head>
 <body>
 <h1 align="center">Department</h1>
-<h2>Welcome <%=session.getAttribute("username")%> !<a href="<%=request.getContextPath()%>/dept/exit">Log out</a></h2>
+<h2>Welcome <%=session.getAttribute("userName")%> !<a href="<%=request.getContextPath()%>/dept/exit">Log out</a>&nbsp; OnLine:${count}</h2>
 <hr/>
 <table align="center" border="2px" width="50%">
   <tr>

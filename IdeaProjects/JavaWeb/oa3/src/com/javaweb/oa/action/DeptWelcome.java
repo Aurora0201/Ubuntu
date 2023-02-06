@@ -1,6 +1,7 @@
 package com.javaweb.oa.action;
 
 import com.javaweb.oa.Utils.JDBCUtils;
+import com.javaweb.oa.bean.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -41,7 +42,7 @@ public class DeptWelcome extends HttpServlet {
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     HttpSession session = request.getSession();
-                    session.setAttribute("userName", userName);
+                    session.setAttribute("user", new User(userName,password));
                     response.sendRedirect(request.getContextPath() + "/dept/list");
                 }else response.sendRedirect(request.getContextPath() + "/login.jsp");
             } catch (SQLException e) {

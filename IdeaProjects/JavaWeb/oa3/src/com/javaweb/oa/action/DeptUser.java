@@ -1,6 +1,7 @@
 package com.javaweb.oa.action;
 
 import com.javaweb.oa.Utils.JDBCUtils;
+import com.javaweb.oa.bean.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -63,7 +64,7 @@ public class DeptUser extends HttpServlet {
                     response.addCookie(cookie1);
                     response.addCookie(cookie2);
                 }
-                session.setAttribute("userName",userName);
+                session.setAttribute("user",new User(userName,password));
                 response.sendRedirect(request.getContextPath() + "/dept/list");
             } else response.sendRedirect(request.getContextPath() + "/loginFailed.jsp");
         } catch (SQLException | IOException e) {

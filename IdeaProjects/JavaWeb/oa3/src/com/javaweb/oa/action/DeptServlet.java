@@ -32,23 +32,20 @@ public class DeptServlet extends HttpServlet {
     ResultSet rs = null;
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
         String name = request.getServletPath();
-        if (session != null && session.getAttribute("userName") != null) {
-            if (name.equals("/dept/list")) {
-                doList(request,response);
-            } else if (name.equals("/dept/add")) {
-                doAdd(request,response);
-            }else if (name.equals("/dept/edit")) {
-                doEdit(request,response);
-            }else if (name.equals("/dept/delete")) {
-                doDel(request,response);
-            }else if (name.equals("/dept/detail")) {
-                doDetail(request,response);
-            }else if (name.equals("/dept/modify")) {
-                doModify(request,response);
-            }
-        } else response.sendRedirect(request.getContextPath() + "/login.jsp");
+        if (name.equals("/dept/list")) {
+            doList(request,response);
+        } else if (name.equals("/dept/add")) {
+            doAdd(request,response);
+        }else if (name.equals("/dept/edit")) {
+            doEdit(request,response);
+        }else if (name.equals("/dept/delete")) {
+            doDel(request,response);
+        }else if (name.equals("/dept/detail")) {
+            doDetail(request,response);
+        }else if (name.equals("/dept/modify")) {
+            doModify(request,response);
+        }
     }
 
     private void doDetail(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
