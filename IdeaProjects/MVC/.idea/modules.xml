@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MVC.iml" filepath="$PROJECT_DIR$/MVC.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MVC001/MVC001.iml" filepath="$PROJECT_DIR$/MVC001/MVC001.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MVC002/MVC002.iml" filepath="$PROJECT_DIR$/MVC002/MVC002.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MVC003/MVC003.iml" filepath="$PROJECT_DIR$/MVC003/MVC003.iml" />
+    </modules>
+  </component>
+</project>
