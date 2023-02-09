@@ -7,81 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df539d8a-bbcb-4e47-8afb-b6af56428b25" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/MVC.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC001/src/com/javaMVC/bank/Exception/AppException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC001/src/com/javaMVC/bank/Exception/MoneyNotEnoughException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC001/src/com/javaMVC/bank/WebServlet/AccountTransfer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC001/web/WEB-INF/lib/mysql-connector-java-8.0.30.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC001/web/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC001/web/index.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC002/MVC002.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC002/src/com/javaweb/bank/DBUtil/DBTool.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC002/src/com/javaweb/bank/exceptions/AppException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC002/src/com/javaweb/bank/exceptions/MoneyNotEnoughException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC002/src/com/javaweb/bank/mvc/Account.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC002/src/com/javaweb/bank/mvc/AccountDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC002/src/com/javaweb/bank/mvc/AccountService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC002/src/com/javaweb/bank/mvc/AccountServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC002/src/resources/jdbc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC002/web/Failed.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC002/web/MoneyNotEnough.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC002/web/WEB-INF/lib/mysql-connector-java-8.0.30.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC002/web/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC002/web/index.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC002/web/success.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC003/MVC003.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC003/src/com/javaweb/bank/bean/Account.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC003/src/com/javaweb/bank/dao/AccountDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC003/src/com/javaweb/bank/exceptions/AppException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC003/src/com/javaweb/bank/exceptions/MoneyNotEnoughException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC003/src/com/javaweb/bank/service/AccountService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC003/src/com/javaweb/bank/utils/DBTool.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC003/src/com/javaweb/bank/web/AccountServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC003/src/resources/jdbc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC003/web/Failed.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC003/web/MoneyNotEnough.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC003/web/WEB-INF/lib/mysql-connector-java-8.0.30.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC003/web/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC003/web/index.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MVC003/web/success.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC001_war_exploded/WEB-INF/classes/com/javaMVC/bank/Exception/AppException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC001_war_exploded/WEB-INF/classes/com/javaMVC/bank/Exception/MoneyNotEnoughException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC001_war_exploded/WEB-INF/classes/com/javaMVC/bank/WebServlet/AccountTransfer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC001_war_exploded/WEB-INF/lib/mysql-connector-java-8.0.30.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC001_war_exploded/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC001_war_exploded/index.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC002_war_exploded/Failed.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC002_war_exploded/MoneyNotEnough.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC002_war_exploded/WEB-INF/classes/com/javaweb/bank/DBUtil/DBTool.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC002_war_exploded/WEB-INF/classes/com/javaweb/bank/exceptions/AppException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC002_war_exploded/WEB-INF/classes/com/javaweb/bank/exceptions/MoneyNotEnoughException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC002_war_exploded/WEB-INF/classes/com/javaweb/bank/mvc/Account.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC002_war_exploded/WEB-INF/classes/com/javaweb/bank/mvc/AccountDAO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC002_war_exploded/WEB-INF/classes/com/javaweb/bank/mvc/AccountService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC002_war_exploded/WEB-INF/classes/com/javaweb/bank/mvc/AccountServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC002_war_exploded/WEB-INF/classes/resources/jdbc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC002_war_exploded/WEB-INF/lib/mysql-connector-java-8.0.30.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC002_war_exploded/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC002_war_exploded/index.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC002_war_exploded/success.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC003_war_exploded/Failed.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC003_war_exploded/MoneyNotEnough.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC003_war_exploded/WEB-INF/classes/com/javaweb/bank/exceptions/AppException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC003_war_exploded/WEB-INF/classes/com/javaweb/bank/exceptions/MoneyNotEnoughException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC003_war_exploded/WEB-INF/classes/resources/jdbc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC003_war_exploded/WEB-INF/lib/mysql-connector-java-8.0.30.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC003_war_exploded/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC003_war_exploded/index.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/MVC003_war_exploded/success.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MVC001/com/javaMVC/bank/Exception/AppException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MVC001/com/javaMVC/bank/Exception/MoneyNotEnoughException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MVC001/com/javaMVC/bank/WebServlet/AccountTransfer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MVC002/com/javaweb/bank/exceptions/AppException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MVC002/com/javaweb/bank/exceptions/MoneyNotEnoughException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MVC002/resources/jdbc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MVC003/com/javaweb/bank/exceptions/AppException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MVC003/com/javaweb/bank/exceptions/MoneyNotEnoughException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/MVC003/resources/jdbc.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,20 +38,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "/usr/local/tomcat/lib/servlet-api.jar",
-    "project.structure.last.edited": "Global Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2078261",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Console Font",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/usr/local/tomcat/lib/servlet-api.jar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2078261&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Console Font&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/MVC003" />
@@ -234,6 +160,8 @@
       <workItem from="1675874570810" duration="23000" />
       <workItem from="1675874610008" duration="166000" />
       <workItem from="1675874805591" duration="1130000" />
+      <workItem from="1675876023683" duration="41000" />
+      <workItem from="1675876090848" duration="84000" />
     </task>
     <servers />
   </component>
@@ -245,7 +173,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>

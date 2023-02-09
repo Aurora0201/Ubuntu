@@ -90,7 +90,7 @@
 
 ### 3.解决下载过慢的问题
 
-+ 来到`$MAVEN_HOME/conf`下，找到`settings.xml`文件中的`<mirror>`
++ 来到`$MAVEN_HOME/conf`下，找到`settings.xml`文件中的`<mirrors>`
 
 + 添加以下内容
 
@@ -182,6 +182,19 @@
         ```
 
     + 这样就引入我们的项目依赖了
+    
++ 依赖的范围
+
+    + 依赖中还有一个子标签`<scope></scope>`，他代表的是这个依赖的作用范围有下面的取值
+    + compile`(default)`,test,provided
+
+
+|                    | compile | test | provided |
+| :----------------: | :-----: | :--: | :------: |
+|  对主程序是否有效  |    Y    |  F   |    Y     |
+| 对测试程序是否有效 |    Y    |  Y   |    Y     |
+|    是否参与打包    |    Y    |  F   |    F     |
+|    是否参与部署    |    Y    |  F   |    F     |
 
 
 
@@ -239,7 +252,21 @@
             }
             ```
 
-        
+
+
+
+### 10.属性
+
++ 在pom文件中我们可以使用`<properties>`来设置Maven中的一些属性，比如编译jdk的版本，编码格式等等
++ 设置全局变量
+    + 使用尖括号括起来的标识符可以作为全局变量，比如`<junit.version>4.0.2</junit.version>`
+    + 然后使用`${junit.version}`调用
+
+
+
+### 11.资源插件
+
+
 
 ---
 
@@ -260,4 +287,24 @@
 
 
 
-### 2.
+### 2.使用IDEA创建第一个Maven项目
+
++ 首先，我们新建一个项目，在项目中新建一个模组，在创建模组的界面我们要在`Generator`选项中选择`Maven Archetype`
++ 然后在`Name`中填入我们的模块名，它会作为我们的`artifactId`
++ 选择正确的JDK
++ 在`Archetype`中选择`quickstart`
++ 在`Advance Settings`中可以设置[坐标](#6.坐标)
++ 等待生成完成即可
+
+
+
+### 3.使用IDEA出现的问题
+
++ 使用maven时即使引入了依赖但是却无法找到包
+    + 清除IDEA的缓存，重新启动即可
++ 在创建maven项目后，无法`reload maven project`
+    + 初步猜测可能是上面[配置](#1.配置IDEA的Maven环境)时没有配置完全，需要同时在Settings和New Project Settings配置完全
+    + 切换回IDEA内置的Maven再次刷新项目再切换回自己配置的Maven
+    + 重新配置后正常使用
++ 创建web项目时，使用的依赖为`jakarta.servlet 4.0.4`但是在源码中却不能引入`jakarta`的包
+    + 使用`javax.servlet.*`引入包
