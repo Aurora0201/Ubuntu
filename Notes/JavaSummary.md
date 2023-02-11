@@ -484,40 +484,78 @@ end
 
 ### 8.Java中的内存管理
 
-+ Java内存的主要划分如下
+Java内存的主要划分如下
 
-    + 栈区
-    + 堆区
-    + 方法区
++ 栈区
+  + 本地方法栈
+  + JVM栈
 
-    ```mermaid
-    %%{init:{'theme':'dark'}}%%
-    flowchart LR
-    subgraph Memory
-    	subgraph ThreadSharing
-    		m[method area]
-    		h[heap]
-    	end
-    	
-    	subgraph ThreadExclusive
-    		s[stack]
-    	end
-    	
-    end
-    m1[method area:<br>classInfo<br>runtime constant pool<br>String constant pool]
-    m-->m1
-    ```
++ 堆区
++ 方法区
++ 程序计数器
 
-+ 变量储存的位置
+```mermaid
+%%{init:{'theme':'dark'}}%%
+flowchart TB
+subgraph Memory
+	subgraph ThreadSharing
+		m[Method area]
+		h[Heap]
+	end
+	subgraph ThreadExclusive
+		s[Stack]
+		p[Program Counter Register]
+	end
+end
+m1[Method Area:<br>Class Information<br>Runtime Constant Pool<br>String Constant Pool]
+s1[Stack:<br>JVM Stack<br>Native Method Stack]
+m-->m1
+s-->s1
+```
 
-    + 栈
-        + 存储基本数据类型的变量和对象的引用，但是对象本身不存放在栈中，而是存放在堆中(new 出来的对象)或者常量池中(字符串常量池)
-    + 堆
-        + 存放所有new出来的对象
-    + 静态域
-        + 存放所有static修饰的
-    + 常量池
-        + 存放字符串常量和基本类型常量
+`线程私有的`
+
++ 程序计数器
+
+  + 程序计数器是JVM的一部分，它是一个寄存器，用于存储当前线程执行的字节码指令的地址
+
+  + 程序计数器的作用：
+      + 他是一个计数器，用来记录当前线程执行的字节码指令的地址
+      + 用于判断方法的执行是否已经完成，如果完成了则返回调用方法的地方
+
++ 本地方法栈
+
+  + 我们都知道，Java的底层是由C++编写的，一切Java代码的执行其实都依赖于C++的底层代码，而本地方法（native）就是由C++编写的方法
+
+  + 本地方法栈的作用：
+    + 用于储存JVM所需的本地方法，保存本地方法的运行环境
+
++ JVM栈
+
+  + JVM栈是JVM的一部分，是方法执行的内存模型，它维护了一组栈帧，每个帧对应一个方法调用
+
+  + JVM栈是JVM中非常重要的内存区域
+  + JVM栈的作用：
+    + 保存局部变量表：局部变量表中存储着方法执行期间的局部变量
+    + 保存操作数栈：操作数栈存储着方法执行期间的操作数
+    + 保存方法调用：方法调用是虚拟机栈的核心，每次方法调用，虚拟机栈都会加入一个帧，保存调用信息
+
+  + 如果方法执行次数过多，JVM会抛出StackOverflow异常
+
+
+
+`线程共享的`
+
++ 堆
+  + 存储了所有new出来的对象，是线程共享的一块区域
+
++ 方法区
+  + 方法区是JVM内存中的一块区域，主要存储Class对象，常量，静态域，类型数据等信息
+    + Class对象：储存类的元数据类型，如类名，访问权限，父类，方法，字段等信息
+    + 常量：储存编译时期的常量值，如字符串常量，数字常量等
+    + 静态域：储存类的静态成员变量和静态成员方法
+    + 类型信息：储存类的类型信息，例如描述符，类加载器等
+    + 字节码：储存字节码，供类加载器使用
 
 
 
