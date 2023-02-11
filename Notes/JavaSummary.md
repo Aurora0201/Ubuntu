@@ -190,6 +190,7 @@ end
 + 变量的定义
     + [修饰词] 变量类型 标识符 = 值/null;
     + [修饰词] 变量类型 标识符;
++ 在类体中定义的变量叫做`属性`
 
 
 
@@ -247,9 +248,430 @@ end
 
 ## 3.JavaSE面向对象
 
+### 1.面向对象和面向过程
+
++ 为什么会出现面向对象的分析方法？
+    + 现实世界太复杂多变，面向过程的分析方法无法满足现有需求
++ 面向过程
+    + 采用面向过程必须了解整个过程，每个步骤都有因果关系，每个因果关系都构成了一个步骤，多个步骤就构成了一个系统，因为存在因果关系每个步骤很难分离，非常紧密，当任何一步骤出现问题，将会影响到所有的系统。如：采用面向过程生产电脑，那么他不会分 CPU、主板和硬盘，它会按照电脑的工作流程一次成型
++ 面向对象
+    + 面向对象对会将现实世界分割成不同的单元（对象），实现各个对象，如果完成某个功能，只需要将各个对象协作起来就可以
 
 
 
+### 2.面向对象三大特性
+
++ 封装
++ 继承
++ 多态
+
+
+
+### 3.类与对象的概念
+
+在[Java中类的概念](#1.Java中类的概念)后补充
+
++ 类是对具有共性事物的抽象描述，是在概念上的一个定义，那么如何发现类呢？
+
+    + 通常根据名词(概念)来发现类，如在成绩管理系统中：学生、班级、课程、成绩
+    + 学生1（张三，502，Java，98）
+    + 以上学生1包含的内容是具体存在的，称为对象(Object)，也叫实例(instance)，也就是说一个类的具体化就是对象或实例
+
++ 为什么面向对象能成为主流的技术？
+
+    + 因为面向对象的思想更符合人的思维模式，更容易分析现实世界
+
++ 采用面向对象的技术的程序设计可以分为三个阶段
+
+    + OOA（面向对象的分析）
+    + OOD（面向对象的设计）
+    + OOP（面向对象的编程）---Java就是一门纯面向对象的语言
+
++ 继续上面的例子，我们可以进一步展开
+
+    + 学生：姓名，性别，班级，学号，成绩
+    + 班级：班别，班号，地址
+    + 成绩：学科代码，成绩
+
++ 这些分析出来的东西，都叫做`属性`，下面通过一个类图来演示一下
+
++ ```mermaid
+    classDiagram
+    class Student{
+    	-String name
+    	-boolean gender
+    	-String classNo
+    	-String sNo
+    	-List~Grade~ grades
+    	+getName()
+    	+getGender()
+    	+getClassNo()
+    	+getGrades()
+    	
+    }
+    
+    class Class{
+    	-List~Student~ students
+    	
+    }
+    
+    class Grade{
+    	-String projectId
+    	-double credit
+    	+getProjectId()
+    	+getCredit()
+    }
+    
+    Class --> Student
+    Student --> Grade
+    ```
+
++ 通过上面的图我们可以了解，`类 = 属性 + 方法`
+
+
+
+### 4.类的定义
+
+在[类的编写](#2.类的编写)后补充
+
++ Java中如何去定义类？
+
+    + [修饰符] class 类名 `extends 父类 implements 接口`{}
+
+    + ```java
+        public class Student {
+            private String name;
+            private boolean gender;
+            private String sNo;
+        
+            public String getName() {
+                return name;
+            }
+        
+            public void setName(String name) {
+                this.name = name;
+            }
+        
+            public boolean isGender() {
+                return gender;
+            }
+        
+            public void setGender(boolean gender) {
+                this.gender = gender;
+            }
+        
+            public String getsNo() {
+                return sNo;
+            }
+        
+            public void setsNo(String sNo) {
+                this.sNo = sNo;
+            }
+        
+            public Main() {
+            }
+        
+            public Main(String name, boolean gender, String sNo) {
+                this.name = name;
+                this.gender = gender;
+                this.sNo = sNo;
+            }
+        }
+        ```
+
+
+
+### 5.类中的变量
+
+在[变量](#5.变量)后补充
+
++ 类中的变量分为两种，一种是成员变量，一种是局部变量
++ 成员变量
+    + `成员变量是定义在类体中的`
+    + `成员变量只属于当前(this)的对象，不属于类`
+    + `成员变量只能通过对象访问`
+    + 定义格式为：[修饰符] 变量类型 标识符 `= 值/null`
+    + 在定义时可以不进行初始化，因为在实例创建时会默认初始化
++ 局部变量
+    + `局部变量定义在方法体内`
+    + 定义格式为：变量类型 标识符 = 值
+    + 局部变量在定义时必须初始化
+
+
+
+### 6.对象的创建和使用
+
++ 对象必须创建(new)出来才可以使用
+
++ 创建对象也像创建变量一样，格式是相似的
+
+    + ```java
+        public static void main(String[] args) {
+            Student student = new Student();
+        }
+        ```
+
++ 访问成员变量
+
+    + 当我们的成员变量是以`public`修饰时，可以直接通过`.`的方式访问
+
+        + ```java
+            public static void main(String[] args) {
+                Student student = new Student();
+                s.name = "zhangsan";
+                String s = student.name;   
+            }
+            ```
+
+    + 但是一般来说，在实际开发中，为了类的安全和稳定，都会将类进行`封装`，即把成员变量都用`private`修饰，对成员变量的访问都通过`set,get`方法进行访问，这就是`封装属性，暴露方法`
+
+        + ```java
+            public static void main(String[] args) {
+                Student student = new Student();
+                s.setName("zhangsan");
+                String s = student.getName();
+            }
+            ```
+
++ 调用实例方法
+
+    + 在类中，没有使用`static abstract`修饰的方法就是实例方法
+
+    + 实例方法需在`main`方法中调用，调用格式为`实例.方法名(参数列表)`
+
+    + ```java
+        public static void main(String[] args) {
+            Student student = new Student();
+            s.setName("zhangsan");
+            String s = student.getName();
+        }
+        ```
+
+
+
+### 7.构造器
+
++ 构造器的主要作用是用来创建实例，并且在创建实例时初始化成员变量
+
++ 构造器的声明格式：[修饰符] 类名(){}
+
++ 需要注意的点：
+
+    + 构造器没有返回值，也不能加`void`，加了就变成了普通方法
+    + 构造器的名字必须和类名一致
+    + 构造器的参数是不定的，如果我们没有设置参数或者没有编写构造器，那么会默认存在一个无参的构造器
+    + 如果我们创建了一个有参的构造器，那么默认的无参构造器就不会存在，我们必须编写无参的构造器
+    + 构造器可以[重载](#8.方法)，重载的规则与方法重载的规则相同
+
++ 例子
+
+    + ```java
+        //class Student
+        public Student() {}
+        
+        public Student(String name, boolean gender, String sNo) {
+            this.name = name;
+            this.gender = gender;
+            this.sNo = sNo;
+        }
+        ```
+
++ 补充的点
+
+    + 工具类的构造方法一般都是以`private`修饰的，因为工具类不需要创建实例
+
+
+
+### 8.Java中的内存管理
+
++ Java内存的主要划分如下
+
+    + 栈区
+    + 堆区
+    + 方法区
+
+    ```mermaid
+    %%{init:{'theme':'dark'}}%%
+    flowchart LR
+    subgraph Memory
+    	subgraph ThreadSharing
+    		m[method area]
+    		h[heap]
+    	end
+    	
+    	subgraph ThreadExclusive
+    		s[stack]
+    	end
+    	
+    end
+    m1[method area:<br>classInfo<br>runtime constant pool<br>String constant pool]
+    m-->m1
+    ```
+
++ 变量储存的位置
+
+    + 栈
+        + 存储基本数据类型的变量和对象的引用，但是对象本身不存放在栈中，而是存放在堆中(new 出来的对象)或者常量池中(字符串常量池)
+    + 堆
+        + 存放所有new出来的对象
+    + 静态域
+        + 存放所有static修饰的
+    + 常量池
+        + 存放字符串常量和基本类型常量
+
+
+
+### 9.传入变量的方式
+
+在[变量](#5.变量)后补充
+
++ 在Java中，凡是基本数据类型作为传入的参数，传过去的都是值
++ 除了基本数据类型之外，都是引用传递
+
+
+
+### 10.this关键字
+
++ 在Java中this关键字指的是`当前调用的对象`
+
++ this的使用
+
+    + 当局部变量和成员变量重名时可以使用this表示成员变量
+    + 可以使用this来调用构造器
+
++ 需要注意的点
+
+    + this只能用在构造函数和成员方法内部
+
+        + ```java
+            public void setName(String name) {
+                this.name = name;
+            }
+            
+            public Student(String name, boolean gender, String sNo) {
+                this.name = name;
+                this.gender = gender;
+                this.sNo = sNo;
+            }
+            ```
+
+    + this调用构造器时，this只能写在第一句
+
+        + ```java
+            public Student(String name, boolean gender) {
+             	this(name,gender,0)   
+            }
+            ```
+
+
+
+### 11.static关键字
+
++ static关键字可以修饰变量，类，方法，代码块
+
+在[变量](#5.变量)后补充
+
+使用static修饰的变量称为静态变量，否则叫做实例变量
+
++ 静态变量
+    + `静态变量是属于类的`，这意味着所有的实例共享一个静态变量
+    + 类中的静态变量在类加载时就会被存放到静态域中，并且只有一个
+    + 我们只能通过`类名.静态变量名`来访问静态变量
++ 实例变量
+    + 实例变量是属于实例的，意味着每个实例都对自己的变量有自己的描述
+    + 实例变量只有在创建实例时才会创建，实例变量随实例存储在堆区中
+    + 封装后只能通过set和get方法取得
+
+在[方法](#8.方法)后补充
+
+使用static修饰的方法叫做静态方法，否则就做实例方法
+
++ 静态方法
+    + `静态方法是属于类的`
+    + 静态方法只能使用`类名.方法名()`调用
+    + `静态方法不能直接调用实例变量和实例方法`
++ 实例方法
+    + 实例方法是属于实例的
+    + 实例方法只能使用`实例名.方法名()`调用
+
+静态代码块
+
++ 使用static修饰的代码块叫做静态代码块
++ 静态代码块在类加载的时候执行，并且只会执行一次
++ 静态代码块定义于类体中
+
+值得注意的是
+
++ 很多工具类中会将构造器使用`private`修饰，并且类中只有静态常量和静态方法
+
+
+
+### 12.类的继承
+
+继承是面向对象三大特性之一
+
++ 什么是继承？
+
+    + Java中的继承与现实中的继承是一样的，假如说A继承了B，那么A就会拥有B所拥有的东西
+
++ Java中的继承
+
+    + Java中只支持类的单继承，也就是说一个类只能继承一个类，使用关键字`extends`实现
+
+    + 语法格式：[修饰符] class 子类名 extends 父类名
+
+    + ```java
+        public class A extends B{}
+        ```
+
+    + A继承B后，A就会拥有B的属性和方法
+
+在[方法](#8.方法)后补充
+
++ 方法的覆盖
+    + 什么是方法的覆盖(Override)？
+        + 当我们的类继承父类时会继承父类的方法，当父类的方法无法满足我们的需求时，需要覆盖/重写父类的方法
+    + 怎么实现方法的覆盖？
+        + `需要继承一个父类`
+        + `只能覆盖实例方法`
+        + `只能改变参数的标识符和方法体，其他东西不能改变`
+        + 子类方法的访问权限不能小于父类方法的访问权限
+        + 子类方法不能抛出比父类方法更多的异常，子类方法能抛出父类方法异常的子异常
+        + 父类的静态方法不能被修改
+        + 父类的私有方法不能被覆盖
+
+
+
+### 13.super关键字
+
++ Java中super关键字指的是`父类`
++ super关键字的作用
+    + 调用父类方法
+    + 调用父类构造器
++ super关键字的使用
+    + 在实例方法中调用父类方法
+    + 在构造器中调用父类构造器
++ 使用时需注意
+    + 当父类中没有无参构造，我们在子类中使用了无参构造会报错，因为子类的无参构造会调用父类的无参构造方法
+
+
+
+### 14.final关键字
+
++ final表示不可改变的含义
++ 使用final修饰的类`不能被继承`
++ 采用final修饰的方法`不能被覆盖`
++ 采用final修饰的变量`不能被修改`
++ final修饰的变量必须先初始化
++ final修饰的引用只能指向一个对象，但是这个对象的内容是可以被修改的
+
+
+
+### 15.abstract关键字
+
++ abstract在Java中是抽象的意思
++ 使用abstract修饰的方法叫做抽象方法，修饰的类叫做抽象类
++ 
 
 
 
