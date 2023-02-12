@@ -730,7 +730,7 @@ s-->s1
 + 接口可以说是一种更特殊的抽象类，因为他比抽象类更加严格，接口中只能存在常量和抽象方法
 + 接口的定义：[修饰符] interface 接口名{}
 + 接口的使用
-  + 接口可以`继承(extends)`一个接口
+  + 接口可以`继承(extends)`多个接口
   + 一个类可以`实现(implements)`多个接口
   + 接口不能被实例化
   + 接口中的变量默认被`public static final`修饰且不能更改，所以接口中的常量是这样定义的：类型 常量名 = 值
@@ -764,7 +764,136 @@ s-->s1
 
 
 
+## 4.JavaSE进阶
+
+### 1.String
+
++ String类位于java.lang.String，是Java中最常用的类之一
++ `Java中的字符串不能拼接`
++ 常用构造器
+    + String(byte[] bytes)
+    + String(byte[] bytes, int offset, int length)
+    + String(char[] value)
+    + String(char[] value, int offset, int length)
+    + String(String original)
++ 常用方法
+    + charAt(int index)
+    + compareTo(String anotherString)
+    + compareToIgnoreCase(String anotherString)
+    + contains(CharSequence s)
+    + getBytes()
+    + indexOf()
+    + isEmpty()
+    + lastIndexOf()
+    + length()
+    + replace()
+    + spilt()
+    + toCharArray()
+    + trim()
+    + valueOf()
+    + subString()
 
 
 
+### 2.StringBuffer和StringBuilder
+
++ 为了解决字符串的拼接问题，Java中内置了两个类一个是StringBuilder，一个是StringBuffer，他们两个有几乎相同的方法，唯一不同的是，StringBuffer中的方法都使用了`synchronized`关键字修饰，这代表它是线程安全的，所以效率相较于StringBuilder会比较低
++ 常用构造器
+    + StringBuffer()
+    + StringBuffer(int capacity)
++ 常用方法
+    + append()
+    + insert()
+    + delete()
+    + replace()
+    + reverse()
+
+
+
+### 3.Random
+
++ Random类java.util.Random，顾名思义，就是Java中内置的随机库，我们可以用来产生随机数
++ 常用构造器
+    + Random()
++ 常用方法
+    + nextInt()
+    + nextLong()
+    + nextDouble()
+
+
+
+### 4.Arrays
+
++ Arrays类java.util.Arrays，Java内置的数组工具类
++ 常用方法
+    + sort()
+    + binarySearch()
+
+
+
+### 5.BigDecimal
+
++ BigDecimal类java.math.BigDecimal，大数类，精度远高于基本数据类型double
++ `在银行，金融等对精度要求较高的系统，都会使用BigDecimal类存储数字`
++ 常用构造器
+    + BigDecimal()
++ 常用方法
+    + abs()
+    + add()
+    + divide()
+    + pow()
+    + max()
+    + min()
+    + subtract()
+    + multiply()
+
+
+
+### 6.DecimalFormat
+
++ DecimalFormat类java.text.DecimalFormat，专门负责数字的格式化输出，可以让数字按照自己想要的格式输出
++ 常用构造器
+    + DecimalFormat(String pattern)
++ 常用方法
+    + format()
+
+
+
+### 7.Date
+
++ Date类java.util.Date，在Java中我们可以用Date类来构建时间的显示
++ 常用构造器
+    + Date(long date)
+
+
+
+### 8.SimpleDateFormat
+
++ SimpleDateFormat类java.text.SimpleDateFormat，Java中将日期格式化输出的类
++ 常用构造器
+    + SimpleDateFormat(String pattern)
++ 常用方法
+    + format()
+    + parse()
+
+
+
+### 9.Collections
+
++ Java中内置了多种数据结构，常用的数据结构就包括以下几种
+    + Set
+        + HashSet
+        + TreeSet
+    + Map
+        + HashMap
+        + TreeMap
+    + ArrayList
+    + Hashtable
+
+
+
+Set
+
++ HashSet
+    + HashSet这个类实现了
 
