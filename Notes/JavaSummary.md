@@ -892,6 +892,12 @@ s-->s1
 
 
 
++ 容器间的实现关系
+
+![Collection.drawio](https://img.noobzone.ru/getimg.php?url=https://cdn.jsdelivr.net/gh/Aurora0201/ImageStore@main/img/Collection.drawio.png)
+
+
+
 Set
 
 + HashSet
