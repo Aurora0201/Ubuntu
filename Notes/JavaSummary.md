@@ -887,6 +887,7 @@ s-->s1
     + Map
         + HashMap
         + TreeMap
+        + Properties
     + ArrayList
     + Hashtable
 
@@ -901,5 +902,162 @@ s-->s1
 Set
 
 + HashSet
-    + HashSet这个类实现了
+    + HashSet这个类实现了Set接口，是由Hashtable支持的（实际上是一个HashMap的实例），它不能保证元素的遍历顺序，尤其是不能保证元素的顺序不随时间变化保持不变，允许存在`null`值
+    
+    + `当哈希函数能正确的将元素分散在桶中时`，set的基础操作（add,contains,remove,size）能提供恒定的时间性能，即恒定的时间复杂度
+    
+    + 注意，Set并不是线程安全的，意味着当多线程对Set进行操作时，可能会引发线程安全问题，如果一定要使用Set，我们把Set包装起来，使用下面的代码
+    
+        ```java
+        Set s = Collections.synchronizedSet(new HashSet());
+        ```
+    
+    + 常用构造器
+    
+        + HashSet()
+    
+    + 常用方法
+    
+        + add()
+        + clear()
+        + remove()
+        + size()
+    
++ TreeSet
+
+    + TreeSet除了实现Set接口还实现了SortedSet接口，TreeSet的是通过TreeMap实现的，TreeSet具有对元素的自定义排序功能，使用TreeSet放置的元素必须`实现Comparable接口`，`或者使用Comparator作为构造器的参数`，这取决于他们使用的是哪个构造器
+
+    + 但是实际上，TreeSet执行两个元素的比较是使用它的`compare`或者`compareTo`方法，虽然从Set的角度来说，他们是相等的，但是可能会与`equals`方法不一致，即使存在这种行为，但是Set仍然是被良好定义的，它只是不遵守Set接口的一般约定
+
+    + 与HashSet一致，TreeSet也是线程不安全的，想要线程安全，我们同样要将Set包装起来
+
+        ```java
+        SortedSet s = Collections.synchronizedSortedSet(new TreeSet());
+        ```
+
+    + 常用构造器
+
+        + TreeSet()
+        + TreeSet(Comparator comparator)
+
+    + 常用方法
+
+        + add()
+        + remove()
+        + contains()
+        + size()
+        + clear()
+        + first()
+        + last()
+
+
+    
+
+List
+
++ ArrayList
+
+    + 可调整大小的数组，他实现了List接口，类中提供了多种可选择的列表操作，能存储多种元素，包括`null`，提供了调整内部存储列表的数组的大小的方法
+
+    + ArrayList大致与Vector相当，只是ArrayList不是线程同步的，在实际使用中还是ArrayList较多
+
+    + ArrayList添加一个元素需要$O(n)$的时间，所有其他的操作只需要线性的时间
+
+    + ArrayList创建时的默认容量为10，随着元素的添加容量会自动的调整，当容量不足时，会创建一个新的ArrayList容量为旧容器容量的1.5倍，然后把原来的元素复制到新的容器中，这个操作十分耗时，所以在确定的应用场景下，最好预先分配足够的容量
+
+    + ArrayList是线程不安全的，同样可以把他包装起来
+
+        ```java
+        List list = Collections.synchronizedList(new ArrayList<>());
+        ```
+
+    + 常用构造器
+
+        + ArrayList()
+        + ArrayList(int capacity)
+
+    + 常用方法
+
+        + add()
+        + get()
+        + clear()
+        + indexOf()
+        + remove()
+        + set()
+        + toArray()
+
+
+
+Map
+
++ HashMap
+
+    + HashMap实现了Map接口，提供了所有可选择的Map操作，允许key为空，value为空（HashMap与Hashtable大致相似，只是它不是同步的同时允许空值）
+
+    + 在哈希函数正确的将元素分散在桶中的前提下，他提供的操作有常数时间的性能
+
+    + 对集合视图进行遍历所需的时间与map实例的大小（桶的数量）加上他的大小（key-value）成正比，如果遍历map的性能非常重要，不要把map的容量设置太大
+
+    + 它的默认容量为16，自定义的初始化容量必须为2的倍数，默认的加载因子为0.75，这意味着当map的容量到达最大容量的75%时，map会自动的扩大容量
+
+    + `JDK8的新特性`：map实际上是一个个哈希桶，首先通过`hashCode`方法来比较每个节点的哈希值，值相同的情况下就会放入一个桶中，但是当桶中的元素过多时，为了提高效率，桶中的元素会变成二叉树的形式，当一个桶中的元素超过8个时就会变成二叉树，树中的节点少于6个时，又会退化成桶，值得一提的是，当程序员使用定义良好的`hashCode`方法时，二叉树会很少用到
+
+    + HashMap是非同步的，同样可以使用集合工具类进行包装
+
+        ```java
+        Map map = Collections.synchronizeMap(new HashMap<>());
+        ```
+
+    + 常用构造器
+
+        + HashMap()
+
+    + 常用方法
+
+        + clear()
+        + entrySet()
+        + put()
+        + get()
+        + remove()
+        + replace()
+        + size()
+
++ TreeMap
+
+    + 基于红黑树实现的map，同样是通过Comparable，或者Comparator来实现对元素的排序
+
+    + 他的所有操作的时间复杂度都是$O(logn)$
+
+    + TreeMap也是非同步的，可以使用集合类工具进行包装
+
+        ```java
+        SortedMap map = Collections.synchronizeSortedMap(new TreeMap<>());
+        ```
+
+    + 使用与HashMap差不多
+
+
+
+对于集合类的补充：
+
++ 使用Set和Map类集合时，一定要重写`hashCode`和`equals`方法，而且使用IDEA去自动生成
+
+
+
+### 10.包装类
+
++ Java中除了基本数据类型，还提供了基本数据类型的包装类，包装类名就是基本数据类型的首字母大写
++ 包装类可以进行自动装箱与自动拆箱，与直接使用基本数据类型相似
+
+
+
+### 11.泛型
+
++ 在集合类中我们已经遇到了很多的泛型容器，他们后面有一个尖括号，专门用来指定容器中的元素类型
+
+
+
+
+
+
 
