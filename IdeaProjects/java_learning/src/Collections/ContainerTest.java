@@ -33,7 +33,7 @@ public class ContainerTest {
 
 class ListTest {
     public static void main(String[] args) {
-        List list = new ArrayList();
+        List list = new ArrayList<Integer>();
         /*
          * How to choose the two collections
          * Advantages of ArrayList:
