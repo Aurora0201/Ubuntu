@@ -15,7 +15,7 @@
 
 + ORM(Object-Relational Mapping)是一种编程技术，它将关系数据库的数据映射到对象上。它允许开发人员使用面向对象的方法来操作数据库，而不需要编写大量的SQL代码
 
-
+![ORM](https://img.noobzone.ru/getimg.php?url=https://cdn.jsdelivr.net/gh/Aurora0201/ImageStore@main/img/ORM.png)
 
 
 
