@@ -17,7 +17,7 @@ drop index 索引名 on 表名 #Delete index
 update 表名 set 字段1 = 值, 字段2 = 值,... where(case)#不加where就是对所有行修改
 ```
 
-## Config File
+## Config Files
 
 >"my.cnf" located in "/etc/mysql"
 >
