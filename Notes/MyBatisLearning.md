@@ -46,10 +46,21 @@ MyBatis的特点
 
 ### 4.第一个MyBatis程序开发
 
-+ 首先准备数据库表：汽车表t_car
++ 首先准备数据库表：汽车表t_car:
     + id bigint primary key auto_increment
     + car_num varchar
     + brand varchar
     + guide_price decimal
     + product_time char
     + car_type varchar
++ 随便在数据库中插入两条数据
++ 引入依赖
+    + MyBatis依赖
+    + mysql-connector依赖
++ 编写MyBatis核心配置文件：`mybatis-config.xml`
+    + 实际上这个文件名不一定写为`mybatis-config`，但是一般约定叫做这个名字
+    + 文件位置也是不固定的，但是一般约定放在`resources`文件夹下
+    + 主要是配置数据库连接信息等
++ 编写`XxxxMapper.xml`文件
+    + 在这个文件中专门编写SQL语句
+    + 一般来说一个表会对应一个Mapper文件
