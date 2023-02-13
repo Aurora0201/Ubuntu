@@ -152,9 +152,9 @@
     + groupId：组织名，通常是公司域名倒序+项目名
     + artifactId：模块名，通常是工程名
     + version：版本号
-
 + 在互联网中，我们可以用唯一标识符来查找一个项目
-+ 使用坐标在网络上[查找](https://mvnrepository.com/)项目
+
+#### 使用坐标在网络上[查找](https://mvnrepository.com/)项目
 
 ### 7.依赖
 
