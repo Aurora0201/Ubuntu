@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="123">
+
+    <insert id="insertCar">
+        insert into t_car(car_num,brand,guide_price,product_time,car_type)
+        values('1003','丰田',20,'2021-01-02','燃油车')
+    </insert>
+</mapper>

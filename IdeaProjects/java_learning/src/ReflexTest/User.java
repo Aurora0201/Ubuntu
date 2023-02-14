@@ -8,6 +8,12 @@ public class User {
         System.out.println("Login " + (ok ? "successful" : "failed"));
         return ok;
     }
+
+    public User() {
+        name = "123";
+        password = "123";
+    }
+
     public String getName() {
         return name;
     }
