@@ -250,7 +250,14 @@
             public class TestHello{
             	@Test
                 public void testAdd(){
-                   	//测试代码 
+                   	//测试代码
+                    
+                    //get Actuall value
+                    int act = Add();
+                    //get expect value
+                   	int exp = 123;
+                    //verify and get the result
+                    Assert.assertEquals(exp, act);
                 }
             }
             ```
@@ -292,6 +299,8 @@
 
 ### 2.使用IDEA创建第一个Maven项目
 
+使用模板创建maven项目
+
 + 首先，我们新建一个项目，在项目中新建一个模组，在创建模组的界面我们要在`Generator`选项中选择`Maven Archetype`
 + 然后在`Name`中填入我们的模块名，它会作为我们的`artifactId`
 + 选择正确的JDK
@@ -300,6 +309,10 @@
 + 等待生成完成即可
 
 
+
+创建纯净的maven项目
+
++ 一般来说使用模板比较具有局限性，所以我们可以在创建`Module`时，选择普通module，输入模块名后，在下面有一个maven的选项，选择maven，然后点击创建，就可以得到一个纯净的maven项目了
 
 ### 3.使用IDEA出现的问题
 
