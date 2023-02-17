@@ -6,9 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="mybatis-002" />
         <module name="junit-001" />
         <module name="mybatis-001" />
+        <module name="parse-xml" />
+        <module name="javassist-001" />
+        <module name="mybatis-002" />
+        <module name="mybatis-003" />
+        <module name="mybatis-004" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
