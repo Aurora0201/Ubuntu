@@ -407,3 +407,240 @@ MyBatis集成了日志组件，让我们调试起来更方便
         + UNPOOLED 不使用连接池，每次都新建连接对象
         + JNDI 集成第三方的连接池
     + JNDI是一个规范--Java命名目录接口，大部分的web容器都实现了这个接口：Tomcat,Jetty,WebLogic,WebSphere
+
+
+
+### 3.properties属性配置
+
+在`configuration`标签下有一个`properties|property`标签，这个是可以用来配置一些必须的属性，其实就是Java中的property集合
+
+第一种用法
+
++ 在configuration标签下，创建下面的配置信息
+
+    ```xml
+    <configuration>
+    	<properties>
+            <!-- 添加配置信息 -->
+        	<property key="name" value="root"/>
+            <property key="pwd" value="root1234"/>
+        </properties>
+        
+        <environment>
+        	...
+            ${name} 
+            ${pwd}
+        </environment>
+        
+    </configuration>
+    ```
+
++ 从上面的例子不难看出，当我需要使用重复使用的属性时，可以通过配置属性来复用，让程序看起来更加简洁，获取`value`的方法就是`${key}`
+
+第二种方法
+
++ 这次我们直接在`resources`文件夹中编写一个`.properties`文件，然后编写下面的配置信息
+
+    ```xml
+    <configuration>
+    	<propeties resource="xxx.properties"/>
+    </configuration>
+    ```
+
++ 同样，我们就可以在配置文件中引入我们刚刚设置好的配置信息
+
+
+
+需要补充的点
+
++ 如果存在多个资源文件，访问属性时最好使用`${文件名.key}`
+
+---
+
+## 4.手写MyBatis框架
+
+
+
+要了解MyBatis框架是如何运作的，以及他的原理，我们最好就是手写一个MyBatis的框架，我们姑且称为GodBatis
+
+### 1.解析XML文件
+
+要实现MyBatis框架，第一步就是实现怎么去使用Java代码去解析XML文件，因为我们程序的配置信息都会写在配置文件中，这里我们使用dom4j框架来解析XML文件
+
+第一步
+
++ 导入dom4j的依赖，在maven中导入下面两个依赖才能让dom4j框架正确运行
+
+    ```xml
+    <dependency>
+        <groupId>org.dom4j</groupId>
+        <artifactId>dom4j</artifactId>
+        <version>2.1.3</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>jaxen</groupId>
+        <artifactId>jaxen</artifactId>
+        <version>1.2.0</version>
+    </dependency>
+    ```
+
+
+
+第二步
+
++ 要使用dom4j框架，我们需要了解怎么去解析XML文件，在XML中，我们一般使用`xpath`来对XML中的标签进行匹配，下面给出一些实际案例
+    + 选择根节点：`/`
+    + 选择所有元素：`//*`
+    + 选择元素名为 `book` 的所有元素：`//book`
+    + 选择元素名为 `book`，并且有属性 `category` 值为 `web` 的所有元素：`//book[@category='web']`
+    + 选择元素名为 `book`，并且有子元素 `title` 的所有元素：`//book[title]`
+    + 选择元素名为 `book`，并且有子元素 `title`，并且 `title` 的文本值包含字符串 `Java` 的所有元素：`//book[title[contains(text(), 'Java')]]`
++ 完整的代码
+
+```java
+// 创建 SAXReader 对象
+SAXReader reader = new SAXReader();
+// 获取流
+InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("example.xml");
+// 解析 XML 文件，一个document就相当于一个XML文件
+Document document = reader.read(is);
+//获取root元素
+Element root = document.getRootElement();
+
+//从根路径获取标签，比如说我想要默认的environment标签
+//先获取environments的default属性值
+String xpath = "//enviroments";
+Element environments = (Element)root.selectNode(xpath);
+String defaultEnvironment = environments.attributeValue("default");
+
+//获取default environment
+xpath = "//environment[@id='" + defaultEnvironment + "']";
+Element environment = (Element)root.selectNode(xpath);
+```
+
+
+
+### 2.解析mybatis-config.xml
+
+那么首先就是要解析我们的核心配置文件，这里面我们主要目的就是要获取我们数据库连接配置，事务的管理，使用的连接池类型，SQL语句Mapper等等
+
+
+
+### 3.解析Mapper.xml
+
+解析映射文件的主要目的就是为了获得SQL语句，同时将SQL语句中的`#{}`替换为`?`，因为最终使用的就是，这里就需要用到字符串的替换和正则表达式
+
+---
+
+## 5.在web应用中使用MyBatis
+
+### 1.准备数据库表
+
+本次实验模拟银行转账，使用`mvc`数据库下的`t_act`表，t_act表有三个字段`id bigint primary key auto_increment,actno varchar(255),balance decimal(10,2)`
+
+
+
+### 2.使用maven搭建web环境
+
+首先肯定是先搭建项目的环境，本次开发web项目需要使用到的组件：mybatis，mysql-connector，servlet-api，tomcat9
+
++ 新建module-->Maven Archetype-->webapp，等待生成完成后会得到一个webapp的基本框架，但是需要注意的是，`web.xml`文件的版本过低，需要复制一段较新的替换
+
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+             version="4.0">
+    
+    </web-app>
+    ```
+
++ 添加依赖，在`pom.xml`文件中添加以下的依赖
+
+    ```xml
+    <!--    mysql dependency-->
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>8.0.30</version>
+        </dependency>
+        <!--    mybatis dependency-->
+        <dependency>
+          <groupId>org.mybatis</groupId>
+          <artifactId>mybatis</artifactId>
+          <version>3.5.11</version>
+        </dependency>
+    <!--    logback dependency-->
+        <dependency>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-classic</artifactId>
+          <version>1.2.11</version>
+        </dependency>
+    <!--    servlet dependency-->
+          <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+          <dependency>
+              <groupId>javax.servlet</groupId>
+              <artifactId>javax.servlet-api</artifactId>
+              <version>4.0.1</version>
+              <scope>provided</scope>
+          </dependency>
+    ```
+
++ 刷新maven项目后初步搭建完成
+
+
+
+### 3.搭建MVC架构
+
+本次项目的包名为`com.java.framework`，并以此为基础搭建项目结构
+
++ 在framework包下新建以下的包
+    + util 工具包
+    + exception 异常包
+    + web 表示层包
+    + service 业务逻辑层包
+        + impl 实现包
+    + dao 数据访问对象包
+        + impl 实现包
+    + bean 数据封装包
+
+
+
+层与层之间使用接口调用降低耦合性
+
+
+
+### 4.编写业务代码
+
+从用户的角度出发开始编写代码，养成良好的习惯
+
++ 首先从`index.jsp`开始编写，只需要提供表单提交的功能即可
++ 表单的数据会提交到表示层，也就是`AccountServlet`中进行数据处理，然后调用service层的接口，进行业务逻辑的处理
++ 先编写service层的接口`AccountService`，然后编写实现类，实现`transfer(fromActno,toActno,money)`方法
++ service层会去访问数据库进行数据的查询操作，数据库的查询操作要通过`DAO`，所以先编写`DAO`类的接口`AccountDao`，然后编写实现类，实现`select,update`方法
++ 实现的过程中，我们需要通过`mybatis`连接数据库，所以开始编写`SqlSessionUtil`，提供两个方法`getSqlSession,close`，其中要使用`ThreadLocal`来存储`SqlSession`对象来实现事务管理的功能，`close`负责`SqlSession`对象的关闭和线程解绑
++ 实现查询时，要通过`Account`对象来实现，所以这里先编写`Account`类，封装对应的三个字段，提供`setter,getter,toString`方法
++ 然后是`mybatis`的配置，首先创建`mybatis-config.xml,AccountMapper.xml`文件，然后在核心配置文件中配置数据库的连接信息，在`Mapper`中编写SQL语句
++ 最后进行项目的测试即可
+
+### 5.项目总结
+
+本次项目中出现了诸多的问题
+
++ Mapper中的SQL语句错误问题，会导致报错
++ 转账功能的失败，可能存在的问题在于，一个是首先我们在`util`中使用了`ThreadLocal`，那么在`DAO`中我们不能把`SqlSession`关闭
++ 在`mybatis`中传参只有两种方式，传入一个bean类或者一个map集合，只有在参数只有一个的情况下才能直接传值
+
+
+
+可以改进的地方
+
++ DAO类中的代码重复率高，如何解决这个问题？
+    + 使用动态代理
+
+---
+
+### 6.使用Javassist

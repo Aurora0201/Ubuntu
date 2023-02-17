@@ -205,7 +205,7 @@ File --> Project Structrue --> Modules --> Dependeencies --> 添加Library或者
 
 ### 5.Servlet生命周期
 
-#### 1.Servlet的创建的时机
+#### 1.创建的时机
 
 + 网站中所有的Servlet接口实现类的实例对象，只能由Http服务器负责创建。
 
@@ -292,7 +292,7 @@ public class HelloServlet implements Servlet {
 
 #### 2.ServletConfig对象
 
-##### 1.ServletConfig的定义
+##### 1.定义
 
 + ServletConfig是什么？
     + ServletConfig是Jakarta内部提供的一个接口
@@ -309,7 +309,7 @@ public class HelloServlet implements Servlet {
 
 ---
 
-##### 2.ServletConfig局部配置文件
+##### 2.局部配置文件
 
 ```xml
 <!--我们可以在xml文件中配置一个Servlet对象的初始化信息，这些init标签应该放到<servlet>标签中-->
@@ -335,7 +335,7 @@ public class HelloServlet implements Servlet {
 
 ---
 
-##### 3.ServletConfig配置文件的解析
+##### 3.配置文件的解析
 
 + 以上`<servlet></servlet>标签中的<init-param></init-param>`标签会被`Tomcat`封装进`ServletConfig`对象中，我们可以通过两个方法获取：
 
@@ -368,7 +368,7 @@ public class HelloServlet implements Servlet {
 
 #### 3.ServletContext对象
 
-##### 1.ServletContext的定义
+##### 1.定义
 
 1.ServletContext是什么？
 
@@ -393,7 +393,7 @@ public class HelloServlet implements Servlet {
 
 ---
 
-##### 2.ServletContext全局配置
+##### 2.全局配置
 
 那么根据ServletContext的这个特性，我们可以通过在xml文件中编写上下文的初始化参数，用于全局的配置
 
@@ -413,7 +413,7 @@ public class HelloServlet implements Servlet {
 
 ---
 
-##### 3.ServletContext配置文件解析
+##### 3.配置文件解析
 
 在ServletContext中同样内置了两个方法用来读取这些初始化的数据
 
@@ -436,7 +436,7 @@ jakarta.servlet.ServletContext application = getServletContext();
 
 ---
 
-##### 4.ServletContext目录获取
+##### 4.目录获取
 
 ```java
 String contextPath = request.getContextPath();
@@ -450,7 +450,7 @@ String realPath = application.getRealPath("path");
 
 ---
 
-##### 5.ServletContext记录日志
+##### 5.记录日志
 
 ```java
 public void log(String message);
@@ -459,7 +459,7 @@ public void log(String message);
 
 ---
 
-##### 6.ServletContext对数据的增删改
+##### 6.数据的增删改查
 
 ServletContext对象还有一个名字，应用域，如果所有用户共享一份数据，且这份数据量不大，修改较少或者几乎不修改，那么我们可以把这份数据放在ServletContext中：
 

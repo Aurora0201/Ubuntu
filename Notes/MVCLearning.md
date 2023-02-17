@@ -333,34 +333,40 @@ add[事务一定是在这一层进行控制<br>一般是一个业务方法对应
 
 
 
-#### 2.ThreadLocal连接池
+#### 2.ThreadLocal
 
 + 什么是ThreadLocal？
 
-    + ThreadLocal是连接池，他是一个Map集合，key是当前线程，value就是连接对象Connection
+    + 是 Java 中一个线程级别的变量存储类，它提供了一种线程本地存储的机制，可以让你创建一个变量，使得每个线程都有自己独立的值，这个值只在该线程中有效
+    + 在本案例中我们使用ThreadLocal存储连接对象，使得我们能在不同的层级中使用相同的连接对象，主要目的是为了实现在业务逻辑层中实现数据库的事务管理功能
 
-+ 连接池图示
++ 使用ThreadLocal储存连接对象
 
-    + ```mermaid
-        %%{init: { "theme" : "dark" }}%%
-        erDiagram
-        ThreadLocal{
-        Thread1 Connection1
-        Thread2 Connection2
-        Thread3 Connection3
-        Thread4 Connection4
-        }
-        ```
+    
+
+    ```mermaid
+    %%{init: { "theme" : "dark" }}%%
+    erDiagram
+    ThreadLocal{
+    Thread1 Connection1
+    Thread2 Connection2
+    Thread3 Connection3
+    Thread4 Connection4
+    }
+    ```
 
 + 每个线程都对应着一个连接对象，这意味着只要是在在同一个线程中，必然会获得同一个连接对象，那么这样就解决了DAO使用同一个连接对象的问题
 
-+ 连接池中的连接对象的创建应该是`饿汉式`，即先判断是否存在连接对象，不存在则创建，否则直接返回连接对象
++ 连接对象的创建应该是`饿汉式`，即先判断是否存在连接对象，不存在则创建，否则直接返回连接对象
 
-+ 在使用完成连接对象后，释放连接对象时需要同时移除连接池中的连接对象，为什么要这样做？
++ 在使用完成连接对象后，释放连接对象时需要同时移除ThreadLocal中的连接对象，为什么要这样做？
 
     + 因为在Tomcat中内置了一个线程池，线程对象是早就创建好的，线程使用完成后不会释放而是会重新分配给有需要的用户，如果不释放，就会使用错误的连接对象
 
-
++ ThreadLocal的更多用途
+    + 线程池中的线程共享资源问题。使用 `ThreadLocal` 可以在每个线程中存储一份资源副本，从而避免多个线程之间互相干扰的问题。
+    + Web 应用中，用户登录信息存储。使用 `ThreadLocal` 可以在当前线程中存储用户登录信息，从而避免在多个方法之间传递登录信息的麻烦。
+    + 在业务逻辑处理时，需要在多个方法之间传递数据。使用 `ThreadLocal` 可以在当前线程中存储这些数据，避免多个方法之间传递参数的麻烦。
 
 ### 4.分包
 
