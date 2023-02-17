@@ -1061,9 +1061,52 @@ Map
 
 流在Java中负责了文件的读取与写入，是Java与系统交互中十分重要的一环，根据流的类型可以有两种分类：
 
-+ 根据读取的类型
-    + 字节流
-    + 字符流
-+ 根据类的类型
-    + Stream类
-    + Reader/Writer类
++ 根据在内存中的方向
+    + 往内存中写：Input/Read
+    + 从内存往外写：Output/Write
++ 根据读取文件的方式
+    + 字节流，一次读取一个字节，可以读取所有种类的文件
+    + 字符流，一次读取一个字符，只能读取纯文本类型的文件
+
+
+
+我们主要就学习下面的流
+
++ java.io.FileInputStream/java.io.FileOutputStream
++ java.io.FileReader/java.io.FileWriter
++ java.io.ObjectInputStream/java.io.ObjectOutputStream
++ java.io.PrintStream
+
+
+
+使用流时需要注意的点
+
++ 使用输出流时，在最后一定要使用`flush`方法，否则可能会导致输出数据丢失
++ 使用完流后，一定要将流关闭
+
+### 13.序列化
+
+当我们想要把内存中的Java对象保存到本地磁盘中，就需要使用到序列化，将对象写入到磁盘中叫做序列化，从磁盘写入内存则叫做反序列化，进行序列化操作时，我们会需要下面两种流以及实现`Serializable`接口
+
++ ObjectInputStream
++ ObjectOutputStream
+
+
+
+进行序列化操作时的注意事项
+
++ 序列化操作其实是将一个类中的字段全部写入到磁盘中，当我们有一些字段不想写入到磁盘中时，可以使用`transient`来修饰字段，这样这个字段在序列化时就会被忽略
+
++ JVM是通过一个`序列化UID`来识别类的，假如说我们修改一个已经序列化的类中的方法，那么很可能我们无法将序列化的数据反序列化，此时的解决方法就是我们手动设置一个固定的UID给这个类
+
+  ```java
+  public static final long serialVersionUID = 1L;
+  ```
+
+  需要注意的是，这个序列号最好是全球唯一，可以用IDEA生成，也可以给一个简单的值
+
+
+
+### 14.反射机制
+
+反射机制是Java中十分重要的特性
