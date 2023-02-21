@@ -772,3 +772,70 @@ private XxxMapper xxxMapper = SqlSession.openSession().getMapper(XxxMapper.class
 ```
 
 获得Mapper代理对象后，我们就能和之前一样使用CRUD了
+
+---
+
+## 7.MyBatis中的一些技巧
+
+### 1.关于占位符的使用
+
+虽然在上面的所有例子中我们都使用了`#{}`来作为占位符，但是实际上`${}`也可以作为占位符，下面来阐述他们两者的区别
+
++ 如果使用了`#{}`作为占位符，那么实际上就会使用`PreparedStatement`作为SQL语句的载体
++ 如果使用了`${}`作为占位符，那么就会使用`Statement`作为SQL语句的载体，有SQL注入的风险
+
+
+
+那么在什么时候使用这些占位符合适呢，下面就有几种情况
+
++ 一般情况下，尽量使用`#{}`实际上来说都可以应付我们的需求
++ 当我们需要往SQL语句中传入保留字时需要使用`${}`，如我们需要实现查询结果的排序需要传入`desc`和`asc`这个两个参数，
++ 需要动态的修改查询的表名需要使用`t_${abc}`
++ 需要批量删除，使用`in(${1,2,3})`子句时
+
+
+
+### 2.别名机制
+
+在写SQL查询语句时，每次都要指定返回的类型，并且要写全限定名称，这十分的繁琐，所以MyBatis中有别名机制，下面做一个简单的演示
+
+```xml
+<configuration>
+    <typeAlias>
+    	<!-- 指定别名为car -->
+        <typeAlias type="com.java.framework.bean.Car" alias="car"/>
+        <!-- 自动别名，此时car的任意大小写形式(car/Car/cAr/caR)都是合法的别名-->
+        <typeAlias type="com.java.framework.bean.Car"/>
+        <!-- 包别名，包下的所有类都可以用类简名-->
+        <typeAlias type="com.java.framework.bean"/>
+    </typeAlias>
+</configuration>
+```
+
+从上面的例子可以看出，别名机制可以大大方便我们的开发
+
+
+
+### 3.mapper的配置
+
+在之前的配置中，我们一般都会手动的配置mapper，但是在这一节中我们会介绍一种新的形式
+
+```xml
+<mappers>
+	<package name="com.java.framework.mapper"/>
+</mappers>
+```
+
+上面的语句表示，会从指定的包下寻找与接口名字相同的`mapper`文件，但是使用这种方式有下面的要求：
+
++ 首先接口的名字必须与mapper文件的名字一致
++ 然后他们的位置必须都位于同一个包下
+
+
+
+把他们放在同一个包下的方式也很简单，在`resources`文件夹下，创建`com/java/framework/mapper`的文件夹，并将mapper文件都放到文件夹中，这里还有一个小技巧，在`resources`中创建多重文件夹时要使用`create directory -> com/java/framework/mapper`
+
+
+
+### 4.IDEA配置模板文件
+
