@@ -7,7 +7,7 @@ public class SerializeTest {
         /*
         * 1.Use ObjectOutputStream to store the status of object in our disk.
         * 2.Usually, we use List to store our object.
-        * 3.If we don't want the property participate in serialization,
+        * 3.If we don't want the field participate in serialization,
         * we can use keyword "transient(游离的)" to modify it.
         *
         * */

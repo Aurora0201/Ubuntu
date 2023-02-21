@@ -124,7 +124,7 @@ class SetTest {
 
 //        for(String i: st) System.out.println(i);
 
-        Set<Student> st = new TreeSet(new StudentComparator()); //Another way to implement
+        SortedSet<Student> st = new TreeSet(new StudentComparator()); //Another way to implement
         Set<Student> set = new HashSet<>();
         st.add(new Student(10));
         st.add(new Student(9));

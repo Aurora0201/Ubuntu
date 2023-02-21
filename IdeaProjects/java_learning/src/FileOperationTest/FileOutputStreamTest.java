@@ -20,8 +20,6 @@ public class FileOutputStreamTest {
 //            fos.write(bytes, 0, 2); //Write a part of bytes
 
 //            fos = new FileOutputStream("MyFile", true);//Append at the end of file
-
-
             /*
              * Remember flush the Stream in the end
              * */
