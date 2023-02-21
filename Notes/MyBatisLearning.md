@@ -643,4 +643,132 @@ Element environment = (Element)root.selectNode(xpath);
 
 ---
 
-## 6.使用Javassist
+## 6.在MyBatis中使用代理机制
+
+### 1.代理机制概述
+
+在MyBatis中，实际上实现了代理机制，这意味着我们不用再手动的去实现DAO类，我们只需要编写DAO的接口然后让MyBatis去实现即可，下面简述代理机制的原理
+
+
+
+Javassist包
+
+在MyBatis中实际封装了一个包Javassist，这个包是利用Java的反射机制去动态的生成代码实际上是一个代码生成工具，这样我们就不用去实现接口而是让MyBatis去动态的生成接口的实例，大大减少了程序员的工作量
+
+
+
+### 2.Javassist初步
+
+下面通过简单的代码来了解Javassist的使用，Javassist的使用总结起来只有下面几步：
+
++ 获取类池
++ 创建实现类
++ 创建接口
++ 往实现类中添加接口
++ 获取接口中的方法
++ 实现接口中的方法
++ 将实现的方法添加到实现类
++ 将实现类转换为类对象
++ 从类对象创建实例
+
+
+
+下面给出部分代码
+
+创建方法`public Object generate(Class daoInterface)`，并获取接口和类
+
+```java
+//get class pool
+ClassPool pool = ClassPool.getDefault();
+//get implement class
+CtClass ctClass = pool.makeClass(daoInterface.getName() + "Impl");
+//get interface
+CtClass ctInterface = pool.makeInterface(daoInterface.getName());
+//implement the interface
+ctClass.addInterface(ctInterface);
+```
+
+
+
+完成上面的步骤后就可以开始实现接口中的抽象方法了
+
+```java
+//implement the abstract methods
+//get the methods
+Method[] methods = daoInterface.getDeclaredMethods();
+Arrays.stream(methods).forEach(method -> {
+    //get parameters
+    Parameter[] parameters = method.getParameters();
+    try {
+        //splice code
+        StringBuilder methodCode = new StringBuilder();
+        methodCode.append("public ");
+        //get type of return
+        methodCode.append(method.getReturnType().getName() + " ");
+        //get method name
+        methodCode.append(method.getName());
+        //add arguments
+        methodCode.append("(");
+        for (int i = 0; i < parameters.length; i++) {
+            methodCode.append(parameters[i].getType().getName() + " arg" + i);
+            if (i != parameters.length - 1) {
+                methodCode.append(",");
+            }
+        }
+        methodCode.append(")");
+        //splice method body
+        methodCode.append("{");
+        methodCode.append("System.out.println(123);");
+        methodCode.append("}");
+        //make method
+        CtMethod ctMethod = CtMethod.make(methodCode.toString(), ctClass);
+        //add method to ctClass
+        ctClass.addMethod(ctMethod);
+    } catch (CannotCompileException e) {
+        throw new RuntimeException(e);
+    }
+});
+
+```
+
+
+
+完成上面的步骤后，就可以创建类的实例了
+
+```java
+//create instance
+Object obj = null;
+try {
+    //cast ctClass to Class
+    Class<?> aClass = ctClass.toClass();
+    //create instance
+    obj = aClass.newInstance();
+} catch (CannotCompileException | InstantiationException | IllegalAccessException e) {
+    throw new RuntimeException(e);
+}
+return obj;        
+```
+
+
+
+以上就是Javassist的简单实现了，在MyBatis中的实现其实更为复杂，通过一个enum类来识别xml文件中的各种标签，然后通过id来实现SQL语句
+
+
+
+### 3.使用MyBatis中的代理机制
+
+在MyBatis的实际使用中，其实并不用像上面那么麻烦，因为MyBatis中已经封装好了，使用也非常的简单，但是有以下几点要求：
+
++ `Mapper.xml`文件中的`namespace`必须为`DAO`接口的全限定名称
++ 接口中的`方法名`必须为`SQL语句的id`
++ 以后存放接口的包不叫做`DAO`了，而是叫做`mapper`，这个是一般约定
+
+
+
+使用方法也非常简单，在`service`层中使用`getMapper`方法即可
+
+```java
+private XxxMapper xxxMapper = SqlSession.openSession().getMapper(XxxMapper.class);
+```
+
+获得Mapper代理对象后，我们就能和之前一样使用CRUD了
