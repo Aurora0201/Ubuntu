@@ -839,3 +839,117 @@ private XxxMapper xxxMapper = SqlSession.openSession().getMapper(XxxMapper.class
 
 ### 4.IDEA配置模板文件
 
+在IDEA中我们可以设置一些模板文件，类似于VSC中的用户代码片段，可以十分快捷的生成所我们所需的配置文件配置的方式也十分简单，下面提供给两种方法：
+
+
+
++ 在项目栏的任意位置==alt + ins== -> Edit File Templates 即可进入模板文件编辑页面，点击`+`即可设置自定义的代码
++ 进入Settings -> Editor -> File and Code Templates 即可进入模板文件编辑界面
+
+
+
+### 5.查询时参数设置
+
+在上面的例子中我们都知道，我们能通过实例对象和map集合给SQL语句传入参数，下面就对上面进行一些补充：
+
++ 其实在SQL语句的标签中有一个`paramType`属性是用来指定参数的类型的，但是MyBatis框架中有自动推测参数的机制，是通过接口中的参数类型推测出来的，我们可以[查询](https://mybatis.net.cn/configuration.html#typeAliases)它的取值
+
++ 在占位符的大括号里其实不止可以指定`key|field`，还可以指定`javaType=String,jdbcType=VARCHAR`
+
+    ```xml
+    <insert id="" resultType="" paramType="">
+    	select * from t_student = where id = #{id,javaType=Long,jdbcType=bigint}
+    </insert>
+    ```
+
+    
+
+使用多参数
+
+在上面我们只出现了传入一种参数的情况，那么我们想要传入多个参数该怎么办呢？
+
++ MyBatis中提供了多参数的方法，底层中会自动创建一个map，key为字符串`argx|paramx`，value为我们传入的值
+
+使用方法为
+
++ 在占位符中输入的字符串为`arg0,arg1,... or param0,param1,...`，那么MyBatis就会自动的将对应的参数传入
+
++ 或者使用注解的方式，在接口的抽象方法中使用注解来确定对应的名字
+
+    ```java
+    Student selectByNameAndSex(@Param("name") String name, @Param("sex") Character sex)
+    ```
+
+    注意，使用注解后，在占位符中只能写对应的名字
+
+
+
+注解源码解析
+
++ 在使用注解后，实际上我们会往底层传入一个数组`Object[] args`，数组中存储我们设置的名字，在底层中还会有一个map，key是下标，value是args的元素，如果是使用默认的参数，则还会有另一个map负责处理
++ 实际上底层就是使用了map来处理参数的占位符
+
+
+
+### 6.查询时返回结果
+
++ 在上面的例子中我们在查询时返回的结果一般只有两种情况，返回一个类的实例或者返回一个List，并且遇到了一些问题，比如说当数据库中的字段名与bean类的属性名没有一一对应时，我们需要对返回的列名进行重命名，下面我们会对上面的例子进行一定的补充
+
++ 虽然在上文只使用了实例和List两种方式，但是List既可以接收一个也可以接收多个结果，所以以后我们一般不会再使用单个实例的情况
+
+
+
+使用Map接收
+
+使用map接收时需要在标签中指定属性`resultType="map"`
+
++ 当我们没有合适的bean类来接收时，可以让MyBatis返回一个`Map<String, Object>`，map的key为字段名，value为值，但是此时只能接收一条结果
+
++ 返回`List<Map<String, Object>>`，在上一条的基础上可以接收多条结果
+
++ 使用`Map<Type, Map<String, Object>>`，返回一个大Map，同样可以接收多条结果，但是使用时有几个条件
+
+    + 在接口中使用注解来指定第一个Map的key为表中的哪个字段，一般为表中的主键
+    + 第一个Map的key的类型需要手动输入，与指定的key类型相对应
+    + 第一个Map的key必须为表中的字段
+
+    ```java
+    @MapKey("id")
+    Map<Long,Map<String, Object>> selectByXxx();
+    ```
+
+
+
+结果映射
+
+在上面我们已经提到过，我们会使用别名来让查询后的结果来与bean类属性一一对应，在实际的开发中我们可以使用多种方式来解决这个问题：
+
++ 使用列别名
++ 使用resultMap
++ 开启自动驼峰命名映射
+
+
+
+使用resultMap
+
++ 先在`mapper`文件中定义`resultMap`标签，并定义属性与数据库列名的映射
+
++ 然后在每个SQL语句的标签中使用`resultMap`属性来确定使用哪个Map映射
+
+    ```xml
+    //id -> identifier  type -> the bean class
+    <resultMap id="carMap" type="Car">
+        //usually, the primary key will be set in id tag
+    	<id property="id" column="id"/>
+        //Set in the result tag only when the column name does not correspond to the property
+        <result property="carNum" column="car_num"/>
+    </resultMap>
+    
+    <select id="selectByXxx" resutlMap="carMap">
+    	select * from t_car
+    </select>
+    ```
+
+
+
+使用驼峰命名规范
