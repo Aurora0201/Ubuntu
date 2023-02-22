@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
     <!--定义⽇志⽂件的存储地址-->
-<!--    we should set the directory in a sufficient place-->
+    <!--    we should set the directory in a sufficient place-->
     <property name="LOG_HOME" value="/home/binjunkai/SLF4J/com/mybatis/log"/>
     <!-- 控制台输出 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">

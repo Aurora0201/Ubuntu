@@ -13,6 +13,7 @@
         <module name="mybatis-002" />
         <module name="mybatis-003" />
         <module name="mybatis-004" />
+        <module name="mybatis-005" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

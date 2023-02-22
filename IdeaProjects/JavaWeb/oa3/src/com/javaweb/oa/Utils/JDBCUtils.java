@@ -5,11 +5,11 @@ import java.util.ResourceBundle;
 * JDBC Utils
 * */
 public class JDBCUtils {
-    static ResourceBundle bundle = ResourceBundle.getBundle("resources/jdbc");
-    static String driver;
-    static String url;
-    static String name;
-    static String password;
+    private static ResourceBundle bundle = ResourceBundle.getBundle("resources/jdbc");
+    private static String driver;
+    private static String url;
+    private static String name;
+    private static String password;
     static {
         driver = bundle.getString("driver");
         url = bundle.getString("url");
