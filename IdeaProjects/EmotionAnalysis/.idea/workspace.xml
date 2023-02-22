@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f7951248-af1b-4ad6-a876-b5436b2a70bc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/emotion/analysis/bean/Content.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/emotion/analysis/mapper/ContentMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/emotion/analysis/service/ContentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/emotion/analysis/service/impl/ContentServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/emotion/analysis/util/CsvReadUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/emotion/analysis/util/SqlSessionUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/emotion/analysis/mapper/ContentMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/data.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/jdbc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/logback-test.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/UtilTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/data.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/emotion/analysis/util/SqlSessionUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/jdbc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/logback-test.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/mybatis-config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-UtilTest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/UtilTest.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/UtilTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyBatis/javassist-001/Carmapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyBatis/javassist-001/mybatis-config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/java/com/java/framework/bean/Student.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/java/com/java/framework/mapper/StudentMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/java/com/java/framework/util/SqlSessionUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/resources/com/java/framework/mapper/StudentMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/resources/jdbc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/resources/logback-test.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/resources/mybatis-config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/test/java/TypeTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../java_learning/data.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../java_learning/resources/data.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../PycharmProjects/Reptiles/.idea/PythonProject.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaWeb/oa3/src/com/javaweb/oa/Utils/JDBCUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaWeb/oa3/src/com/javaweb/oa/Utils/JDBCUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaWeb/out/artifacts/oa3_war_exploded/WEB-INF/classes/com/javaweb/oa/Utils/JDBCUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaWeb/out/artifacts/oa3_war_exploded/WEB-INF/classes/com/javaweb/oa/Utils/JDBCUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaWeb/out/production/oa3/com/javaweb/oa/Utils/JDBCUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaWeb/out/production/oa3/com/javaweb/oa/Utils/JDBCUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MVC/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MVC/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MyBatis/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MyBatis/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MyBatis/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MyBatis/mybatis-001/src/main/resources/logback-test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/mybatis-001/src/main/resources/logback-test.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MyBatis/mybatis-004/src/main/resources/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/mybatis-004/src/main/resources/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java_learning/MyFile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java_learning/UserInformation.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java_learning/log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java_learning/out/production/java_learning/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../java_learning/out/production/java_learning/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java_learning/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java_learning/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Notes/JavaWeb.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Notes/JavaWeb.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Notes/MyBatisLearning.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Notes/MyBatisLearning.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="jdbc-template" />
+        <option value="mybatis-config-template" />
+        <option value="logback-test-template" />
+        <option value="mapper-template" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="/usr/local/maven" />
+        <option name="userSettingsFile" value="/usr/local/maven/conf/settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="workspaceImportEnabled" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="jreName" value="1.8" />
+    <option name="vmOptions" value="-DarchetypeCatalog=internal" />
+  </component>
+  <component name="ProjectId" id="2M5pqNeVbfLPr63UlS4VUOMgGP5" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/binjunkai/repo/IdeaProjects/EmotionAnalysis",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/test/resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/com/emotion/analysis/mapper" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/resources/com.emotion.analysis/mapper" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.ServiceTest.getAllTest">
+    <configuration name="ServiceTest.getAllTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="EmotionAnalysis" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ServiceTest" />
+      <option name="METHOD_NAME" value="getAllTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UtilTest.openTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="EmotionAnalysis" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="UtilTest" />
+      <option name="METHOD_NAME" value="openTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UtilTest.readTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="EmotionAnalysis" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="UtilTest" />
+      <option name="METHOD_NAME" value="readTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ServiceTest.getAllTest" />
+        <item itemvalue="JUnit.UtilTest.readTest" />
+        <item itemvalue="JUnit.UtilTest.openTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f7951248-af1b-4ad6-a876-b5436b2a70bc" name="Changes" comment="" />
+      <created>1677067489596</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1677067489596</updated>
+      <workItem from="1677067490899" duration="8212000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

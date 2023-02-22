@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emotion.analysis.mapper.ContentMapper">
+
+    <insert id="insertContent">
+        insert into t_data values(#{username},#{time},#{content},#{probability},#{status})
+    </insert>
+    <delete id="deleteContent">
+        delete from t_data
+    </delete>
+    <select id="selectAllContent" resultType="Content">
+        select * from t_data
+    </select>
+</mapper>

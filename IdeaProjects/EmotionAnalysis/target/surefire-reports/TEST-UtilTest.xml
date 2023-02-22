@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="UtilTest" time="0.329" tests="1" errors="1" skipped="0" failures="0">
+  <properties>
+    <property name="sun.desktop" value="gnome"/>
+    <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="sun.cpu.isalist" value=""/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/home/binjunkai/repo/IdeaProjects/EmotionAnalysis/target/test-classes:/home/binjunkai/repo/IdeaProjects/EmotionAnalysis/target/classes:/home/binjunkai/maven/repo/junit/junit/4.13.2/junit-4.13.2.jar:/home/binjunkai/maven/repo/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/binjunkai/maven/repo/mysql/mysql-connector-java/8.0.30/mysql-connector-java-8.0.30.jar:/home/binjunkai/maven/repo/com/google/protobuf/protobuf-java/3.19.4/protobuf-java-3.19.4.jar:/home/binjunkai/maven/repo/javax/servlet/javax.servlet-api/4.0.1/javax.servlet-api-4.0.1.jar:/home/binjunkai/maven/repo/ch/qos/logback/logback-classic/1.2.11/logback-classic-1.2.11.jar:/home/binjunkai/maven/repo/ch/qos/logback/logback-core/1.2.11/logback-core-1.2.11.jar:/home/binjunkai/maven/repo/org/slf4j/slf4j-api/1.7.32/slf4j-api-1.7.32.jar:/home/binjunkai/maven/repo/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar:"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="user.timezone" value=""/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="os.name" value="Linux"/>
+    <property name="user.country" value="CN"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="/usr/local/java/jre/lib/amd64"/>
+    <property name="sun.java.command" value="/home/binjunkai/repo/IdeaProjects/EmotionAnalysis/target/surefire/surefirebooter-20230222211332900_3.jar /home/binjunkai/repo/IdeaProjects/EmotionAnalysis/target/surefire 2023-02-22T21-13-32_645-jvmRun1 surefire-20230222211332900_1tmp surefire_0-20230222211332900_2tmp"/>
+    <property name="surefire.test.class.path" value="/home/binjunkai/repo/IdeaProjects/EmotionAnalysis/target/test-classes:/home/binjunkai/repo/IdeaProjects/EmotionAnalysis/target/classes:/home/binjunkai/maven/repo/junit/junit/4.13.2/junit-4.13.2.jar:/home/binjunkai/maven/repo/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/binjunkai/maven/repo/mysql/mysql-connector-java/8.0.30/mysql-connector-java-8.0.30.jar:/home/binjunkai/maven/repo/com/google/protobuf/protobuf-java/3.19.4/protobuf-java-3.19.4.jar:/home/binjunkai/maven/repo/javax/servlet/javax.servlet-api/4.0.1/javax.servlet-api-4.0.1.jar:/home/binjunkai/maven/repo/ch/qos/logback/logback-classic/1.2.11/logback-classic-1.2.11.jar:/home/binjunkai/maven/repo/ch/qos/logback/logback-core/1.2.11/logback-core-1.2.11.jar:/home/binjunkai/maven/repo/org/slf4j/slf4j-api/1.7.32/slf4j-api-1.7.32.jar:/home/binjunkai/maven/repo/org/mybatis/mybatis/3.5.11/mybatis-3.5.11.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/home/binjunkai"/>
+    <property name="user.language" value="zh"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.home" value="/usr/local/java/jre"/>
+    <property name="basedir" value="/home/binjunkai/repo/IdeaProjects/EmotionAnalysis"/>
+    <property name="file.separator" value="/"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="/home/binjunkai/repo/IdeaProjects/EmotionAnalysis/target/surefire/surefirebooter-20230222211332900_3.jar"/>
+    <property name="sun.boot.class.path" value="/usr/local/java/jre/lib/resources.jar:/usr/local/java/jre/lib/rt.jar:/usr/local/java/jre/lib/jsse.jar:/usr/local/java/jre/lib/jce.jar:/usr/local/java/jre/lib/charsets.jar:/usr/local/java/jre/lib/jfr.jar:/usr/local/java/jre/classes"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="1.8.0_361-b09"/>
+    <property name="user.name" value="binjunkai"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="5.15.0-50-generic"/>
+    <property name="java.endorsed.dirs" value="/usr/local/java/jre/lib/endorsed"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="/home/binjunkai/maven/repo"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="idea.version" value="2022.3.1"/>
+    <property name="java.version" value="1.8.0_361"/>
+    <property name="user.dir" value="/home/binjunkai/repo/IdeaProjects/EmotionAnalysis"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.library.path" value="/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="25.361-b09"/>
+    <property name="java.specification.maintenance.version" value="4"/>
+    <property name="java.ext.dirs" value="/usr/local/java/jre/lib/ext:/usr/java/packages/lib/ext"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="52.0"/>
+  </properties>
+  <testcase name="openTest" classname="UtilTest" time="0.29">
+    <error type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException
+	at com.emotion.analysis.util.SqlSessionUtil.openSession(SqlSessionUtil.java:37)
+	at UtilTest.openTest(UtilTest.java:8)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:377)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:284)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:248)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:167)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:456)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:169)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
+]]></error>
+    <system-out><![CDATA[2023-02-22 21:13:33.368 [main] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2023-02-22 21:13:33.371 [main] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2023-02-22 21:13:33.373 [main] DEBUG org.apache.ibatis.io.VFS - Class not found: org.jboss.vfs.VFS
+2023-02-22 21:13:33.374 [main] DEBUG org.apache.ibatis.io.JBoss6VFS - JBoss 6 VFS API is not available in this environment.
+2023-02-22 21:13:33.374 [main] DEBUG org.apache.ibatis.io.VFS - Class not found: org.jboss.vfs.VirtualFile
+2023-02-22 21:13:33.374 [main] DEBUG org.apache.ibatis.io.VFS - VFS implementation org.apache.ibatis.io.JBoss6VFS is not valid in this environment.
+2023-02-22 21:13:33.375 [main] DEBUG org.apache.ibatis.io.VFS - Using VFS adapter org.apache.ibatis.io.DefaultVFS
+2023-02-22 21:13:33.375 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/home/binjunkai/repo/IdeaProjects/EmotionAnalysis/target/test-classes/
+2023-02-22 21:13:33.375 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/home/binjunkai/repo/IdeaProjects/EmotionAnalysis/target/test-classes/
+2023-02-22 21:13:33.403 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: UtilTest.class
+2023-02-22 21:13:33.403 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/home/binjunkai/repo/IdeaProjects/EmotionAnalysis/target/classes/
+2023-02-22 21:13:33.403 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/home/binjunkai/repo/IdeaProjects/EmotionAnalysis/target/classes/
+2023-02-22 21:13:33.405 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: com
+2023-02-22 21:13:33.418 [main] DEBUG o.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+2023-02-22 21:13:33.418 [main] DEBUG o.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+2023-02-22 21:13:33.418 [main] DEBUG o.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+2023-02-22 21:13:33.419 [main] DEBUG o.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+2023-02-22 21:13:33.421 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/home/binjunkai/repo/IdeaProjects/EmotionAnalysis/target/test-classes/
+2023-02-22 21:13:33.421 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/home/binjunkai/repo/IdeaProjects/EmotionAnalysis/target/test-classes/
+2023-02-22 21:13:33.421 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: UtilTest.class
+2023-02-22 21:13:33.421 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/home/binjunkai/repo/IdeaProjects/EmotionAnalysis/target/classes/
+2023-02-22 21:13:33.422 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/home/binjunkai/repo/IdeaProjects/EmotionAnalysis/target/classes/
+2023-02-22 21:13:33.422 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: com
+]]></system-out>
+  </testcase>
+</testsuite>
