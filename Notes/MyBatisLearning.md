@@ -872,7 +872,7 @@ private XxxMapper xxxMapper = SqlSession.openSession().getMapper(XxxMapper.class
 
 使用方法为
 
-+ 在占位符中输入的字符串为`arg0,arg1,... or param0,param1,...`，那么MyBatis就会自动的将对应的参数传入
++ 在占位符中输入的字符串为`arg0,arg1,... or param1,param2,...`，那么MyBatis就会自动的将对应的参数传入
 
 + 或者使用注解的方式，在接口的抽象方法中使用注解来确定对应的名字
 
@@ -952,4 +952,92 @@ private XxxMapper xxxMapper = SqlSession.openSession().getMapper(XxxMapper.class
 
 
 
-使用驼峰命名规范
+使用驼峰命名自动映射
+
+使用这种方法前提是：
+
++ 属性名遵循Java命名规范，首字母小写，后面每个单词的开头大写
++ 列名遵循SQL命名规范，全部小写，单词直接使用`_`隔开
+
+在配置文件中开启该功能，在核心配置文件中如下配置
+
+```xml
+<settings>
+	<setting name="mapUnderscoreToCamelCase" value="true"/>
+</settings>
+```
+
+----
+
+## 8.动态SQL
+
+想象这样一个需求，在我们购买商品时，可以设置多种过滤条件，那么在数据库的视角，就是可以动态的设置多个where条件，动态SQL就是为了解决这种类似的问题而出现的
+
+### 1.if标签
+
++ 首先我们来了解一下if标签，if标签的形式如下
+
+    ```xml
+    where
+        <if test="brand != null and brand != ''">
+            ...
+        </if>
+    ...
+    ```
+
+    if标签中有一个属性`test`，当test的值为true时，if标签内的语句会被拼接在外部的语句中
+
++ 使用时需要注意
+
+    + test中的变量为属性名或者`argx|paramx`
+    + 条件之间使用`and|or`连接
+
+### 2.where标签
+
++ 先来了解一下where子句
+
+    ```xml
+    <where>
+    	<if test="">...</if>
+        <if test="">and ...</if>
+        <if test="">and ...</if>
+    </where>
+    ```
+
+    where标签一般都会配合if标签使用，当有一个或者多个if标签成立时才会自动的在前面加上`where`
+
++ 使用时需要注意
+
+    + 当有多个if标签时，我们需要在标签中语句的前面加上`and|or`来连接多个条件，此时where标签可以自动的将前面多余的`and|or`删除，但是无法将后面多余的`and|or`删除，所以我一般在前面加上`and|or`
+
+### 3.trim标签
+
++ 下面是trim标签的形式
+
+    ```xml
+    <trim prefix="" suffix="" prefixOverrides="" suffixOverrides="">
+    	
+    </trim>
+    ```
+
++ 可以注意到，trim标签有四个属性`prefix,suffix,prefixOverrides,suffixOverrides`，这里简单介绍一下
+
++ prefix属性，prefix属性的值会被添加到整段话的前面
+
++ prefixOverrides属性，会将开头的与前缀相同的字段去除
+
+### 4.set标签
+
++ 下面是set标签的形式
+
+    ```xml
+    <set>
+        <if test="">...,</if>
+        <if test="">...,</if>
+        <if test="">...,</if>
+    </set>
+    ```
+
++ set标签一般用于update语句中，与if语句配合使用，当我们没有想对其中的一些列修改时，其他列传入的null值会被过滤掉，同时还会自动去掉末尾的`,`
+
+### 5.控制标签
