@@ -6,26 +6,30 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
 import com.emotion.analysis.bean.Content;
 import com.emotion.analysis.mapper.ContentMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 
 /**
- * read the csv file in the resource dir
+ * parse data from ".csv" or json
  * @author binjunkai
  * @since 1.0
  * @version 1.0
  */
-public class CsvReadUtil {
-    private CsvReadUtil() {
+public class DataParseUtil {
+    private DataParseUtil() {
 
     }
 
     /**
      * delete the old date,read the csv file and save the data to mysql
      */
-    public static void readCsv() {
+    public static void parseCsv() {
         SqlSession sqlSession = SqlSessionUtil.openSession();
         ContentMapper mapper = sqlSession.getMapper(ContentMapper.class);
         BufferedReader bufferedReader = null;
@@ -49,7 +53,24 @@ public class CsvReadUtil {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+        SqlSessionUtil.close();
+    }
 
+    /**
+     * parse JSON and save to mysql
+     */
+    public static void parseJSON(String text) {
+        SqlSession sqlSession = SqlSessionUtil.openSession();
+        ContentMapper mapper = sqlSession.getMapper(ContentMapper.class);
+        mapper.deleteContent();
+        JSONArray jsons = JSON.parseArray(text);
+        jsons.forEach(json -> {
+            JSONObject jsonObject = JSONObject.parseObject(json.toString());
+            Content content = (Content) JSON.to(Content.class, jsonObject);
+//            System.out.println(content);
+            mapper.insertContent(content);
+        });
+        sqlSession.commit();
         SqlSessionUtil.close();
     }
 }

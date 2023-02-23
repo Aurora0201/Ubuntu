@@ -1,32 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="EmotionAnalysis:war exploded" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7951248-af1b-4ad6-a876-b5436b2a70bc" name="Changes" comment="update markdown">
-      <change beforePath="$PROJECT_DIR$/../EmotionalAnalysis/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../JavaWeb/oa3/src/com/javaweb/oa/Utils/JDBCUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaWeb/oa3/src/com/javaweb/oa/Utils/JDBCUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../JavaWeb/out/artifacts/oa3_war_exploded/WEB-INF/classes/com/javaweb/oa/Utils/JDBCUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaWeb/out/artifacts/oa3_war_exploded/WEB-INF/classes/com/javaweb/oa/Utils/JDBCUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../JavaWeb/out/production/oa3/com/javaweb/oa/Utils/JDBCUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaWeb/out/production/oa3/com/javaweb/oa/Utils/JDBCUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MVC/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MVC/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MyBatis/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MyBatis/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MyBatis/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MyBatis/mybatis-001/src/main/resources/logback-test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/mybatis-001/src/main/resources/logback-test.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MyBatis/mybatis-004/src/main/resources/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/mybatis-004/src/main/resources/mybatis-config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MyBatis/mybatis-005/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/java/com/java/framework/bean/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/java/com/java/framework/bean/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/java/com/java/framework/mapper/StudentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/java/com/java/framework/mapper/StudentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/resources/com/java/framework/mapper/StudentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/resources/com/java/framework/mapper/StudentMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/resources/jdbc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/resources/jdbc.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/resources/logback-test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/resources/logback-test.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/resources/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/resources/mybatis-config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/test/java/TypeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/test/java/TypeTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java_learning/out/production/java_learning/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../java_learning/out/production/java_learning/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java_learning/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java_learning/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Notes/JavaWeb.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Notes/JavaWeb.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Notes/MyBatisLearning.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Notes/MyBatisLearning.md" afterDir="false" />
+    <list default="true" id="f7951248-af1b-4ad6-a876-b5436b2a70bc" name="Changes" comment="update project">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/emotion/analysis/web/ContentServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/emotion/analysis/util/CsvReadUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/emotion/analysis/util/DataParseUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/UtilTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/UtilTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/emotion/analysis/util/CsvReadUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-UtilTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/UtilTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/UtilTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/UtilTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +43,13 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -76,22 +79,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/binjunkai/repo/IdeaProjects/EmotionAnalysis",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "MavenSettings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/binjunkai/repo/IdeaProjects/EmotionAnalysis&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -104,7 +107,7 @@
       <recent name="$PROJECT_DIR$/src/main/resources/com.emotion.analysis/mapper" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ServiceTest.getAllTest">
+  <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.71">
     <configuration name="ServiceTest.getAllTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="EmotionAnalysis" />
       <option name="PACKAGE_NAME" value="" />
@@ -125,6 +128,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UtilTest.parseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="EmotionAnalysis" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="UtilTest" />
+      <option name="METHOD_NAME" value="parseTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="UtilTest.readTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="EmotionAnalysis" />
       <option name="PACKAGE_NAME" value="" />
@@ -135,8 +148,104 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Tomcat 9.0.71" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.71" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
+      <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
+      <deployment>
+        <artifact name="EmotionAnalysis:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/EmotionAnalysis" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="2909038a-7568-428f-a379-7daaa5ef3d84" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="36537" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="EmotionAnalysis:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.UtilTest.parseTest" />
+      <item itemvalue="JUnit.ServiceTest.getAllTest" />
+      <item itemvalue="JUnit.UtilTest.openTest" />
+      <item itemvalue="JUnit.UtilTest.readTest" />
+      <item itemvalue="Tomcat Server.Tomcat 9.0.71" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UtilTest.parseTest" />
         <item itemvalue="JUnit.ServiceTest.getAllTest" />
         <item itemvalue="JUnit.UtilTest.readTest" />
         <item itemvalue="JUnit.UtilTest.openTest" />
@@ -151,8 +260,25 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1677067489596</updated>
-      <workItem from="1677067490899" duration="8512000" />
+      <workItem from="1677067490899" duration="8549000" />
+      <workItem from="1677122625858" duration="729000" />
+      <workItem from="1677123461281" duration="6383000" />
     </task>
+    <task id="LOCAL-00001" summary="update markdown">
+      <created>1677078173983</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1677078173983</updated>
+    </task>
+    <task id="LOCAL-00002" summary="update project">
+      <created>1677078196453</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1677078196453</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,6 +298,7 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="update markdown" />
-    <option name="LAST_COMMIT_MESSAGE" value="update markdown" />
+    <MESSAGE value="update project" />
+    <option name="LAST_COMMIT_MESSAGE" value="update project" />
   </component>
 </project>
