@@ -1102,3 +1102,8 @@ foreach标签的作用就相当于是遍历循环，对数组或者集合进行�
 先来讲一下`多对一`的情况
 
 现在我们给出两张表，t_stu(sid,sname,cid)，t_clazz(cid,cname)，t_stu表中的`cid`是外键
+
+![1](https://img.noobzone.ru/getimg.php?url=https://cdn.jsdelivr.net/gh/Aurora0201/ImageStore@main/img/1-1677240142225-1.png)
+
+因为我们查询的是学生，有很多个学生是一个班级的，学生与班级是多对一的关系，那么我们应该在Student中设置一个Clazz属性，用来表示一个学生的班级，那么实现这种多对一的关系我们三种方式：
+
