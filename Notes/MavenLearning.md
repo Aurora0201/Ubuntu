@@ -321,5 +321,6 @@
 + 在创建maven项目后，无法`reload maven project`
     + 初步猜测可能是上面[配置](#1.配置IDEA的Maven环境)时没有配置完全，需要同时在Settings和New Project Settings配置完全
     + 可能存在配置错误，检查配置路径和配置文件，同时仓库的路径要有读取权限，在linux下配置在系统文件中可能会出现无法导入依赖
-+ 创建web项目时，使用的依赖为`jakarta.servlet 5.0.0`但是在源码中却不能引入`jakarta`的包
++ 创建web项目时，使用的依赖为`jakarta.servlet 4.0.0`但是在源码中却不能引入`jakarta`的包
     + 使用`javax.servlet.*`引入包
++ tomcat10建议使用`jakarta.servlet 5.0.0`
