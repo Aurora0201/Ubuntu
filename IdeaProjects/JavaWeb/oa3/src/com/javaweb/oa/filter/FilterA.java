@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-@WebFilter({"/dept/*"})
+//@WebFilter({"/dept/*"})
 public class FilterA implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

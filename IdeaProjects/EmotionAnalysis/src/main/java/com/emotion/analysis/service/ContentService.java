@@ -11,5 +11,7 @@ import java.util.List;
  * @version 1.0
  */
 public interface ContentService {
-    List<Content> getAllContent();
+    List<Content> getAllContents();
+
+    int saveContents(String json);
 }

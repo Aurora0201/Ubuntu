@@ -4,13 +4,13 @@ import com.alibaba.fastjson2.JSON;
 import com.emotion.analysis.bean.Content;
 import com.emotion.analysis.service.ContentService;
 import com.emotion.analysis.service.impl.ContentServiceImpl;
-import com.emotion.analysis.util.DataParseUtil;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -25,15 +25,6 @@ import java.util.List;
 @WebServlet({"/getList","/saveList"})
 public class ContentServlet extends HttpServlet {
     ContentService contentService = new ContentServiceImpl();
-    /*@Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/json;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        List<Content> contents = contentService.getAllContent();
-        String jsonString = JSON.toJSONString(contents);
-        out.print(jsonString);
-    }*/
-
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getServletPath();
@@ -52,7 +43,7 @@ public class ContentServlet extends HttpServlet {
     public void getList(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        List<Content> contents = contentService.getAllContent();
+        List<Content> contents = contentService.getAllContents();
         String jsonString = JSON.toJSONString(contents);
         out.print(jsonString);
     }
@@ -62,8 +53,12 @@ public class ContentServlet extends HttpServlet {
      * @param request request object
      * @param response response object
      */
-    public void saveList(HttpServletRequest request, HttpServletResponse response) {
+    public void saveList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/json;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         String json = request.getParameter("json");
-        DataParseUtil.parseJSON(json);
+        int count = contentService.saveContents(json);
+        String retJson = "{'count':" + count + "}";
+        out.print(count);
     }
 }

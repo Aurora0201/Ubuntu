@@ -1038,6 +1038,67 @@ private XxxMapper xxxMapper = SqlSession.openSession().getMapper(XxxMapper.class
     </set>
     ```
 
-+ set标签一般用于update语句中，与if语句配合使用，当我们没有想对其中的一些列修改时，其他列传入的null值会被过滤掉，同时还会自动去掉末尾的`,`
++ set标签一般用于update语句中，与if语句配合使用，会动态的生成`set`，当我们想对其中的一些列修改时，其他列传入的null值会被过滤掉，同时还会自动去掉末尾的`,`
 
 ### 5.控制标签
+
+流程控制标签包含三个
+
++ choose
++ when
++ otherwise
+
++ 他们的结构如下
+
+    ```xml
+    <choose>
+    	<when test=""></when>
+        <when test=""></when>
+        <when test=""></when>
+        <otherwise></otherwise>
+    </choose>
+    ```
+
+    他们就像Java中的流程控制语句，只会选择一个分支执行
+
+### 6.foreach标签
+
+foreach标签的作用就相当于是遍历循环，对数组或者集合进行遍历，每次生成一个数字填入，并且会自动的去掉多余的末尾符号
+
++ 下面是foreach的结构
+
+    ```xml
+    delete form t_car where id in (
+    	<foreach collection="" item="id" separator="," open="" close="">
+    		#{id}		
+    	</foreach>
+    )
+    ```
+
++ 可以看到，foreach标签中有五个属性，分别是
+
+    + collection
+        + 指定需要遍历的集合或者数组，在没有使用`@Param`的情况下，只能使用`array|arg0`，或者使用自己指定的名字
+    + item
+        + 遍历元素的名字，与下面占位符中的名字一致
+    + separator
+        + 用来分隔每次遍历的元素的符号
+    + open
+        + foreach语句以什么开始
+    + close
+        + foreach语句以什么结束
+
+
+
+## 9.高级映射
+
+在实际应用中，我们使用的数据库不会只有一张表，一般都会使用多表进行联合查询，之前都是一个对象对应一个数据记录，现在可能会存在下面两种情况：
+
++ 多对一
++ 一对多
+
+
+
+先来讲一下`多对一`的情况
+
+现在我们给出两张表，t_stu(sid,sname,cid)，t_clazz(cid,cname)，t_stu表中的`cid`是外键

@@ -1,22 +1,28 @@
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String[] args) throws Exception{
-        BufferedReader fileReader = new BufferedReader(new FileReader("data.csv"));
-//        System.out.println(fileReader.readLine());
-        String tmp;
-        while ((tmp = fileReader.readLine()) != null) {
-//            System.out.println(tmp);
-            String[] split = tmp.split(",");
-            System.out.println(split[0]);
+    public static void main(String[] args) {
+        try {
+            URL url = new URL("http://localhost:8080/ea/saveList?json=%E4%BD%A0%E5%A5%BD");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
 
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+
+            System.out.println(response.toString());
+        } catch (Exception e) {
+            System.out.println("Error occurred: " + e.getMessage());
         }
     }
 }
-

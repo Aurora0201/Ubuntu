@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.framework.mapper.StudentMapper">
+
+    <select id="selectById" resultType="Student">
+        select * from t_student where id = #{id}
+    </select>
+    <select id="selectByMultiCondition" resultType="Student">
+        select * from t_student
+        <where>
+            <if test="name != null and name != ''">
+                name like "%"#{name}"%"
+            </if>
+            <if test="age != null and age != ''">
+                and age >= #{age}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = 'M'
+            </if>
+        </where>
+    </select>
+
+    <update id="updateById">
+        update
+            t_student
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="age != null and age != ''">
+                age = #{age},
+            </if>
+        </set>
+        where
+            id = #{id}
+
+    </update>
+</mapper>

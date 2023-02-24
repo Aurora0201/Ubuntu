@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-@WebServlet({"/dept/list", "/dept/add", "/dept/edit","/dept/delete","/dept/detail","/dept/modify"})
+@WebServlet({"/dept/list", "/dept/add", "/dept/edit","/dept/delete","/dept/detail","/dept/modify","/dept/test"})
 /*
     Also we can use like
     @WebServlet("/dept/*")
@@ -45,7 +45,12 @@ public class DeptServlet extends HttpServlet {
             doDetail(request,response);
         }else if (name.equals("/dept/modify")) {
             doModify(request,response);
-        }
+        } else doTest(request, response);
+    }
+
+    private void doTest(HttpServletRequest request, HttpServletResponse response) {
+        String json = request.getParameter("json");
+        System.out.println(json);
     }
 
     private void doDetail(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

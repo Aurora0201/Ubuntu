@@ -29,6 +29,7 @@ public class DataParseUtil {
     /**
      * delete the old date,read the csv file and save the data to mysql
      */
+    @Deprecated
     public static void parseCsv() {
         SqlSession sqlSession = SqlSessionUtil.openSession();
         ContentMapper mapper = sqlSession.getMapper(ContentMapper.class);
@@ -57,20 +58,19 @@ public class DataParseUtil {
     }
 
     /**
-     * parse JSON and save to mysql
+     * parse json and return a list
+     * @param text json String
+     * @return list of Content
      */
-    public static void parseJSON(String text) {
-        SqlSession sqlSession = SqlSessionUtil.openSession();
-        ContentMapper mapper = sqlSession.getMapper(ContentMapper.class);
-        mapper.deleteContent();
+    public static List<Content> parseJSON(String text) {
+        List<Content> contents = new ArrayList<>();
         JSONArray jsons = JSON.parseArray(text);
         jsons.forEach(json -> {
             JSONObject jsonObject = JSONObject.parseObject(json.toString());
             Content content = (Content) JSON.to(Content.class, jsonObject);
 //            System.out.println(content);
-            mapper.insertContent(content);
+            contents.add(content);
         });
-        sqlSession.commit();
-        SqlSessionUtil.close();
+        return contents;
     }
 }
