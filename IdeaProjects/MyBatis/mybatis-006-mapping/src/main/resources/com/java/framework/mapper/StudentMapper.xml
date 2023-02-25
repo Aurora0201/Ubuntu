@@ -16,4 +16,33 @@
         from
             t_stu s left join t_clazz c on s.cid = c.cid
     </select>
+
+<!--    the second way-->
+    <resultMap id="associateResultMap" type="Student">
+        <id property="sid" column="sid"/>
+        <result property="sname" column="sname"/>
+        <association property="clazz" javaType="Clazz">
+            <id property="cid" column="cid"/>
+            <result property="cname" column="cname"/>
+        </association>
+    </resultMap>
+
+    <select id="selectByIdAssociate" resultMap="associateResultMap">
+        select
+            s.sid, s.sname, c.cid, c.cname
+        from
+            t_stu s left join t_clazz c on s.cid = c.cid
+        where
+            sid = #{id}
+    </select>
+<!--    the third way-->
+    <resultMap id="selectByTwice" type="Student">
+        <id property="sid" column="sid"/>
+        <result property="sname" column="sname"/>
+        <association property="clazz" select="com.java.framework.mapper.ClazzMapper.selectByIdStep2" column="cid"/>
+    </resultMap>
+
+    <select id="selectByIdStep1" resultMap="selectByTwice">
+        select * from t_stu where sid = #{sid}
+    </select>
 </mapper>

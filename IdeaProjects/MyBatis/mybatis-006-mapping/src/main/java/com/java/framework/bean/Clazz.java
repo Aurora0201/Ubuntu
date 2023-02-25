@@ -4,6 +4,14 @@ public class Clazz {
     private Integer cid;
     private String cname;
 
+    @Override
+    public String toString() {
+        return "Clazz{" +
+                "cid=" + cid +
+                ", cname='" + cname + '\'' +
+                '}';
+    }
+
     public void setCid(Integer cid) {
         this.cid = cid;
     }

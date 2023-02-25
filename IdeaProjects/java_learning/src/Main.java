@@ -5,24 +5,42 @@ import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) {
-        try {
-            URL url = new URL("http://localhost:8080/ea/saveList?json=%E4%BD%A0%E5%A5%BD");
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
+        System.out.println(new Student());
+    }
+}
 
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
+class Student{
+    private String name;
+    private Address address;
 
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
+    public Student() {
+        name = "ZhangSan";
+        address = new Address();
+    }
 
-            System.out.println(response.toString());
-        } catch (Exception e) {
-            System.out.println("Error occurred: " + e.getMessage());
-        }
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", address=" + address +
+                '}';
+    }
+}
+
+class Address{
+    private String country;
+    private String province;
+
+    public Address() {
+        country = "China";
+        province = "GuangXi";
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "country='" + country + '\'' +
+                ", province='" + province + '\'' +
+                '}';
     }
 }

@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface StudentMapper {
     List<Student> selectById(Integer id);
+
+    List<Student> selectByIdAssociate(Integer id);
+
+    List<Student> selectByIdStep1(Integer id);
 }

@@ -5,6 +5,10 @@ public class Student {
     private String sname;
     private Clazz clazz;
 
+    public String retClazz() {
+        return clazz + "123";
+    }
+
     @Override
     public String toString() {
         return "Student{" +
