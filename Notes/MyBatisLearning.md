@@ -1099,6 +1099,14 @@ foreach标签的作用就相当于是遍历循环，对数组或者集合进行�
 
 
 
+多对一和一对多怎么区分主表？
+
++ 谁在前，谁就是主表，比如多对一，多的就是主表，主表中应该有副表的属性
+
+
+
+### 1.多对一映射
+
 先来讲一下`多对一`的情况
 
 现在我们给出两张表，t_stu(sid,sname,cid)，t_clazz(cid,cname)，t_stu表中的`cid`是外键
@@ -1106,4 +1114,82 @@ foreach标签的作用就相当于是遍历循环，对数组或者集合进行�
 ![1](https://img.noobzone.ru/getimg.php?url=https://cdn.jsdelivr.net/gh/Aurora0201/ImageStore@main/img/1-1677240142225-1.png)
 
 因为我们查询的是学生，有很多个学生是一个班级的，学生与班级是多对一的关系，那么我们应该在Student中设置一个Clazz属性，用来表示一个学生的班级，那么实现这种多对一的关系我们三种方式：
+
++ 一条SQL语句，级联属性映射
+
+    + 这是最简单的实现方式，只需要一条SQL语句和一个resultMap，形式如下
+
+        ```xml
+        <!--    the first way-->
+        <resultMap id="studentResultMap" type="Student">
+            <id property="sid" column="sid"/>
+            <result property="sname" column="sname"/>
+            <result property="clazz.cid" column="cid"/>
+            <result property="clazz.cname" column="cname"/>
+        </resultMap>
+        
+        <select id="selectById" resultMap="studentResultMap">
+            select
+                s.sid, s.sname, c.cid, c.cname
+            from
+                t_stu s left join t_clazz c on s.cid = c.cid
+        </select>
+        ```
+
+        如上所示，我们需要做的就是在result标签中，把依赖属性进行拆分成`类名.属性`的形式
+
++ 一条SQL语句，association标签
+
+    + 这种方式其实就是上一条的另一种实现形式，只需要对resultMap进行修改即可，如下
+
+        ```xml
+        <!--    the second way-->
+        <resultMap id="associateResultMap" type="Student">
+            <id property="sid" column="sid"/>
+            <result property="sname" column="sname"/>
+            <association property="clazz" javaType="Clazz">
+                <id property="cid" column="cid"/>
+                <result property="cname" column="cname"/>
+            </association>
+        </resultMap>
+        
+        <select id="selectByIdAssociate" resultMap="associateResultMap">
+            select
+                s.sid, s.sname, c.cid, c.cname
+            from
+                t_stu s left join t_clazz c on s.cid = c.cid
+            where
+                sid = #{id}
+        </select>
+        ```
+
+        将第一种级联映射的方式使用`association`标签进行替换，相当于在`resultMap`中再写了一个`resultMap`
+
++ 两条SQL，分步查询（实际开发中常用，优点是复用性高，支持懒加载）
+
+    + 这种方式调用了两条SQL语句，所以实现方式相对于上面的两种方法更为复杂，类似于SQL中子查询的操作，下面是实现步骤
+
+    + 首先创建`StudentMapper,ClazzMapper`接口以及对应的`.xml`文件
+
+    + 首先思考我们在数据库中是怎么操作的，先查出s_stu表的cid，再通过cid去查t_clazz表，那么了解了查询的方式实现起来就简单了
+
+    + 首先查t_stu表
+
+        ```xml
+        <select id="selectById" resultMap="selectClazz">
+        	select * from t_stu where sid = #{sid}
+        </select>
+        ```
+
+    + 然后我们要调用另一条SQL语句，同时把得到的参数`cid`传进去
+    
+    + ```xml
+        <resultMap id="selectClazz" type="Student">
+        	<id property="sid" column="sid"/>
+            <result property="sname" column="sid"/>
+            <associate property="clazz" select="mapper.selectById" column="cid"/>
+        </resultMap>
+        ```
+    
+    + 如上，把`cid`作为select语句的参数传入，那么本次的查询就完成了
 
