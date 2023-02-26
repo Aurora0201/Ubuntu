@@ -1,5 +1,6 @@
 import com.java.framework.bean.Clazz;
 import com.java.framework.bean.Student;
+import com.java.framework.mapper.ClazzMapper;
 import com.java.framework.mapper.StudentMapper;
 import com.java.framework.util.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
@@ -34,4 +35,22 @@ public class StudentMapperTest {
         students.forEach(System.out::println);
 
     }
+
+    @Test
+    public void selectClazzByFirst() {
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        ClazzMapper mapper = sqlSession.getMapper(ClazzMapper.class);
+        Clazz clazz = mapper.selectByCid(1001);
+        System.out.println(clazz);
+    }
+
+    @Test
+    public void selectClazzBySecond() {
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        ClazzMapper mapper = sqlSession.getMapper(ClazzMapper.class);
+        Clazz clazz = mapper.selectByCid2(1001);
+        System.out.println(clazz);
+    }
+
+
 }

@@ -10,4 +10,6 @@ public interface StudentMapper {
     List<Student> selectByIdAssociate(Integer id);
 
     List<Student> selectByIdStep1(Integer id);
+
+    List<Student> selectByIdStep2(Integer id);
 }

@@ -6,4 +6,30 @@
     <select id="selectByIdStep2" resultType="Clazz">
         select * from t_clazz where cid = #{cid}
     </select>
+
+
+<!--    the first way-->
+
+    <resultMap id="ClazzMap" type="Clazz">
+        <id property="cid" column="cid"/>
+        <result property="cname" column="cname"/>
+        <collection property="stus" ofType="Student">
+            <id property="sid" column="sid"/>
+            <result property="sname" column="sname"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectByCid" resultMap="ClazzMap">
+        select * from t_clazz c left join t_stu s on c.cid=s.cid where c.cid = #{cid}
+    </select>
+
+<!--    the second way-->
+    <resultMap id="Clazz" type="Clazz">
+        <id property="cid" column="cid"/>
+        <result property="cname" column="cname"/>
+        <collection  property="stus" select="com.java.framework.mapper.StudentMapper.selectByIdStep2" column="cid"/>
+    </resultMap>
+    <select id="selectByCid2" resultMap="Clazz">
+        select * from t_clazz where cid = #{cid}
+    </select>
 </mapper>

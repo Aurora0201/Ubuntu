@@ -45,4 +45,9 @@
     <select id="selectByIdStep1" resultMap="selectByTwice">
         select * from t_stu where sid = #{sid}
     </select>
+
+
+    <select id="selectByIdStep2" resultType="Student">
+        select * from t_stu where cid = #{cid}
+    </select>
 </mapper>

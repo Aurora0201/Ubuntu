@@ -6,6 +6,7 @@
     <properties resource="jdbc.properties"/>
     <settings>
         <setting name="logImpl" value="SLF4J"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
     </settings>
     <typeAliases>
         <package name="com.java.framework.bean"/>
