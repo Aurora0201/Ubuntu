@@ -1,6 +1,6 @@
-## 1.Servlet
+# 1.Servlet
 
-### 1.实现一个最基本的web应用
+## 1.实现一个最基本的web应用
 
 第一步在`tomcat/webapps`下新建一个目录叫做`oa`，那么这个oa就是我们这个应用的名字，然后放入我们的`index.html`文件
 
@@ -8,7 +8,7 @@
 
 ---
 
-### 2.模拟Servlet
+## 2.模拟Servlet
 
 对于Java程序员来说，我们只要编写一个类实现Servlet接口， 将编写的类配置到文件中，指定`请求路径`和`类名`的关系
 
@@ -25,7 +25,7 @@
 
 ---
 
-### 3.开发第一个`Servlet`
+## 3.开发第一个`Servlet`
 
 开发步骤：
 
@@ -114,7 +114,7 @@
     
     
 
-### 4.使用集成开发环境开发Servlet程序
+## 4.使用IDEA开发Servlet程序
 
 第一步:基础搭建
 
@@ -203,9 +203,9 @@ File --> Project Structrue --> Modules --> Dependeencies --> 添加Library或者
 
 -----
 
-### 5.Servlet生命周期
+## 5.Servlet生命周期
 
-#### 1.创建的时机
+### 1.创建的时机
 
 + 网站中所有的Servlet接口实现类的实例对象，只能由Http服务器负责创建。
 
@@ -252,7 +252,7 @@ public class HelloServlet implements Servlet {
 }
 ```
 
-#### 2.关于Servlet类中方法的调用次数
+### 2.关于Servlet类中方法的调用次数
 
 - 无参构造方法只执行一次，程序员只能提供无参构造或者不提供构造方法，建议不提供
 - init方法只执行一次，通常在Servlet对象被创建后调用，做初始化操作
@@ -275,9 +275,9 @@ public class HelloServlet implements Servlet {
 
 ---
 
-### 6.Servlet的实现
+## 6.Servlet的实现
 
-#### 1.实现一个Servlet
+### 1.实现一个Servlet
 
 + 在webapp编写过程中，我们既可以实现`Servlet`接口，也可以去继承`GenericServlet`类:
 
@@ -290,9 +290,9 @@ public class HelloServlet implements Servlet {
 
 ---
 
-#### 2.ServletConfig对象
+### 2.ServletConfig对象
 
-##### 1.定义
+定义
 
 + ServletConfig是什么？
     + ServletConfig是Jakarta内部提供的一个接口
@@ -309,7 +309,7 @@ public class HelloServlet implements Servlet {
 
 ---
 
-##### 2.局部配置文件
+局部配置文件
 
 ```xml
 <!--我们可以在xml文件中配置一个Servlet对象的初始化信息，这些init标签应该放到<servlet>标签中-->
@@ -329,13 +329,11 @@ public class HelloServlet implements Servlet {
 	<param-name>password</param-name>
     <param-value>root1234</param-value>
 </init-param>
-
-
 ```
 
 ---
 
-##### 3.配置文件的解析
+配置文件的解析
 
 + 以上`<servlet></servlet>标签中的<init-param></init-param>`标签会被`Tomcat`封装进`ServletConfig`对象中，我们可以通过两个方法获取：
 
@@ -366,9 +364,9 @@ public class HelloServlet implements Servlet {
 
 ---
 
-#### 3.ServletContext对象
+### 3.ServletContext对象
 
-##### 1.定义
+定义
 
 1.ServletContext是什么？
 
@@ -393,7 +391,7 @@ public class HelloServlet implements Servlet {
 
 ---
 
-##### 2.全局配置
+全局配置
 
 那么根据ServletContext的这个特性，我们可以通过在xml文件中编写上下文的初始化参数，用于全局的配置
 
@@ -409,11 +407,9 @@ public class HelloServlet implements Servlet {
 </context-param>
 ```
 
-
-
 ---
 
-##### 3.配置文件解析
+配置文件解析
 
 在ServletContext中同样内置了两个方法用来读取这些初始化的数据
 
@@ -436,7 +432,7 @@ jakarta.servlet.ServletContext application = getServletContext();
 
 ---
 
-##### 4.目录获取
+目录获取
 
 ```java
 String contextPath = request.getContextPath();
@@ -450,7 +446,7 @@ String realPath = application.getRealPath("path");
 
 ---
 
-##### 5.记录日志
+记录日志
 
 ```java
 public void log(String message);
@@ -459,7 +455,7 @@ public void log(String message);
 
 ---
 
-##### 6.数据的增删改查
+数据的增删改查
 
 ServletContext对象还有一个名字，应用域，如果所有用户共享一份数据，且这份数据量不大，修改较少或者几乎不修改，那么我们可以把这份数据放在ServletContext中：
 
@@ -482,7 +478,7 @@ public void removeAttribute(String name);
 
 ---
 
-### 7.Servlet其他常用方法
+## 7.Servlet其他常用方法
 
 ```java
 response.setContentType("text/html;charset=UTF-8");//设置输出格式和字符集
@@ -494,7 +490,7 @@ getServletConfig();//获取请求域配置文件
 
 ---
 
-### 8.HttpServlet引子
+## 8.HttpServlet引子
 
 我们以后编写Servlet类的时候，实际上不会去直接继承GenericServlet，因为我们使用的是B/S结构的系统，这种系统是基于HTTP超文本传输协议的，在Servlet规范当中，提供了一个叫HttpServlet的类，是专门为Http准备的一个Servlet类，我们编写Servlet类的时候要去继承HttpServlet，使用HTTP协议更加敏捷，下面是他的继承结构:
 
@@ -508,7 +504,7 @@ jakarta.servlet.http.HttpServlet extends GenericServlet(abstract class);
 
 ---
 
-### 9.缓存机制
+## 9.缓存机制
 
 + 堆内存中的字符串常量池
     + 创建字符串时，先在常量池查找，如果有就会指向这个对象，如果没有就会在常量池创建一个新的字符串对象
@@ -527,7 +523,7 @@ jakarta.servlet.http.HttpServlet extends GenericServlet(abstract class);
 
 ---
 
-### 10.HTTP协议
+## 10.HTTP协议
 
 + 什么是协议？
     + 协议实际上是某些人，或者某些组织指定好的一套规范，大家都按照规范来沟通就没有障碍
@@ -622,11 +618,11 @@ jakarta.servlet.http.HttpServlet extends GenericServlet(abstract class);
 
 ---
 
-### 11.HttpServlet
+## 11.HttpServlet
 
 在HttpServlet中返回ServletRequest和请求ServletResponse的类型都变成了HttpServletRequest和HttpServletResponse，所以我们首先要学习这两个接口中的常用方法
 
-#### 1.获取用户的get请求或者post请求的数据
+### 1.获取用户的get请求或者post请求的数据
 
 ```java
 Map<String, String[]> parameterMap = request.getParameterMap();//返回请求的name和value集合
@@ -638,7 +634,7 @@ String value = request.getParameter("key");//获取value集合中的第一个元
 
 ---
 
-#### 2.请求域的使用
+### 2.请求域的使用
 
 + 请求域的问题，与应用域类似，在Servlet还存在一个请求域，与应用域相比，请求域小很多，生命周期短很多，请求域只在一次请求内有效。
 + 一个请求对象request对应一个请求域对象，一次请求结束后就销毁了，请求域对象也有三个方法
@@ -654,7 +650,7 @@ void removeAttribute(String name);//删除请求域中的数据
 
 ---
 
-#### 3.资源转发机制
+### 3.资源转发机制
 
 + Servlet资源转发机制，执行了A之后，我们想跳转到B，这时就需要利用转发机制
 + 首先把下一个资源的地址包装到资源转发器当中，然后调用资源转发器的方法，实现资源的转发
@@ -671,7 +667,7 @@ request.getRequestDispatcher("下一个资源的路径").forward(request, respon
 
 ---
 
-#### 4.其他一些常用方法
+### 4.其他一些常用方法
 
 + Request中的其他方法
 
@@ -697,9 +693,9 @@ String servletPath = request.getServletPath();
 
 ---
 
-### 12.HttpServlet + JDBC + MySQL 编写简单的B/S系统
+## 12.HttpServlet + JDBC + MySQL 编写简单的B/S系统
 
-#### 1.需求分析
+### 1.需求分析
 
 构建一个系统前，首先我们要对用户的角度入手，分析用户的需求，那么从当前我们的系统入手，大概有以下几点：
 
@@ -712,7 +708,7 @@ String servletPath = request.getServletPath();
 
 ---
 
-#### 2.系统构建流程
+### 2.系统构建流程
 
 完成系统设计之后，不应该急着写代码，应该构思如何去编写代码，一般来说有下面两种方法：
 
@@ -785,7 +781,7 @@ public class JDBCUtils {
 
 ---
 
-#### 3.list页面的构建
+### 3.list页面的构建
 
 首先，用户会看到的是index页面，但是这里我们没有，所以直接显示list页面，首先创建一个html文件，编写大概的页面
 
@@ -932,7 +928,7 @@ public class JDBCUtils {
 
 ---
 
-#### 4.delete页面的构建
+### 4.delete页面的构建
 
 + 那么下面就是delete页面的构建，用户首先会从list页面跳转至delete页面，同样的，先在web.xml中进行注册，然后修改list的代码，让超链接能够跳转至delete
 
@@ -1007,7 +1003,7 @@ public class JDBCUtils {
 
 ---
 
-#### 5.add界面的构建
+### 5.add界面的构建
 
 那么下面就是add界面的构建了，首先用户会点击“Add item”然后跳转至添加界面，在表单中填写添加的条目，最后点击提交按钮，数据就会上传到服务器，添加到数据库中，最后跳转到list页面，下面是步骤：
 
@@ -1086,7 +1082,7 @@ public class JDBCUtils {
 
 ---
 
-#### 6.edit页面的构建
+### 6.edit页面的构建
 
 首先，这个页面相对前面的页面会稍稍复杂一些，首先用户点击“edit”跳转至修改的页面，但是这个页面是动态的，所以这里要先对数据库进行查询，然后将可以修改的数据显示在修改框中，用户可以修改然后点击提交按钮，然后表单将数据提交至服务器完成修改，用户跳转至list页面，这里用户第一次跳转的时候，使用的是get请求，而第二次提交数据时，是post请求，所以这里我们可以写在一个DeptEdit类里，然后同时覆盖get和post方法，下面是构建的过程：
 
@@ -1188,7 +1184,7 @@ public class JDBCUtils {
 
 ---
 
-#### 7.对于这个项目的总结
+### 7.对于这个项目的总结
 
 虽然这个项目大部分的功能都实现了，但是还是有很多不足的地方：
 
@@ -1201,7 +1197,7 @@ public class JDBCUtils {
 
 ---
 
-### 13.资源的转发和重定向
+## 13.资源的转发和重定向
 
 对于资源的跳转我们有两种方法：
 
@@ -1245,7 +1241,7 @@ public class JDBCUtils {
 
 ---
 
-### 14.基于注解开发Servlet
+## 14.基于注解开发Servlet
 
 首先我们发现通过web.xml配置文件开发效率十分的低下，所以在Servlet3.0及以上版本，提供了注解开发方式，可以将一部分的配置文件写在java代码中，极大的提高了开发的效率，所以目前的开发模式一般是注解+配置文件的形式，下面就来详细了解注解的使用：
 
@@ -1271,7 +1267,7 @@ public class JDBCUtils {
 
 ---
 
-### 15.使用模板方法改造OA项目
+## 15.使用模板方法改造OA项目
 
 对于之前的项目，我们使用了六个类来解决六个问题，显然这是非常复杂且浪费资源的方法，那么有什么方法去优化呢？
 
@@ -1559,9 +1555,9 @@ public class JDBCUtils {
 
 ---
 
-## 2.JSP
+# 2.JSP
 
-### 1.仅使用Servlet开发web应用的缺陷
+## 1.仅使用Servlet开发web应用的缺陷
 
 + 使用java编写html/css/js等前端代码的缺点
 + 编写难度大，麻烦
@@ -1571,7 +1567,7 @@ public class JDBCUtils {
 
 ---
 
-### 2.什么是JSP？
+## 2.什么是JSP？
 
 + JSP是一套规范，所有的web容器/web服务器都会遵循这一套规范进行翻译，每一个web容器/web服务器都会内置一个jsp翻译器，当`.jsp`文件被访问时，实际上会自动的翻译生成`_jsp.java`文件，并且自动编译生成`_jsp.class`文件
 + JSP和Servlet的生命周期是一样的，他们完全是一个东西，也就是说`JSP就是Servlet`
@@ -1582,7 +1578,7 @@ public class JDBCUtils {
 
 ---
 
-### 3.JSP的基础语法
+## 3.JSP的基础语法
 
 编写普通的html代码和网页内容
 
@@ -1648,7 +1644,7 @@ JSP语法总结
 
 ---
 
-### 4.使用JSP改造OA项目
+## 4.使用JSP改造OA项目
 
 使用JSP改造OA项目的步骤：
 
@@ -1799,7 +1795,7 @@ JSP语法总结
 
 
 
-#### 1.改造OA过程中遇到的问题
+### 1.改造OA过程中遇到的问题
 
 上面就是这个项目通过JSP改造的大致过程，下面还是总结一下遇到的问题：
 
@@ -1807,15 +1803,15 @@ JSP语法总结
 + 动态路径问题，本项目同时使用了动态路径访问的方法，使用了`request.getContextPath()`来替换`/oa`，动态的路径能让程序解耦合，提高了编程的效率
 + 请求域变量和转发的问题，对于在一个Servlet中完成数据查询的功能，然后使用JSP打印数据，明显使用了数据共享，所以这里要使用资源转发和请求域变量，这里使用了两个主要的方法`request.setAttribute()/request.getAttribute()`，这里需要注意的地方有，这两个方法存取的都是`Object`对象，所以在取出数据时，要使用强制类型转换，否则可能出现数据错误的问题
 
-#### 2.当前OA仍然存在的问题
+### 2.当前OA仍然存在的问题
 
 + 任何一个用户都可以对系统的数据进行增删改查的操作，如何去解决这个问题？添加一个用户登录的系统
 
 ---
 
-### 5.实现登录功能
+## 5.实现登录功能
 
-#### 1.实现一个简单的登录系统
+### 1.实现一个简单的登录系统
 
 + 步骤1
 
@@ -1835,7 +1831,7 @@ JSP语法总结
 
 
 
-#### 2.实现步骤
+### 2.实现步骤
 
 + 首先在数据库中建立一个表，这里我们就事先插入数据
 
@@ -1869,16 +1865,16 @@ JSP语法总结
 
 
 
-#### 3.登录系统存在的问题
+### 3.登录系统存在的问题
 
 + 这样的登录系统就是个摆设，只要用户知道后端的地址，照样可以不登录直接进行操作，没有起到拦截作用，那么怎么改进
 + 使用会话
 
 ---
 
-### 6.B/S结构系统中的Session机制
+## 6.B/S结构系统中的Session机制
 
-#### 1.什么是session？
+### 1.什么是session？
 
 + session的中文翻译是“会话”
 + 用户从开启浏览器以及后续的一系列操作到最后关闭浏览器，这整个过程称为一次会话，会话在服务端有个对应的java对象：Session
@@ -1886,21 +1882,21 @@ JSP语法总结
 
 
 
-#### 2.Java中的session对象
+### 2.Java中的session对象
 
 + 在Java的Servlet规范中，session对应的类名是：HttpSession(jakarta.servlet.http.httpSession)
 + session机制属于B/S结构的一部分，session实际上是一个规范，在不同的语音中都会有对session机制的实现
 
 
 
-#### 3.session的作用
+### 3.session的作用
 
 + session对象最重要的作用就是：保存会话状态
 + 用户登录成功了，这是一种状态，我们需要通过一种手段把这种状态保存下来，这就是session的作用
 
 
 
-#### 4.为什么需要session来保存会话状态
+### 4.为什么需要session来保存会话状态
 
 + 因为HTTP协议是一种无状态协议
 + 什么是无状态，请求的时候，B/S是建立连接的，请求结束后，连接就切断了
@@ -1908,7 +1904,7 @@ JSP语法总结
 
 
 
-#### 5.使用session保存会话的理由
+### 5.使用session保存会话的理由
 
 + request是请求域对象，请求域对象的生命周期是从请求开始创建，请求结束销毁，存在的时间过短
 + ServletContext对象是应用域对象，应用域对象的生命周期是从服务器开机开始创建，到服务器关闭销毁，存在时间过长
@@ -1917,7 +1913,7 @@ JSP语法总结
 
 
 
-#### 6.session的获取
+### 6.session的获取
 
 + ```java
     Httpsession session = request.getSession();
@@ -1926,7 +1922,7 @@ JSP语法总结
 
 
 
-#### 7.session的实现原理
+### 7.session的实现原理
 
 + 在web服务器中有一个session列表类似于map集合，map集合中key是sessionID，value是session对象
 + 在用户第一次发起请求的时候，服务器会创建一个新的session对象，同时给对象一个id，然后将id发送给浏览器，浏览器将id保存在`缓存`中
@@ -1934,11 +1930,11 @@ JSP语法总结
 
 + JSESSIONID="..." 这个是以`cookie`的形式保存在浏览器中的，浏览器只要关闭，这个cookie就没有了
 
-#### 8.为什么关闭浏览器后会话结束？
+### 8.为什么关闭浏览器后会话结束？
 
 + 因为关闭浏览器后，浏览器缓存中保留的sessionID会被释放，下次打开浏览器时这个id已经消失了，服务器只能再次新建一个session，所以之前的会话相当于已经结束了
 
-#### 9.cookie禁用了，session还能找到么？
+### 9.cookie禁用了，session还能找到么？
 
 + cookie禁用是指，虽然服务器会生成一个sessionID返回到浏览器，但是浏览器拒收了
 + 禁用后，因为每一次都没有id，所以每次服务器都会重新生成一个session
@@ -1946,9 +1942,9 @@ JSP语法总结
     + URL重写机制，通过在URL的末尾加上`;jsessionid=...`，即使禁用了cookie也能找到session
     + URL重写机制会提高开发者的成本，开发者在编写任何请求路径的时候都要添加一个sessionID，给开发带来了很大的难度
 
-### 7.改造登录系统
+## 7.改造登录系统
 
-#### 1.对于系统存在的问题
+### 1.对于系统存在的问题
 
 + 在上文提到过，登录系统目前的主要问题就是没有对用户进行过滤，只要知道后端的访问地址，用户不用登录也能对后台进行操作
 + 对于这个问题的解决，我们将使用session对用户进行过滤，没有登录的用户无法访问后端的地址
@@ -1956,7 +1952,7 @@ JSP语法总结
 
 
 
-#### 2.改造过程
+### 2.改造过程
 
 + 首先新建一个Servlet，我们将用户登录和退出的代码写在这个Servlet中
 
@@ -2044,7 +2040,7 @@ JSP语法总结
 
 
 
-#### 3.调试中存在的一些问题
+### 3.调试中存在的一些问题
 
 + 在调试的过程中，我们发现，即使我们没有登录过，进入list页面时，假如过滤条件中没有`session.getAttribute("username") != null`，那么仍然是可以访问成功的，如果使用debug模式发现，此时Servlet仍然可以获取到session，这是为什么呢？
     + 因为第一次我们访问的是login.jsp页面，访问jsp时，jsp中自动创建了session对象，所以即使我们没有进行登录，一样可以获取到session，所以这第二个条件就尤为重要
@@ -2052,9 +2048,9 @@ JSP语法总结
 
 ----
 
-### 8.Cookie机制
+## 8.Cookie机制
 
-#### 1.什么是cookie，cookie是怎么去发送的？
+### 1.什么是cookie，cookie是怎么去发送的？
 
 + cookie和session一样都是HTTP协议的一部分
 
@@ -2062,7 +2058,7 @@ JSP语法总结
 
 + HTTP中规定，浏览器发送请求时，会自动携带`/path`下的cookie一起发送到服务器
 
-#### 2.cookie储存在哪？
+### 2.cookie储存在哪？
 
 + cookie是存储在客户端的
 
@@ -2071,7 +2067,7 @@ JSP语法总结
 
 
 
-#### 3.cookie有什么作用？
+### 3.cookie有什么作用？
 
 + cookie和session一样，都是用来保存会话状态的
 + cookie是在客户端的
@@ -2080,7 +2076,7 @@ JSP语法总结
 
 
 
-#### 4.在Java中怎么使用cookie？
+### 4.在Java中怎么使用cookie？
 
 + 在Java中有一个类提供了cookie，jakarta.servlet.http.Cookie
 
@@ -2106,16 +2102,16 @@ JSP语法总结
 
 ---
 
-### 9.实现10天免登陆
+## 9.实现10天免登陆
 
-#### 1.需求分析
+### 1.需求分析
 
 + 我们需要对登录系统进行改进，首先是在登录界面添加`10天内免登陆`的选项
 + 添加`Welcome`Servlet对`cookie`信息进行查询并验证，实现自动登录
 
 
 
-#### 2.实现过程
+### 2.实现过程
 
 + JSP中添加代码
 
@@ -2169,15 +2165,15 @@ JSP语法总结
 
 ---
 
-### 10.JSP指令
+## 10.JSP指令
 
-#### 1.JSP指令的作用
+### 1.JSP指令的作用
 
 + 指导JSP翻译引擎如何工作
 
 
 
-#### 2.指令
+### 2.指令
 
 + include指令：基本不用，不做要求
 + taglib指令：引入标签库的指令，到JSTL再学习
@@ -2185,7 +2181,7 @@ JSP语法总结
 
 
 
-#### 3.语法
+### 3.语法
 
 + ```jsp
     <%@指令名 属性名=属性 属性名=属性...%>
@@ -2193,7 +2189,7 @@ JSP语法总结
 
 
 
-#### 4.Page中常用属性
+### 4.Page中常用属性
 
 + ```jsp
     <%@page contentType="text/html;charset=UTF-8"%> //设置响应的类型和字符集
@@ -2214,7 +2210,7 @@ JSP语法总结
 
 
 
-#### 5.JSP九大内置对象
+### 5.JSP九大内置对象
 
 + pageContext 页面作用域
 + request 请求作用域
@@ -2230,9 +2226,9 @@ JSP语法总结
 
 ---
 
-### 11.EL表达式
+## 11.EL表达式
 
-#### 1.什么是EL表达式？
+### 1.什么是EL表达式？
 
 + Expression Language 表达式语言
 + EL表达式可以代替JSP中的Java代码，让代码看起来更简洁，美观
@@ -2240,13 +2236,13 @@ JSP语法总结
 
 
 
-#### 2.EL表达式的作用
+### 2.EL表达式的作用
 
 + 从某个作用域取出数据，转换成字符串，然后输出到浏览器，这就是EL表达式的功效
 
 
 
-#### 3.EL表达式的使用
+### 3.EL表达式的使用
 
 基础EL表达式的使用
 
@@ -2359,31 +2355,31 @@ EL表达式中的隐含对象
 
 ---
 
-### 12.JSTL标签库
+## 12.JSTL标签库
 
-#### 1.什么是JSTL标签库？
+### 1.什么是JSTL标签库？
 
 + Java Standard Tag Lib Java标准标签库
 + JSTL通常与EL表达式一起使用，目的是为了让JSP中的Java代码消失
 
 ---
 
-### 13.Filter过滤器
+## 13.Filter过滤器
 
-#### 1.当前OA项目存在的问题
+### 1.当前OA项目存在的问题
 
 + 项目中存在多个Servlet，但是每个Servlet执行之前都需要判断用户是否登录，这段判断用户是否登录的代码是相同的，显然代码没有得到重复利用，而且在某些项目中都要处理乱码问题，存在相同代码执行多次的情况
 
 
 
-#### 2.Filter过滤器是什么?
+### 2.Filter过滤器是什么?
 
 + Filter可以在Servlet目标程序之前添加过滤代码，也可在之后添加过滤代码，用于过滤用户的请求和响应
 + 一般情况下，都在过滤器中编写公共的代码
 
 
 
-#### 3.过滤器的生命周期
+### 3.过滤器的生命周期
 
 + Filter是Servlet规范中的一元
 
@@ -2392,7 +2388,7 @@ EL表达式中的隐含对象
 
 
 
-#### 4.如何实现一个过滤器？
+### 4.如何实现一个过滤器？
 
 + 编写一个类实现Filter接口并实现类中的方法
 + 在注解`WebFilter`中注册需要过滤的路径
@@ -2404,7 +2400,7 @@ EL表达式中的隐含对象
 
 
 
-#### 5.Filter和Servlet的执行顺序
+### 5.Filter和Servlet的执行顺序
 
 + 对于多个过滤器来说在xml中和使用WebFilter注释注册的执行顺序是不同的
     + 在xml中，同级的过滤器会按照`filter-mapping`的先后顺序来执行
@@ -2413,7 +2409,7 @@ EL表达式中的隐含对象
 
 
 
-#### 6.OA项目的改造
+### 6.OA项目的改造
 
 + 我们知道，在DeptServlet中会对没有登录过的用户进行过滤，现在我们学习了过滤器，我们就可以在过滤器中实现这个功能，解决代码冗余问题
 + 首先，移除我们在每个Servlet中编写的过滤代码
@@ -2452,23 +2448,23 @@ EL表达式中的隐含对象
 
 ---
 
-### 14.Listener监听器
+## 14.Listener监听器
 
-#### 1.什么是监听器？
+### 1.什么是监听器？
 
 + 监听器是Servlet规范中的一员
 + 在Servlet中，监听器接口都是以Listener为结尾的
 
 
 
-#### 2.监听器有什么用？
+### 2.监听器有什么用？
 
 + 监听器其实是Servlet规范留给Java程序员的一个特殊时机
 + 特殊的时刻想要执行一段代码时，需要使用相应的监听器
 
 
 
-#### 3.Servlet规范提供的监听器
+### 3.Servlet规范提供的监听器
 
 + Jakarta.servlet：
     + ServletContextListener
@@ -2489,13 +2485,13 @@ EL表达式中的隐含对象
 
 
 
-#### 4.监听器如何去使用？
+### 4.监听器如何去使用？
 
 + 只要我们编写了一个监听器，那么监听器会由服务器去调用，每当有事件触发监听器，监听器中相应的代码就会执行
 
 
 
-#### 5.OA项目的改造
+### 5.OA项目的改造
 
 + 现在我们想要在List页面上能够显示当前已经登录的用户，这该怎么实现呢？
 

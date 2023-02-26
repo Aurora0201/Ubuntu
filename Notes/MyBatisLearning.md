@@ -1193,3 +1193,116 @@ foreach标签的作用就相当于是遍历循环，对数组或者集合进行�
     
     + 如上，把`cid`作为select语句的参数传入，那么本次的查询就完成了
 
+
+
+### 2.一对多映射
+
+同样是上面那个例子，但是这次我们想要通过输入一个班级来查询班级里的所有学生，那此时就是一对多的关系了，此时`t_clazz`作为主表，`t_stu`作为副表，那么此时班级和学生就是组合的关系了，所以我们要在`Clazz`类中定义一个`List`装载所有的学生对象，实现一对多的映射有两种方式：
+
++ 使用`collection`标签
+
+    + 首先同样编写`select`语句
+
+        ```xml
+        <select id="selectByCid" resultMap="ClazzMap">
+            select * from t_clazz c left join t_stu s on c.cid=s.cid where c.cid = #{cid}
+        </select>
+        ```
+
+        如上所示，使用了左连接查询
+
+    + 然后编写resultMap
+
+        ```xml
+        <resultMap id="ClazzMap" type="Clazz">
+            <id property="cid" column="cid"/>
+            <result property="cname" column="cname"/>
+            <collection property="stus" ofType="Student">
+                <id property="sid" column="sid"/>
+                <result property="sname" column="sname"/>
+            </collection>
+        </resultMap>
+        ```
+
+        我们可以发现，这种方式与多对一的`associate`标签很像，只不过这次换成了`collection`标签，同时属性由`javaType`换成了`ofType`，这是需要注意的一点
+
++ 使用分步查询（开发中常用）
+
+    + 同样的先编写SQL语句
+
+        ```xml
+        <select id="selectByCid2" resultMap="Clazz">
+            select * from t_clazz where cid = #{cid}
+        </select>
+        ```
+
+        我们可以发现，分步查询的语句都不会涉及其他表的查询，只会对当前的表进行查询
+
+    + 下面就是编写resultMap了
+
+        ```xml
+        <resultMap id="Clazz" type="Clazz">
+            <id property="cid" column="cid"/>
+            <result property="cname" column="cname"/>
+            <collection property="stus" select="com.java.framework.mapper.StudentMapper.selectByIdStep2" column="cid"/>
+        </resultMap>
+        ```
+
+        这里与上面的分步查询差不多，只是使用的是`collection`标签
+
+
+
+### 3.懒加载（延迟加载）
+
+什么是延迟加载机制？
+
++ 延迟加载机制是一种能提高数据库查询效率的机制，表示的是当我们对数据库进行分步查询时，只有用到的语句会查询，没有用到的不会查询，那上面说的是什么意思？假如我们使用了分步查询来查询学生的信息，这里我们使用了两条语句，一条是查询学生信息的，一条是查询班级信息的，但是如果此时我们只用到了学生的`sid,sname`，那么在这种情况下，查询班级的语句是不会调用的，这就是懒加载，`只有用到的时候才会激活`
+
+
+
+如何实现懒加载？
+
++ 有两种方式：局部开启，全局开启
+
++ 局部开启，只要我们在`associate|collection`标签中设置属性`fetchType`为`lazy`即可
+
++ 全局开启，需要我们在核心配置文件中输入下面的内容
+
+    ```xml
+    <setting name="lazyLoadingEnabled" value="true"/>
+    ```
+
+    这样，所有的分步查询都会懒加载
+
+
+
+懒加载的过滤
+
++ 懒加载全局开启，但是有时候我们不想让一个语句懒加载时该怎么操作？
+    + 将不想懒加载的`associate|collection`标签中设置属性`fetchType`为`eager`即可
+
+
+
+## 10.MyBatis缓存机制
+
+像许多应用程序在做的，MyBatis也应用了缓存机制来减少I/O操作以提高程序的运行效率，在MyBatis中的体现就是将select语句查询的结果放入缓存中，当数据库没有变化时，使用同一个SqlSession运行的同一句SQL语句会从缓存中取得，不用重复的查询数据库，提高了查询的效率
+
+
+
+### 1.MyBatis缓存
+
+缓存只针对select语句，MyBatis缓存包括下面几类：
+
++ 一级缓存：将查询的数据存到SqlSession中
+    + 一级缓存是默认开启的
+    + 对数据库中任何表的DMQ，使用`sqlSession.clearCache()`都会使缓存失效
++ 二级缓存：将查询的数据存入SqlSessionFactory中
+    + 使用二级缓存需要几个条件
+        + `<setting name="cacheEnable" value="true">`全局性的开启，MyBatis默认开启
+        + 需要使用二级缓存的`mapper.xml`文件中添加配置标签`<cache/>`
+        + 使用二级缓存的对象必须实现`Serializable`接口
+        + SqlSession关闭或者提交后才会将一级缓存写入二级缓存
++ 集成第三方缓存，如EhCache，Memcache
+
+
+
