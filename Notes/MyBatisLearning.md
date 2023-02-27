@@ -1296,13 +1296,250 @@ foreach标签的作用就相当于是遍历循环，对数组或者集合进行�
 + 一级缓存：将查询的数据存到SqlSession中
     + 一级缓存是默认开启的
     + 对数据库中任何表的DMQ，使用`sqlSession.clearCache()`都会使缓存失效
+    
 + 二级缓存：将查询的数据存入SqlSessionFactory中
     + 使用二级缓存需要几个条件
         + `<setting name="cacheEnable" value="true">`全局性的开启，MyBatis默认开启
         + 需要使用二级缓存的`mapper.xml`文件中添加配置标签`<cache/>`
         + 使用二级缓存的对象必须实现`Serializable`接口
         + SqlSession关闭或者提交后才会将一级缓存写入二级缓存
+        + 对任何数据库表的DMQ都会使二级缓存失效
+    
 + 集成第三方缓存，如EhCache，Memcache
 
+    + 按照下面步骤操作即可
+
+    + 第一步，引入依赖
+
+        ```xml
+        <!--mybatis集成ehcache的组件-->
+        <dependency>
+            <groupId>org.mybatis.caches</groupId>
+            <artifactId>mybatis-ehcache</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+                <!--ehcache需要slf4j的⽇志组件,log4j不好使-->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.11</version>
+            <scope>test</scope>
+        </dependency>
+        ```
+
+    + 第二步，在类的根路径下新建echcache.xml⽂件，并提供以下配置信息
+
+        ```xml
+        <?xml version="1.0" encoding="UTF-8"?>
+        <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+                 updateCheck="false">
+            <!--磁盘存储:将缓存中暂时不使⽤的对象,转移到硬盘,类似于Windows系统的虚拟内存-->
+            <diskStore path="e:/ehcache"/>
+        
+            <!--defaultCache：默认的管理策略-->
+            <!--eternal：设定缓存的elements是否永远不过期。如果为true，则缓存的数据始终有
+           效，如果为false那么还要根据timeToIdleSeconds，timeToLiveSeconds判断-->
+            <!--maxElementsInMemory：在内存中缓存的element的最⼤数⽬-->
+            <!--overflowToDisk：如果内存中数据超过内存限制，是否要缓存到磁盘上-->
+            <!--diskPersistent：是否在磁盘上持久化。指重启jvm后，数据是否有效。默认为false-
+           ->
+            <!--timeToIdleSeconds：对象空闲时间(单位：秒)，指对象在多⻓时间没有被访问就会失
+           效。只对eternal为false的有效。默认值0，表示⼀直可以访问-->
+            <!--timeToLiveSeconds：对象存活时间(单位：秒)，指对象从创建到失效所需要的时间。
+           只对eternal为false的有效。默认值0，表示⼀直可以访问-->
+            <!--memoryStoreEvictionPolicy：缓存的3 种清空策略-->
+            <!--FIFO：first in first out (先进先出)-->
+            <!--LFU：Less Frequently Used (最少使⽤).意思是⼀直以来最少被使⽤的。缓存的元
+           素有⼀个hit 属性，hit 值最⼩的将会被清出缓存-->
+            <!--LRU：Least Recently Used(最近最少使⽤). (ehcache 默认值).缓存的元素有⼀
+           个时间戳，当缓存容量满了，⽽⼜需要腾出地⽅来缓存新的元素的时候，那么现有缓存元素中时间戳
+           离当前时间最远的元素将被清出缓存-->
+            <defaultCache eternal="false" maxElementsInMemory="1000" overflowToDis
+                          k="false" diskPersistent="false"
+                          timeToIdleSeconds="0" timeToLiveSeconds="600" memoryStor
+                          eEvictionPolicy="LRU"/>
+        </ehcache>
+        ```
+
+    + 第三步：修改SqlMapper.xml⽂件中的`<cache/>`标签，添加type属性
+
+        ```xml
+        <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+        ```
+
+        
 
 
+## 11.Mybatis逆向工程
+
+MyBatis逆向工程是指通过识别数据库表字段来生成mapper接口和`xml`文件，还有对应的pojo类
+
+### 1.使用逆向工程插件
+
+使用逆向工程插件的前提需要配置下面的东西
+
++ 逆向工程插件是Maven的一个插件，我们需要先引入这个插件，在`pom`文件中输入下面的东西
+
+    ```xml
+    <!--定制构建过程-->
+    <build>
+        <!--可配置多个插件-->
+        <plugins>
+            <!--其中的⼀个插件：mybatis逆向⼯程插件-->
+            <plugin>
+                <!--插件的GAV坐标-->
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.4.1</version>
+                <!--允许覆盖-->
+                <configuration>
+                    <overwrite>true</overwrite>
+                </configuration>
+                <!--插件的依赖-->
+                <dependencies>
+                    <!--mysql驱动依赖-->
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.30</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+    ```
+
++ 配置generatorConfig.xml，这个文件必须要叫做`generatorConfig`并且必须放在根路径下
+
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE generatorConfiguration
+            PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//E
+    N"
+            "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+    <generatorConfiguration>
+        <!--
+        targetRuntime有两个值：
+        MyBatis3Simple：⽣成的是基础版，只有基本的增删改查。
+        MyBatis3：⽣成的是增强版，除了基本的增删改查之外还有复杂的增删改查。
+        -->
+        <context id="DB2Tables" targetRuntime="MyBatis3">
+            <!--防⽌⽣成重复代码-->
+            <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+    
+            <commentGenerator>
+                <!--是否去掉⽣成⽇期-->
+                <property name="suppressDate" value="true"/>
+                <!--是否去除注释-->
+                <property name="suppressAllComments" value="true"/>
+            </commentGenerator>
+            <!--连接数据库信息-->
+            <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                            connectionURL="jdbc:mysql://localhost:3306/powernode"
+                            userId="root"
+                            password="root">
+            </jdbcConnection>
+            <!-- ⽣成pojo包名和位置 -->
+            <javaModelGenerator targetPackage="com.powernode.mybatis.pojo" tar
+                                getProject="src/main/java">
+                <!--是否开启⼦包-->
+                <property name="enableSubPackages" value="true"/>
+                <!--是否去除字段名的前后空⽩-->
+                <property name="trimStrings" value="true"/>
+            </javaModelGenerator>
+            <!-- ⽣成SQL映射⽂件的包名和位置 -->
+            <sqlMapGenerator targetPackage="com.powernode.mybatis.mapper" targ
+                             etProject="src/main/resources">
+                <!--是否开启⼦包-->
+                <property name="enableSubPackages" value="true"/>
+            </sqlMapGenerator>
+            <!-- ⽣成Mapper接⼝的包名和位置 -->
+            <javaClientGenerator
+                    type="xmlMapper"
+                    targetPackage="com.powernode.mybatis.mapper"
+                    targetProject="src/main/java">
+                <property name="enableSubPackages" value="true"/>
+            </javaClientGenerator>
+            <!-- 表名和对应的实体类名-->
+            <table tableName="t_car" domainObjectName="Car"/>
+        </context>
+    </generatorConfiguration>
+    ```
+
++ 然后运行插件即可，在maven菜单 -> plugins -> mybatis-generator
+
+
+
+## 12.Mybatis分页插件
+
+在网页中查询时，我们不可能一次性输出所有的结果，因为这对数据库和服务器的压力太大了，所以我们要对一次查询的数据做限制，也就是分页功能
+
+
+
+### 1.使用MySQL实现分页
+
+思考这样一个场景，用户需要对网页浏览，我们手动将每页设置成10条数据，用户只需要输入页码就可以浏览相应的页面，这该如何实现？
+
++ 使用limit语句，假设用户输入的`startIndex=x,pageSize=10`，那么我们需要下面的SQL语句
+
+    ```mysql
+    select * from table limit (x-1)*pageSize, pageSize;
+    ```
+
+    假设用户需要浏览第一页，那么就是`limit 0, 10`
+
+    第二页就是`limit 10, 10`
+
+    ...
+
++ 这就是我们使用SQL语句实现的朴素分页功能，但是实际上难点在于得到符合条件的结果
+
+
+
+### 2.使用PageHelper插件
+
+使用PageHelper插件可以大大提高我们的效率
+
+
+
+使用插件有下面的步骤
+
++ 引入依赖
+
+    ```xml
+    <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper</artifactId>
+        <version>5.3.1</version>
+    </dependency>
+    ```
+
++ 在mybatis-config.xml⽂件中配置插件
+
+    ```xml
+    <plugins>
+     <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
+    ```
+
++ 编写SQL语句，注意不要加`limit`
+
++ 编写Java代码，注意要在查询前开启分页功能
+
+    ```java
+    @Test
+    public void testPageHelper() throws Exception{
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().b
+        uild(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        CarMapper mapper = sqlSession.getMapper(CarMapper.class);
+        // 开启分⻚
+        PageHelper.startPage(2, 2);
+        // 执⾏查询语句
+        List<Car> cars = mapper.selectAll();
+        // 获取分⻚信息对象
+        PageInfo<Car> pageInfo = new PageInfo<>(cars, 5);
+        System.out.println(pageInfo);
+    }
+    ```
