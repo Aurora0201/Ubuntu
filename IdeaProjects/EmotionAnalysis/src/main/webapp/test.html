@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+</head>
+<body>
+<button id="btn">请求数据</button>
+<!-- <div class="tableBox"> -->
+</div>
+<script>
+    btn.onclick=function(){
+        // console.log('res')
+        $.ajax({
+            url:'http://101.42.30.159/ea3/getList',
+            type:"GET",
+            success:res=>{
+                console.log(res)
+            }
+        })
+    }
+</script>
+</body>
+</html>

@@ -41,6 +41,7 @@ public class ContentServlet extends HttpServlet {
      * @param response response object
      */
     public void getList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setHeader("Access-Control-Allow-Origin", "*");
         response.setContentType("text/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         List<Content> contents = contentService.getAllContents();
@@ -54,6 +55,8 @@ public class ContentServlet extends HttpServlet {
      * @param response response object
      */
     public void saveList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setHeader("Access-Control-Allow-Origin", "*");//允许所有来源访同
+//        response.addHeader("Access-Control-Allow-Method","POST,GET");//允许访问的方式
         response.setContentType("text/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String json = request.getParameter("json");
