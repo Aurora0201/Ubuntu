@@ -252,17 +252,4 @@ sudo service ssh restart
   response.addHeader("Access-Control-Allow-Origin","*");//允许所有来源访同
   ```
 
-+ 在配置文件中添加过滤器，`tomcat/conf/web.xml`中在过滤器定义位置下添加下面的内容
-
-  ```xml
-  <filter>
-    <filter-name>CorsFilter</filter-name>
-    <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>CorsFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-  ```
-
-  
++ 经测试，可以实现跨域访问
