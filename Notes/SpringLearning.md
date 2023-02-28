@@ -135,3 +135,60 @@ Spring架构实现了IoC的思想，或者说Spring是实现了IoC思想的一�
 
 
 
+### 7.第一个Spring程序
+
+在上面的Spring介绍中，我们知道spring能帮助我们生成bean类，下面是具体的操作步骤：
+
++ 引入依赖，在spring6以上的版本，maven中央仓库已经把组件分开，这次我们引入`spring-context`依赖
+
+    ```xml
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>6.0.5</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.2</version>
+        <scope>test</scope>
+    </dependency>
+    ```
+
++ 编写bean类
+
+    ```java
+    /**
+     * @author binjunkai
+     * @since 1.0
+     */
+    public class User {
+    }
+    
+    /**
+     * @author binjunkai
+     * @since 1.0
+     */
+    public class UserDaoImplForMySQL {
+    }
+    
+    ```
+
++ 编写spring配置文件，使用IDEA自带的模板即可
+
+    ```java
+    <bean id="userBean" class="com.framework.spring.bean.User"/>
+    <bean id="userBeanDao" class="com.framework.spring.dao.impl.UserDaoImplForMySQL"/>
+    ```
+
+    **需要注意的是**：这个文件一般约定叫做`spring|bean`，在文件中我们使用`bean`标签来指定我们编写的类，属性id为这个bean的唯一标识符，属性class是类的全限定引用
+
++ 使用spring创建对象
+
+    ```java
+    //get spring application context
+    
+    ```
+
+    
