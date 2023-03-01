@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="woman1" class="com.framework.spring.dao.Woman">
+        <constructor-arg index="0" value="WangJie"/>
+    </bean>
+
+    <bean id="woman2" class="com.framework.spring.dao.Woman">
+        <constructor-arg index="0" value="ZhangYi"/>
+    </bean>
+
+    <bean id="DaYeBean" class="com.framework.spring.dao.DaYe">
+        <property name="aiHao">
+            <array>
+                <value>smoke</value>
+                <value>drink</value>
+                <value>haircut</value>
+            </array>
+        </property>
+        <property name="women">
+            <array>
+                <ref bean="woman1"/>
+                <ref bean="woman2"/>
+            </array>
+        </property>
+    </bean>
+
+</beans>

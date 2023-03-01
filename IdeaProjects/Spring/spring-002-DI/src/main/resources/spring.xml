@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="userDaoBean" class="com.framework.spring.dao.UserDao"/>
+    <bean id="vipDaoBean" class="com.framework.spring.dao.VipDao"/>
+
+    <bean id="userServiceBean" class="com.framework.spring.service.UserService">
+        <constructor-arg index="0" ref="userDaoBean"/>
+        <constructor-arg index="1" ref="vipDaoBean"/>
+    </bean>
+
+
+    <bean id="userServiceBean2" class="com.framework.spring.service.UserService">
+        <property name="userDao">
+            <bean class="com.framework.spring.dao.UserDao"/>
+        </property>
+    </bean>
+
+
+</beans>

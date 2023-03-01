@@ -9,52 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7951248-af1b-4ad6-a876-b5436b2a70bc" name="Changes" comment="update project">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/test.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Spring/spring-001-revelation/src/main/java/com/framework/spring/bean/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Spring/spring-001-revelation/src/main/java/com/framework/spring/dao/impl/UserDaoImplForMySQL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Spring/spring-001-revelation/src/main/resources/spring.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Spring/spring-001-revelation/src/test/java/com/framework/spring/test/springTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="f7951248-af1b-4ad6-a876-b5436b2a70bc" name="Changes" comment="update SpringLearning.md">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/emotion/analysis/web/ContentServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/emotion/analysis/web/ContentServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/classes/com/emotion/analysis/bean/Content.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/classes/com/emotion/analysis/mapper/ContentMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/classes/com/emotion/analysis/mapper/ContentMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/classes/com/emotion/analysis/service/ContentService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/classes/com/emotion/analysis/service/impl/ContentServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/classes/com/emotion/analysis/util/DataParseUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/classes/com/emotion/analysis/util/SqlSessionUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/classes/com/emotion/analysis/web/ContentServlet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/classes/jdbc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/classes/logback-test.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/classes/mybatis-config.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/lib/fastjson2-2.0.23.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/lib/jakarta.servlet-api-4.0.4.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/lib/jakarta.servlet-api-5.0.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/lib/logback-classic-1.2.11.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/lib/logback-core-1.2.11.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/lib/mybatis-3.5.11.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/lib/mysql-connector-java-8.0.30.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/lib/protobuf-java-3.19.4.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/lib/slf4j-api-1.7.32.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/WEB-INF/web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EmotionAnalysis/index.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/emotion/analysis/bean/Content.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/emotion/analysis/bean/Content.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/emotion/analysis/mapper/ContentMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/emotion/analysis/mapper/ContentMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/emotion/analysis/service/ContentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/emotion/analysis/service/ContentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/emotion/analysis/service/impl/ContentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/emotion/analysis/service/impl/ContentServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/emotion/analysis/util/DataParseUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/emotion/analysis/util/DataParseUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/emotion/analysis/util/SqlSessionUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/emotion/analysis/util/SqlSessionUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/emotion/analysis/web/ContentServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/emotion/analysis/web/ContentServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/ServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/ServiceTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/UtilTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/UtilTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Spring/spring-001-revelation/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Spring/spring-001-revelation/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Notes/SpringLearning.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Notes/SpringLearning.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -312,7 +268,8 @@
       <workItem from="1677589535386" duration="8000" />
       <workItem from="1677589631552" duration="54000" />
       <workItem from="1677589707853" duration="8000" />
-      <workItem from="1677592113917" duration="2482000" />
+      <workItem from="1677592113917" duration="2543000" />
+      <workItem from="1677638396920" duration="43000" />
     </task>
     <task id="LOCAL-00001" summary="update markdown">
       <created>1677078173983</created>
@@ -328,7 +285,21 @@
       <option name="project" value="LOCAL" />
       <updated>1677078196453</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="update project">
+      <created>1677595027391</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1677595027391</updated>
+    </task>
+    <task id="LOCAL-00004" summary="update SpringLearning.md">
+      <created>1677595043230</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1677595043230</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -349,6 +320,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="update markdown" />
     <MESSAGE value="update project" />
-    <option name="LAST_COMMIT_MESSAGE" value="update project" />
+    <MESSAGE value="update SpringLearning.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="update SpringLearning.md" />
   </component>
 </project>

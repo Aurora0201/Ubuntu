@@ -3,5 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/spring-001-revelation/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-001-revelation/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-002-DI/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-002-DI/src/main/resources" charset="UTF-8" />
   </component>
 </project>
