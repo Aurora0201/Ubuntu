@@ -90,11 +90,11 @@ Spring架构实现了IoC的思想，或者说Spring是实现了IoC思想的一�
 依赖注入中的“依赖”和“注入”是什么意思？
 
 + 依赖指的是对象A与对象B之间的关系
-+ 注入是一种手段，使得这两个对象之间能产生关系
++ 注入是一种手段--数据传递行为，使得这两个对象之间能产生关系
 
 
 
-控制反转是思想，依赖注入是控制反转思想的体现
+**控制反转**是思想，**依赖注入**是控制反转思想的体现
 
 
 
@@ -182,13 +182,327 @@ Spring架构实现了IoC的思想，或者说Spring是实现了IoC思想的一�
     <bean id="userBeanDao" class="com.framework.spring.dao.impl.UserDaoImplForMySQL"/>
     ```
 
-    **需要注意的是**：这个文件一般约定叫做`spring|bean`，在文件中我们使用`bean`标签来指定我们编写的类，属性id为这个bean的唯一标识符，属性class是类的全限定引用
+    **需要注意的是**：这个文件一般约定叫做`spring|bean`，也可以随意取名，在文件中我们使用`bean`标签来指定我们编写的类，属性id为这个bean的唯一标识符，属性class是类的全限定引用
 
 + 使用spring创建对象
 
     ```java
     //get spring application context
+    ApplicationContext applicationContext = new ClassXmlApplicationContext("spring.xml");
     
+    //new object 
+    Object userBean = applicationContext.getBean("userBean");
+    ```
+    
+    在上面的代码中，`ApplicationContext`是一个接口，其实就是spring容器，`ClassXmlApplicationContext`是它的一个实现类，需要传入spring配置文件，然后就是创建对象，使用`getBean`方法即可创建对象，参数是bean的id
+
+
+
+### 8.第一个程序中的细节
+
+创建对象时底层是如何运作的？
+
++ 实际是使用了Java的反射机制来创建对象，调用了对象的无参构造方法，如果没有无参构造，那么会报错
+
+
+
+创建好的对象存储到了哪里？
+
++ 存到了一个`Map<String, Object>`集合中
+
+
+
+配置文件可以有多个么？
+
++ 可以，`ClassXmlApplicationContext`可以有多个参数，只要传入正确的路径即可
+
+
+
+使用getBean方法时，传入了错误的（不存在的）id，会怎么样？
+
++ 会抛出异常
+
+
+
+想调用对象的方法，可以怎么做？
+
++ 直接对得到的对象进行强转
++ getBean传入参数`Bean.class`
+
+
+
+关于ApplicationContext的细节
+
++ 这个接口的超级父接口是BeanFactory，同时也是spring容器的顶级接口，也就是说spring底层IoC容器实际使用了工厂模式
++ IoC容器的实现：XML解析 + 工厂模式 + 反射机制
+
+
+
+对象创建的时机
+
++ 实际上，对象不是在调用`getBean`方法时创建的，而是在`new ClassXmlApplicationContext("spring.xml")`时就已经创建，调用getBean方法只是从容器中拿到创建好的对象
+
+
+
+### 9.启用Log4j2日志框架
+
+
+
+## 3.注入初步
+
+### 1.set注入初步
+
+依赖注入的第一个实现方法，使用set方法注入
+
++ 首先准备两个类
+
+    ```java
+    /**
+     * Bean
+     */
+    public class UserDao {
+        public void insert() {
+            System.out.println("Insert a item into DB!");
+        }
+    }
+    
+    public class UserService {
+        private UserDao userDao;
+    
+        public void setUserDao(UserDao userDao) {
+            this.userDao = userDao;
+        }
+    
+        public void insert() {
+            userDao.insert();
+        }
+    }
     ```
 
+    我们使用service来调用Dao实现类
+
++ 编写spring配置文件
+
+    ```xml
+    <bean id="userDaoBean" class="com.framework.spring.dao.UserDao">
     
+    </bean>
+    
+    <bean id="userServiceBean" class="com.framework.spring.service.UserService">
+        <property name="userDao" ref="userDaoBean"/>
+    </bean>
+    ```
+
+    在bean标签的下一级标签`<property>`标签，就是实现set注入的关键，先来解释一下这个标签是什么意思：首先我们在UserService的bean标签下编写了一个property标签，这代表我们要对UserService类中的`属性`使用set方法赋值，标签中的`name`填写的必须是`set方法的名字除去"set"剩下的字段然后首字母小写得到的字段`，`ref`填写的必须是`需要赋值的类的beanid`，一般情况下使用标准的set方法时，name填写属性名即可
+
++ 编写测试类
+
+    ```java
+    public void DITest() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+        UserDao userDaoBean = applicationContext.getBean("userDaoBean", UserDao.class);
+        UserService userServiceBean = applicationContext.getBean("userServiceBean", UserService.class);
+    
+        userServiceBean.insert();
+    }
+    ```
+
+
+
+**总结**：实现set注入使用的是类中的set方法，一般情况下使用IDEA生成的符合bean规范的set方法时会方便很多
+
+
+
+### 2.构造方法注入初步
+
+上面学习了set注入，下面学习构造方法注入
+
++ 对UserService类进行一些改动
+
+    ```java
+    public class UserService {
+        private UserDao userDao;
+        private VipDao vipDao;
+    
+        public UserService(UserDao userDao, VipDao vipDao) {
+            this.userDao = userDao;
+            this.vipDao = vipDao;
+        }
+    
+        public void insert() {
+            userDao.insert();
+            vipDao.insert();
+        }
+    }
+    ```
+
+    我们移除了set方法，并提供了有参构造方法
+
++ 修改spring配置文件
+
+    ```xml
+    <bean id="userDaoBean" class="com.framework.spring.dao.UserDao"/>
+    <bean id="vipDaoBean" class="com.framework.spring.dao.VipDao"/>
+    
+    <bean id="userServiceBean" class="com.framework.spring.service.UserService">
+        <constructor-arg index="0" ref="userDaoBean"/>
+        <constructor-arg index="1" ref="vipDaoBean"/>
+    </bean>
+    
+    <bean id="userServiceBean1" class="com.framework.spring.service.UserService">
+        <constructor-arg name="userDao" ref="userDaoBean"/>
+        <constructor-arg name="vipDao" ref="vipDaoBean"/>
+    </bean>
+    ```
+
+    可以看到我们有两种配置构造方法注入的方式，使用`index`属性时，表示的是构造器参数的下标，使用`name`属性时，使用的是构造参数的名字
+
++ 使用上面的测试代码
+
+
+
+**总结**：貌似`name`属性已经弃用，优先使用`index`
+
+
+
+## 4.set注入专题
+
+### 1.注入内部bean
+
+其实刚刚我们学习的set注入方法就是注入外部bean，现在我们来学习一下注入内部bean：
+
++ 编写spring配置文件
+
+    ```xml
+    <bean id="userServiceBean2" class="com.framework.spring.service.UserService">
+        <property name="userDao">
+            <bean class="com.framework.spring.dao.UserDao"></bean>
+        </property>
+    </bean>
+    ```
+
+    这就相当于在bean的内部再定义了一个bean，不过这种方法不常用，认识即可
+
+
+
+### 2.简单类型的注入
+
+在上面的学习中我们使用的都是引用数据类型，现在我们先来学习对于spring框架来说，什么是简单数据类型：
+
++ 所有的基本数据类型和包装类
++ 字符串类型
++ 数字类型
++ 枚举类型
++ Class类型
++ Date类型
++ Temporal时区类型
++ URI类型
++ URL类型
++ Locale语言类型
+
+**以上的类型对于spring架构来说都是简单类型，但是在实际开发中一般不会把Date类型单做简单类型**
+
+
+
+下面来学习简单类型的注入
+
++ 先编写spring配置文件
+
+    ```xml
+    <bean id="simpleTypeBean" class="com.framework.spring.simple.SimpleType">
+        <property name="a" value="1"/>
+        <property name="b" value="2"/>
+        <property name="c" value="c"/>
+        <property name="character" value="C"/>
+        <property name="clazz" value="java.lang.String"/>
+        <property name="string" value="ZhangSan"/>
+    </bean>
+    ```
+
+    可以看到，跟引用数据类型不同的是，不再使用`ref`属性进行注入，而是直接使用`value`属性进行注入
+
+
+
+**特别的**，对于Date类型来说，虽然它可以使用value的方式进行注入，但是需要使用标准的Date格式，非常的麻烦，所以在实际的开发中，我们一般把他当做引用数据类型来处理
+
+
+
+### 3.数组类型的注入
+
+下面来学习数组类型的注入：
+
++ 先准备一个类
+
+    ```java
+    public class DaYe {
+        private String[] aiHao;
+        private Woman[] women;
+    
+        @Override
+        public String toString() {
+            return "DaYe{" +
+                    "aiHao=" + Arrays.toString(aiHao) +
+                    ", women=" + Arrays.toString(women) +
+                    '}';
+        }
+    
+        public void setAiHao(String[] aiHao) {
+            this.aiHao = aiHao;
+        }
+    
+        public void setWomen(Woman[] women) {
+            this.women = women;
+        }
+    }
+    ```
+
++ 首先是简单类型的数组的注入
+
+    + 编写配置文件
+
+        ```xml
+        <bean id="DaYeBean" class="com.framework.spring.dao.DaYe">
+                <property name="aiHao">
+                    <array>
+                        <value>smoke</value>
+                        <value>drink</value>
+                        <value>haircut</value>
+                    </array>
+                </property>
+            </bean>
+        ```
+
++ 引用数据类型的数组注入
+
+    + 编写配置文件
+
+        ```xml
+        <bean id="woman1" class="com.framework.spring.dao.Woman">
+            <constructor-arg index="0" value="WangJie"/>
+        </bean>
+        
+        <bean id="woman2" class="com.framework.spring.dao.Woman">
+            <constructor-arg index="0" value="ZhangYi"/>
+        </bean>
+        
+        <bean id="DaYeBean" class="com.framework.spring.dao.DaYe">
+            <property name="aiHao">
+                <array>
+                    <value>smoke</value>
+                    <value>drink</value>
+                    <value>haircut</value>
+                </array>
+            </property>
+            <property name="women">
+                <array>
+                    <ref bean="woman1"/>
+                    <ref bean="woman2"/>
+                </array>
+            </property>
+        </bean>
+        ```
+
+**总结**：基础类型数组的注入比较简单，直接使用array和value标签注入即可，引用数据类型则先要注册bean，然后通过array和ref标签来注入
+
+
+
