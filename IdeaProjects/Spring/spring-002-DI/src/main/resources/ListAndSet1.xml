@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+                           http://www.springframework.org/schema/util  http://www.springframework.org/schema/util/spring-util.xsd ">
+
+    <util:properties id="properties">
+        <prop key="123">123</prop>
+    </util:properties>
+
+    <bean id="property" class="com.framework.spring.dao.DataSource">
+        <property name="properties" ref="properties"/>
+    </bean>
+
+    <bean id="woman1" class="com.framework.spring.dao.Woman">
+        <constructor-arg index="0" value="ZhangJie"/>
+    </bean>
+
+
+    <bean id="listAndSet" class="com.framework.spring.dao.ListAndSet">
+        <property name="name">
+            <list>
+                <value>ZhangSan</value>
+                <value>ZhangSan</value>
+                <value>ZhangSan</value>
+            </list>
+        </property>
+        <property name="women">
+            <set>
+                <ref bean="woman1"/>
+            </set>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="123" value="123"/>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="123">123</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

@@ -6,6 +6,8 @@
       <list>
         <option value="$PROJECT_DIR$/spring-001-revelation/pom.xml" />
         <option value="$PROJECT_DIR$/spring-002-DI/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-003-simple-factory/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-004-factory-method/pom.xml" />
       </list>
     </option>
   </component>

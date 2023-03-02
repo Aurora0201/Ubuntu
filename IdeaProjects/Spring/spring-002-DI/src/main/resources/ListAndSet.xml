@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+       xmlns:c="http://www.springframework.org/schema/c"
+
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+    <bean id="woman1" class="com.framework.spring.dao.Woman" c:_0="WangJie"/>
+    <bean id="woman2" class="com.framework.spring.dao.Woman" c:_0="ZhangYi"/>
+
+    <bean id="listAndSet" class="com.framework.spring.dao.ListAndSet">
+        <property name="name">
+            <list>
+                <value>ZhangSan</value>
+                <value>ZhangSan</value>
+                <value>ZhangSan</value>
+            </list>
+        </property>
+        <property name="women">
+            <set>
+                <ref bean="woman1"/>
+                <ref bean="woman2"/>
+            </set>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="123" value="123"/>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="123">123</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

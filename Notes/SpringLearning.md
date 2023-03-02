@@ -506,3 +506,345 @@ Spring架构实现了IoC的思想，或者说Spring是实现了IoC思想的一�
 
 
 
+### 4.List和Set类型的注入
+
+List和Set使用set注入与数组的注入大差不差：
+
++ 准备类
+
+    ```java
+    public class ListAndSet {
+        private List<String> name;
+        private Set<Woman> women;
+    
+        @Override
+        public String toString() {
+            return "ListAndSet{" +
+                    "name=" + name +
+                    ", women=" + women +
+                    '}';
+        }
+    
+        public void setName(List<String> name) {
+            this.name = name;
+        }
+    
+        public void setWomen(Set<Woman> women) {
+            this.women = women;
+        }
+    }
+    ```
+
++ 编写配置文件
+
+    ```xml
+    <bean id="woman1" class="com.framework.spring.dao.Woman">
+        <constructor-arg index="0" value="WangJie"/>
+    </bean>
+    
+    <bean id="woman2" class="com.framework.spring.dao.Woman">
+        <constructor-arg index="0" value="ZhangYi"/>
+    </bean>
+    
+    <bean id="listAndSet" class="com.framework.spring.dao.ListAndSet">
+        <property name="name">
+            <list>
+                <value>ZhangSan</value>
+                <value>ZhangSan</value>
+                <value>ZhangSan</value>
+            </list>
+        </property>
+        <property name="women">
+            <set>
+                <ref bean="woman1"/>
+                <ref bean="woman2"/>
+            </set>
+        </property>
+    </bean>
+    ```
+
+    可以看到，之前使用array的地方切换成了list|set，同样的基础类型使用value标签，引用类型使用ref标签
+
+
+
+### 5.Map类型的注入
+
+下面学习Map类型的注入：
+
++ 在上面的类中添加
+
+    ```java
+    private Map<String, String> map;
+    private Properties properties;
+    ```
+
++ 在配置文件中补充
+
+    ```xml
+    <property name="map">
+        <map>
+            <entry key="123" value="123"/>
+        </map>
+    </property>
+    <property name="properties">
+        <props>
+            <prop key="123">123</prop>
+        </props>
+    </property>
+    ```
+
+    发现与上面的List和Set大差不差，只要记住这种模式即可
+
+
+
+### 6.null值与空字符串的注入
+
+null与空字符串的注入十分简单：
+
++ null有两种注入方式
+
+    + 如果不在配置文件中对属性进行注入，则默认为null
+
+    + 如果想要手动的注入为null，则输入下面的内容
+
+        ```xml
+        <property name="">
+            <null/>
+        </property>
+        ```
+
++ 空串的注入也有两种
+
+    + 直接将value值设置为空串即可
+
+    + 手动注入的输入下面的内容
+
+        ```xml
+        <property name="">
+            <value/>
+        </property>
+        ```
+
+        
+
+### 7.特殊字符的注入
+
+当我们遇到了XML中的特殊字符，`& < > / ? :`等字符时，有下面两种方法：
+
++ 使用规定好的转义字符，需要查表
+
++ 使用`<![CDATA[特殊字符]]>`
+
+    ```xml
+    <property name="name">
+    	<value><![CDATA[2 < 3]]></value>
+    </property>
+    ```
+
+
+
+## 5.注入的简化
+
+### 1.P命名空间注入
+
+p命名空间的出现是为了简化set注入的操作：
+
++ 要使用p命名空间，要先在配置文件中添加命名空间
+
+    ```xml
+    xmlns:p="http://www.springframework.org/schema/p"
+    ```
+
++ 对属性的注入，`p:属性名="属性值"`
+
+    ```xml
+    <bean id="name" class="com..." p:name="ZhangSan" p:age="3" p:birth-ref="time"/>
+    <bean id="time" class="java.util.Date"/>
+    ```
+
+**需要注意：**p命名空间仍然是基于set注入的，必须提供set方法
+
+
+
+### 2.C命名空间注入
+
+c命名空间注入的出现是为了简化构造方法注入：
+
++ 要使用c命名空间首先要引入命名空间
+
+    ```xml
+    xmlns:c="http://www.springframework.org/schema/c"
+    ```
+
++ 对属性的注入是，`c:_下标="值"`
+
+    ```xml
+    <bean id="name" class="com..." c:_0="ZhangSan" c:_0-ref="beanId".../>
+    ```
+
+**需要注意：**c命名空间是基于构造注入的
+
+
+
+### 3.util命名空间让配置复用
+
+util命名空间的出现是为了简化配置操作，使配置信息能复用：
+
++ 首先要引入util命名空间
+
+    ```xml
+    xmlns:util="http://www.springframework.org/schema/util"
+    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://www.springframework.org/schema/util  http://www.springframework.org/schema/util/spring-util.xsd"
+    ```
+
++ 下面是一个简单的例子
+
+    ```xml
+    <util:properties id="properties">
+        <prop key="123">123</prop>
+    </util:properties>
+    
+    <bean id="property" class="com.framework.spring.dao.DataSource">
+        <property name="properties" ref="properties"/>
+    </bean>
+    ```
+
+    这样就实现了配置文件的复用
+
+
+
+### 4.基于名字的自动装配
+
+在上面我们学习了手动的注入，下面学习自动装配：
+
++ 只要在配置文件中这样写
+
+    ```xml-dtd
+    <bean id="userDao" class="com.framework.spring.dao.UserDao"/>
+    <bean id="vipDao" class="com.framework.spring.dao.VipDao"/>
+    
+    <bean id="userService" class="com.framework.spring.service.UserService" autowire="byName">
+    ```
+
+**注意：**自动装配也是基于set注入实现的，而且此时bean的id也不能随便写，被注入的bean的名字(id)要与set方法名`去掉set剩下的部分首字母小写得到的字符串`一致，所以在符合命名规范的前提下，bean的id是类名的首字母小写即可
+
+
+
+### 5.引入外部属性文件
+
+要引入外部的属性文件，需要使用context命名空间，下面是步骤：
+
++ 先引入context命名空间
+
+    ```xml
+    xmlns:context="http://www.springframework.org/schema/context"
+    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd"
+    ```
+
++ 在配置文件中使用下面的内容引入外部文件
+
+    ```xml
+    <context:property-placeholder location="jdbc.properties"/>
+    <bean id="dataSource" class="com.framework.spring.dao.DataSource">
+        <property name="driver" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+    ```
+
+    在context:property-placeholder标签中，location属性是从根目录下进行读取的，与MyBatis中一致，都是使用$占位符来读取properties文件中的元素
+
+**注意：**在win系统中，使用`${username}`可能会引用环境变量中的变量，所以我们在属性文件中加上前缀来区分命名
+
+
+
+## 6.Bean的作用域
+
+### 1.Bean的单例和多例
+
+在上面的学习过程中，我们一直学习的是单例的bean，也就是说自始至终都只有一个对象被创建，现在我们学习多例的情况：
+
++ 要使用多例，我们只需要在bean标签中将scope属性设置为`protoType`即可
+
+    ```xml
+    <bean id="dataSource" class="com.framework.spring.dao.DataSource" scope="prototype">
+        
+    </bean>
+    ```
+
+    这样在每次调用getBean方法时，都会创建一个新的对象
+
+**注意：**在单例的情况下，在创建ApplicationContext时对象就会被创建并放入容器中，但是在多例的情况下，只有在调用getBean方法时，才会创建对象，spring默认的情况下是单例
+
+
+
+### 2.Bean的其他作用域
+
+bean除了单例和多例，其实还有其他一些域，包括但不限于`request, session...`，但是他们一般都只用于web框架中
+
+
+
+## 7.GoF之工厂模式
+
+GoF中有23种设计模式，这些设计模式并不只对于Java一门语言，而是对于所有的编程来说都是十分有意义的，当然除了GoF23种设计模式之外，还有一些其他的设计模式比如JavaEE的DAO，MVC设计模式，本节我们将主要学习GoF中的工厂设计模式
+
+### 1.工厂设计模式
+
+spring底层架构大量使用了工厂创建模式，工厂设计模式是为了解决对象创建问题的，工厂模式主要：
+
++ 简单工厂模式：**不属于23种设计模式之一，简单工厂模式是工厂方法模式的一种特殊实现，又叫做静态工厂方法模式**
++ 工厂方法模式：是23种设计模式之一
++ 抽象工厂模式：是23种设计模式之一
+
+
+
+### 2.简单工厂模式
+
+简单工厂模式的角色包括三个:
+
++ 抽象产品角色
++ 具体产品角色
++ 工厂类角色
+
+
+
+优点：
+
++ 消费端-客户，生成端-工厂，他们两者是分离的，客户不需要关心生产的细节
+
+缺点
+
++ 如果说我们需要对生成的类进行扩展，那么工厂类的代码也需要修改，违背了OCP原则
++ 工厂类承担的责任太大，不能出现问题，一旦出现问题，系统无法正常运行
+
+
+
+### 3.工厂方法模式
+
+工厂方法模式角色有四个：
+
++ 抽象产品角色
++ 具体类产品角色
++ 抽象工厂类角色
++ 具体工厂类角色
+
+它与简单工厂模式的不同就是改变了一个工厂生产所有产品的现状，一个产品对应一个工厂
+
+
+
+优点：
+
++ 扩展性高，当我们想要生产新的产品时，只要添加新的工厂就行了，符合OCP原则
++ 屏蔽了产品的细节，调用者只关心产品的接口
+
+缺点
+
++ 每次增加产品时，都会增加产品类和工厂类，使得类中的工厂数量成倍的增加，一定程度上增加了系统的复杂程度，这不是什么好事
+
+
+
