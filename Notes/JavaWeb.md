@@ -221,23 +221,16 @@ File --> Project Structrue --> Modules --> Dependeencies --> 添加Library或者
 
 ```xml
 <servlet> 
-
-<servlet-name>hello</servlet-name> <!--声明一个变量存储servlet接口实现类类路径-->
-
-<servlet-class>com.bjpowernode.controller.OneServlet</servlet-class> <!--声明servlet接口实现类类路径-->
-
- <load-on-startup>30<load-on-startup><!--填写一个大于0的整数即可，数字越大优先级越高-->
-
+    <servlet-name>hello</servlet-name> <!--声明一个变量存储servlet接口实现类类路径-->
+    <servlet-class>com.bjpowernode.controller.OneServlet</servlet-class> <!--声明servlet接口实现类类路径-->
+    <load-on-startup>30<load-on-startup><!--填写一个大于0的整数即可，数字越大优先级越高-->
 </servlet> 
 
 <!--为了降低用户访问Servlet接口实现类难度，需要设置简短请求别名-->
 
 <servlet-mapping> 
-
-<servlet-name>hello</servlet-name> 
-
-<url-pattern>/newhello</url-pattern> <!--设置简短请求别名,别名在书写时必须以"/"为开头-->
-
+    <servlet-name>hello</servlet-name> 
+    <url-pattern>/newhello</url-pattern> <!--设置简短请求别名,别名在书写时必须以"/"为开头-->
 </servlet-mapping>
 ```
 
