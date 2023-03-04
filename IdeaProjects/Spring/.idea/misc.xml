@@ -8,6 +8,11 @@
         <option value="$PROJECT_DIR$/spring-002-DI/pom.xml" />
         <option value="$PROJECT_DIR$/spring-003-simple-factory/pom.xml" />
         <option value="$PROJECT_DIR$/spring-004-factory-method/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-004-bean-instantiation/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-005-bean-lifecycle/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-006-circular-dependency/pom.xml" />
+        <option value="$PROJECT_DIR$/review-reflex-machenism/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-007-myspring/pom.xml" />
       </list>
     </option>
   </component>

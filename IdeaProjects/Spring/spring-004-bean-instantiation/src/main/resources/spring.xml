@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--    simple factory-->
+    <bean id="star" class="com.framework.spring.bean.StarFactory" factory-method="get"/>
+
+<!--   factory method -->
+<!--    <bean id="starFactory" class="com.framework.spring.bean.InstanceStarFactory"/>-->
+<!--    <bean id="star1" factory-bean="starFactory" factory-method="get"/>-->
+    <bean id="star1" class="com.framework.spring.bean.InstanceStarFactory"/>
+
+    <bean id="date" class="com.framework.spring.bean.DateFactory">
+        <constructor-arg index="0" value="2002-02-01"/>
+    </bean>
+    <bean id="myTime" class="com.framework.spring.bean.MyTime">
+        <property name="date" ref="date"/>
+    </bean>
+</beans>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+<!-- Define custom levels before using them for filtering below. -->
+<!--<CustomLevels>-->
+<!--    <CustomLevel name="DIAG" intLevel="350" />-->
+<!--    <CustomLevel name="NOTICE" intLevel="450" />-->
+<!--    <CustomLevel name="VERBOSE" intLevel="550" />-->
+<!--</CustomLevels>-->
+
+<Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+        <PatternLayout pattern="%d %-3level %logger{36} - %msg%n"/>
+    </Console>
+<!--    <File name="MyFile" fileName="logs/app.log">-->
+<!--        <PatternLayout pattern="%d %-7level %logger{36} - %msg%n"/>-->
+<!--    </File>-->
+</Appenders>
+<Loggers>
+    <!-- level ascending:
+         ALL < TRACE < DEBUG < INFO < ERROR < FATAL < OFF
+    -->
+    <Root level="DEBUG">
+        <!-- Only events at DIAG level or more specific are sent to the console. -->
+        <AppenderRef ref="Console" level="DEBUG" />
+<!--        <AppenderRef ref="MyFile" level="trace" />-->
+    </Root>
+</Loggers>
+</Configuration>

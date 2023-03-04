@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--    singleton -->
+    <bean id="husband" class="com.framework.spring.bean.Husband" scope="prototype">
+        <property name="wife" ref="wife"/>
+    </bean>
+
+    <bean id="wife" class="com.framework.spring.bean.Wife">
+        <property name="husband" ref="husband"/>
+    </bean>
+</beans>

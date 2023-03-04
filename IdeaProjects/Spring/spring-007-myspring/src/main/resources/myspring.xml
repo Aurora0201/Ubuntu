@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <bean id="user" class="com.framework.spring.bean.User">
+        <property name="name" value="ZhangSan"/>
+        <property name="age" value="15"/>
+    </bean>
+
+    <bean id="userDao" class="com.framework.spring.bean.UserDao">
+
+    </bean>
+
+    <bean id="userService" class="com.framework.spring.bean.UserService">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+</beans>

@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/review-reflex-machenism/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/review-reflex-machenism/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-001-revelation/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-001-revelation/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-002-DI/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-002-DI/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-003-simple-factory/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-003-simple-factory/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/spring-004-factory-method/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/spring-004-factory-method/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-004-bean-instantiation/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-004-bean-instantiation/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-005-bean-lifecycle/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-005-bean-lifecycle/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-006-circular-dependency/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-006-circular-dependency/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-007-myspring/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-007-myspring/src/main/resources" charset="UTF-8" />
   </component>
 </project>
