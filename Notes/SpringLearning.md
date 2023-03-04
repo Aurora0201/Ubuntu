@@ -135,7 +135,7 @@ Spring架构实现了IoC的思想，或者说Spring是实现了IoC思想的一�
 
 
 
-### 7.第一个Spring程序
+### *7.第一个Spring程序
 
 在上面的Spring介绍中，我们知道spring能帮助我们生成bean类，下面是具体的操作步骤：
 
@@ -240,13 +240,42 @@ Spring架构实现了IoC的思想，或者说Spring是实现了IoC思想的一�
 
 对象创建的时机
 
-+ 实际上，对象不是在调用`getBean`方法时创建的，而是在`new ClassXmlApplicationContext("spring.xml")`时就已经创建，调用getBean方法只是从容器中拿到创建好的对象
++ 实际上，在单例的情况下，对象不是在调用`getBean`方法时创建的，而是在`new ClassXmlApplicationContext("spring.xml")`时就已经创建，调用getBean方法只是从容器中拿到创建好的对象
 
 
 
 ### 9.启用Log4j2日志框架
 
+启用log4j2日志框架十分简单：
 
++ 首先是引入依赖
+
+    ```xml
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-slf4j2-impl</artifactId>
+        <version>2.19.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>2.19.0</version>
+    </dependency>
+    ```
+
+    引入上面两个依赖即可
+
++ 把配置文件放入根路径下
+
++ 在需要记录日志的类中创建一个logger，调用logger的记录方法即可
+
+    ```java
+    private final Logger logger = LoggerFactory.getLogger(Class<?> clazz)
+        
+    logger.info|debug|trace...(String s)
+    ```
+
+    
 
 ## 3.注入初步
 
@@ -845,6 +874,511 @@ spring底层架构大量使用了工厂创建模式，工厂设计模式是为�
 缺点
 
 + 每次增加产品时，都会增加产品类和工厂类，使得类中的工厂数量成倍的增加，一定程度上增加了系统的复杂程度，这不是什么好事
+
+
+
+## 8.Bean专题
+
+### 1.Bean的实例化
+
+在spring中提供了多种实例化bean的方法：
+
++ 单例模式下，在spring配置文件中配置bean会直接创建对象
+
+    + 这种方法我们在上面已经使用很多次了
+
++ 通过简单工厂模式实例化bean
+
+    + 首先我们需要一个简单工厂类，提供一个静态方法来得到对象
+
+        ```java
+        public class StarFactory {
+            public static Star get() {
+                return new Star();
+            }
+        }
+        ```
+
+    + 然后编写配置文件，通过`factory-method`来确定通过哪个静态工厂方法来获得对象
+
+        ```xml
+        <bean id="star" class="com.framework.spring.bean.StarFactory" factory-method="get"/>
+        ```
+
++ 通过工厂方法模式实例化bean
+
+    + 首先，我们要准备一个工厂方法类，提供一个实例方法来获得对象
+
+        ```java
+        public class InstanceStarFactory {
+            public Star get() {
+                return new Star();
+            }
+        }
+        ```
+
+    + 编写配置文件，配置factory-bean和factory-method
+
+        ```xml
+        <bean id="starFactory" class="com.framework.spring.bean.InstanceStarFactory"/>
+        <bean id="star1" factory-bean="starFactory" factory-method="get"/>
+        ```
+
+        可以看到，我们不用再配置bean类的class属性，这个方法创建的过程是先创建了一个工厂bean，然后通过工厂bean获取到对象
+
++ 通过工厂Bean接口来获取对象
+
+    + 这个方法的出现是为了简化第三种方法的配置过程，但是我们这次要在工厂具体类中实现`FactoryBean`接口，所以我们在配置文件中就不用在指定factory-bean和factory-method了，下面我们对上面的`InstantiationStarFatory`进行一个改造
+
+        ```java
+        public class InstanceStarFactory implements FactoryBean<Star> {
+            @Override
+            public boolean isSingleton() {
+                return FactoryBean.super.isSingleton();
+            }
+        
+            @Override
+            public Star getObject() throws Exception {
+                return new Star();
+            }
+        
+            @Override
+            public Class<?> getObjectType() {
+                return null;
+            }
+        }
+        ```
+
+        可以看到，这个接口中有三个方法，其中`isSingleton`是有默认实现的，当这个函数返回true就是单例，否则就是多例，`getObject`就是我们要手动的返回一个对象
+
+    + 然后就是配置文件的编写
+
+        ```xml
+        <bean id="star1" class="com.framework.spring.bean.InstanceStarFactory"/>
+        ```
+
+        只要这一句话，工厂bean就会自动的创建，只要我们调用getBean方法即可
+
+
+
+### *2.BeanFactory和FactoryBean的区别
+
+**BeanFactory：**BeanFactory是Spring IoC容器的顶级对象，翻译为Bean工厂，是生产Bean的地方，本质是**工厂**
+
+**FactoryBean：**FactoryBean翻译过来就是工厂bean，是一个工厂的bean对象，能够辅助spring生产对象的bean，本质是**bean**
+
+
+
+在Spring中bean可以分为两类：
+
++ 普通bean
++ 工厂bean
+    + 可以用来生产bean的bean
+
+
+
+### 3.FactoryBean的应用
+
+之前我们说过，虽然Date对spring来说是简单类型，但是如果使用value属性赋值需要传入标准的日期格式，十分的麻烦，那么该怎么样才能简化我们的操作呢？
+
++ 使用FactoryBean对传入的时间字符串进行加工转化为Date类型，这就是FactoryBean的一个简单实际应用
+
+
+
+下面是步骤
+
++ 先创建FactoryBean类，MyTime类用来模拟当我们需要给一个bean注入时间类型的需求
+
+    ```java
+    public class DateFactory implements FactoryBean<Date> {
+        private String time;
+    
+        public DateFactory(String time) {
+            this.time = time;
+        }
+        @Override
+        public Date getObject() throws Exception {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            return sdf.parse(time);
+        }
+    
+        @Override
+        public Class<?> getObjectType() {
+            return null;
+        }
+    
+        @Override
+        public boolean isSingleton() {
+            return FactoryBean.super.isSingleton();
+        }
+    }
+    
+    public class MyTime {
+        private Date date;
+    
+        @Override
+        public String toString() {
+            return "MyTime{" +
+                    "date=" + date +
+                    '}';
+        }
+    
+        public void setDate(Date date) {
+            this.date = date;
+        }
+    }
+    ```
+
+    这个工厂类中有一个字符串用来储存传入的时间，使用构造方法传入，加工的过程中将时间字符串转换为Date类型并返回
+
++ 编写配置文件
+
+    ```xml
+    <bean id="date" class="com.framework.spring.bean.DateFactory">
+        <constructor-arg index="0" value="2002-02-01"/>
+    </bean>
+    <bean id="myTime" class="com.framework.spring.bean.MyTime">
+        <property name="date" ref="date"/>
+    </bean>
+    ```
+
+    在这个文件中我们首先配置了FactoryBean的信息，并使用构造方法传入了时间字符串，然后在下面的创建了一个MyTimebean模拟Date类型的注入，这里我们直接给ref属性赋值为工厂类生成出的bean
+
+
+
+### 4.Bean生命周期之五步
+
+bean的生命周期有五步：
+
++ bean对象被创建（调用构造方法）
++ bean对象属性赋值
++ bean对象的初始化
++ bean对象的使用
++ bean对象的销毁
+
+其中的初始化`init()`和销毁`destroy()`都要我们自己写，并且在配置文件中指定
+
+
+
+下面是步骤
+
++ 创建类MyBean
+
+    ```java
+    public class MyBean {
+        private String name;
+    
+        public void setName(String name) {
+            this.name = name;
+            System.out.println("constructor done!");
+        }
+    
+        public MyBean() {
+            System.out.println("setter done!");
+        }
+    
+        @Override
+        public String toString() {
+            return "MyBean{" +
+                    "name='" + name + '\'' +
+                    '}';
+        }
+    
+        public void init() {
+            System.out.println("init done!");
+        }
+    
+        public void destroy() {
+            System.out.println("destroy done!");
+        }
+    }
+    ```
+
+    我们手动的提供了init和destroy方法
+
++ 编写配置文件
+
+    ```xml
+    <bean id="myBean" class="com.framework.spring.bean.MyBean" init-method="init" destroy-method="destroy">
+        <property name="name" value="myBean"/>
+    </bean>
+    ```
+
+    我们手动的指定了init的方法和destroy方法
+
++ 编写测试类
+
+    ```java
+    public void LifeTest() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+        MyBean myBean = applicationContext.getBean("myBean", MyBean.class);
+    
+        System.out.println(myBean);
+    
+        //close application
+        ClassPathXmlApplicationContext context = (ClassPathXmlApplicationContext) applicationContext;
+        context.close();
+    }
+    ```
+
+    需要注意的是，我们需要手动的关闭spring容器才能激活销毁程序，所以要先对ApplicationContext进行转型
+
++ 输出结果
+
+    ```
+    constructor done!
+    setter done!
+    init done!
+    MyBean{name='myBean'}
+    destroy done!
+    ```
+
+    可以看到一个bean的生命周期是符合五个步骤的
+
+
+
+### 5.Bean生命周期之七步
+
+在前面五步的基础上，我们可以在第三步init()方法执行的前后插入两步，这样bean的生命周期就变为了七步，这个机制也叫做`post processor`--bean的后处理机制：
+
++ 在上面的例子的基础上，提供一个类实现`BeanPostProcessor`接口，并重写`after & before`方法
+
+    ```java
+    public class LogBeanPostProcessor implements BeanPostProcessor {
+        @Override
+        public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+            System.out.println("Before done!");
+            return BeanPostProcessor.super.postProcessBeforeInitialization(bean, beanName);
+        }
+    
+        @Override
+        public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+            System.out.println("After done!");
+            return BeanPostProcessor.super.postProcessAfterInitialization(bean, beanName);
+        }
+    }
+    ```
+
+    注意，这个地方不能动原有的代码，只能在`return`语句的上面添加我们想要发生的事件
+
++ 编写配置文件
+
+    ```xml
+    <bean class="com.framework.spring.bean.LogBeanPostProcessor"/>
+    ```
+
+    这个类不需要我们主动去调用，所以不用给他命名
+
++ 测试，沿用上一个例子的代码
+
+    ```
+    constructor done!
+    setter done!
+    Before done!
+    init done!
+    After done!
+    MyBean{name='myBean'}
+    destroy done!
+    ```
+
+    可以发现，确实在init方法前后多了两个事件
+
+
+
+**注意：**这个后处理机制对于同一个xml文件中的bean都是起作用的
+
+
+
+### 6.Bean生命周期之十步
+
+十步是在上面七步的基础之上又增加了三个点位：
+
++ 第一个点位：before方法之前
+    + 检查Bean是否实现了Aware相关的接口(BeanNameAware, BeanClassLoaderAware, BeanFactoryAware)，如果实现了就会调用接口中的方法，这些方法的目的是传递一些数据，让我们更方便的使用
++ 第二个点位：before方法之后
+    + 检查Bean是否实现了initializationBean接口，如果实现了，则调用接口中的方法
++ 第三个点位：使用Bean之后，销毁Bean之前
+    + 检查Bean是否实现了DisposableBean接口，实现了则调用接口中方法
+
+
+
+### 7.Bean生命周期特殊情况
+
+其实上面所述的bean生命周期都是建立在单例的情况下的，如果说在多例的情况下--scope="protoType"，一旦客户端获取到bean--init之后，spring容器就不会再对bean的生命周期进行管理了
+
+
+
+### 8.bean纳入spring管理
+
+有时候我们想让我们手动创建的bean纳入spring进行管理，该如何操作呢？
+
++ 我们需要一个DefaultListableBeanFactory类
+
+    ```java
+    public void registerTest() {
+        MyBean myBean = new MyBean();
+        System.out.println(myBean);
+        DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+        factory.registerSingleton("myBean",myBean);
+    
+        System.out.println(factory.getBean("myBean"));
+    }
+    ```
+
+    这样我们就完成了一个对象的注册（交给spring容器进行管理）
+
++ 看一下输出的结果
+
+    ```
+    com.framework.spring.bean.MyBean@f5f2bb7
+    com.framework.spring.bean.MyBean@f5f2bb7
+    ```
+
+    可见是同一个对象
+
+
+
+### 9.Bean循环依赖问题
+
+来看一下这个例子：我们定义一个妻子类，一个丈夫类，他们是双向关联的，也就是说其子类中有丈夫类的引用，丈夫类中有妻子类的引用，那么在这种情况下，他们会出现什么问题呢?
+
+
+
+**使用set注入的情况**
+
+**Singleton**
+
++ 先来看单例模式下会出现什么问题，我们在配置文件中对他们进行配置，看看能否正常进行
+
+    ```xml
+    <!--    singleton -->
+    <bean id="husband" class="com.framework.spring.bean.Husband">
+        <property name="wife" ref="wife"/>
+    </bean>
+    
+    <bean id="wife" class="com.framework.spring.bean.Wife">
+        <property name="husband" ref="husband"/>
+    </bean>
+    ```
+
++ 运行测试显示，这样是没有问题的
+
+
+
+**ProtoType**
+
++ 再来看一下多例情况下，同样是上面的配置但是scope属性为`protoType`，运行一下测试看看
+
++ 抛出了异常
+
+    ```
+    org.springframework.beans.factory.BeanCreationException
+    ```
+
+    这证明在多例的情况下，循环依赖是会出错的，但是只要我们把其中一个改成单例的模式，又可以正常的运行了
+
+
+
+**分析：**其实在spring中有这样一个机制，在单例的情况下，创建bean和给属性赋值是有两个阶段的，当bean被创建后，就会被“曝光”，就是会让容器知道，已经存在这个类对象了，等待bean创建完后，才会对属性进行赋值，所以就避免了循环依赖问题
+
+
+
+**使用构造注入的情况**
+
+这里我们直接说结论，因为构造注入无法实现两个阶段，所以即使在单例的情况下也会出现异常
+
+
+
+### *10.Bean的缓存机制
+
+从源码的角度来分析bean的创建
+
++ 首先我们要知道的是，在spring中对于bean的创建有三级缓存
+
+    ```java
+    public class DefaultSingletonBeanRegistry {
+        private final Map<String, Object> singletonObjects;
+        private final Map<String, Object> earlySingletonObjects;
+        private final Map<String, ObjectFactory<?>> singletonFactories;
+    }
+    ```
+
+    先来解释一下这三个Map集合代表了什么意思
+
+    + singletonObjects：一级缓存，存储了完整单例bean对象，这里的bean对象已经完成了属性的赋值
+    + earlySingletonObjects：二级缓存，存储了早期的单例bean对象，这个缓存中的单例bean对象没有赋值
+    + singletonFactories：三级缓存，存储了单例工厂对象，这里存储的是创建bean对应的bean工厂对象，每一个单例bean对象都会对应一个单例工厂对象
+
++ 在创建好一个bean对象后，spring框架要做的是`急切的把他缓存起来为了能解决循环依赖问题`，所以在创建bean对象后，会直接存入缓存中
+
++ 取用对象时，会先从一级缓存取，取不到就会去二级缓存去，二级缓存取不到的情况下会直接使用三级缓存的工厂对象创建新的对象并且放入二级缓存中，然后从集合中移除工厂对象
+
+
+
+将bean对象放入map集合的这个行为可以称为**曝光**
+
+
+
+## 9.手写mySpring框架
+
+下面我们从源码的角度来分析一下spring框架的结构，并用自己的理解去复现spring框架：
+
++ spring框架结构分析，首先来看一下spring框架的结构，我们使用了`ApplicationContext`接口和实现类`ClassPathXmlApplicationContext`，其中ApplicationContext提供了getBean方法，然后通过解析XML文件来生成bean类
+
++ 先来提供接口，接口中有一个getBean方法
+
+    ```java
+    public interface ApplicationContext {
+        /**
+         * return object by beanName
+         * @param beanName the id of bean
+         * @return instance of bean
+         */
+        Object getBean(String beanName);
+    }
+    ```
+
++ 然后为了模拟spring容器的管理，我们提供三个类来模拟需要管理的情况，分别是`User, UserDao, UserService`，他们是经典的MVC模式系统
+
++ 然后准备XML文件
+
+    ```xml
+    <beans>
+        <bean id="user" class="com.framework.spring.bean.User">
+            <property name="name" value="ZhangSan"/>
+            <property name="age" value="15"/>
+        </bean>
+        <bean id="userDao" class="com.framework.spring.bean.UserDao"/>
+        <bean id="userService" class="com.framework.spring.bean.UserService">
+            <property name="userDao" ref="userDao"/>
+        </bean>
+    </beans>
+    ```
+
+    上面的文件很好的描述了三个类的关系
+
++ 编写实现类`ClassPathXmlApplicationContext`，到了这一步我们需要使用dom4j来解析XML文件
+
+    ```java
+    public class ClassPathXmlApplicationContext{
+        //early cache
+        private Map<String, Object> singletonObjects;
+        
+        public void getBean(String beanName){
+    		//first part, parse xml, instantiate bean and put it into cache
+            
+            //second part, parse xml, assign values to properties
+        }
+    }
+    ```
+
+
+**技术细节：**
+
++ 在第一部分中，我们使用反射机制创建了对象并放入缓存中--曝光
++ 在第二部分中，我们首先使用了反射机制获取了属性的类型，然后通过类型的判断来给属性赋值，但是对于简单类型和引用类型的赋值大有不同，对于引用类型来说，我们只要在调用方法时，从缓存中取出赋值和被赋值的对象即可，但对于简单类型来说要通过繁琐的类型判断来解决
+
+
 
 
 
