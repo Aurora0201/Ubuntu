@@ -1382,3 +1382,193 @@ bean的生命周期有五步：
 
 
 
+## 10.Springz注解式开发
+
+注解出现的意义是简化配置文件的操作，spring6倡导全注解式开发
+
+
+
+### *1.使用反射机制获取注解
+
+首先来复习一下注解的创建和使用
+
++ 首先创建一个注解
+
+    ```java
+    @Target(Element.Type)
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface Component{
+        String value() default "";
+        
+        String[] name() ;
+    }
+    ```
+
+    这样就创建好了一个注解，上面的Target和Retention注解都是元注解--用来标注注解的注解，Target用来指定注解标注的对象是谁--字段，类...，Retention用来代表注解存在的地方，是存在于源码还是存在于字节码，如果说想使用反射机制去读取字节码，还是要使用Retention进行标注
+
+    **注意：**对注解中的value属性进行赋值时，可以不用`属性 = {属性值}`的模式，可以省略`value =`，同时，如果是对数组属性进行赋值时，那么大括号也可以省略，注解可以有默认值
+
++ 下面使用注解标注一个类，我们在这里提供一个bean类User，模拟当一个类被注解标注时，使用反射机制去读取这个类的注解
+
++ 下面是使用反射机制读取注解的过程，我们的第一个任务就是只有一个包名的情况下，扫描一个包下的所有类，当类上有注解时，实例化这个类
+
+    ```java
+    public class ParseAnnotation {
+        private final static Map<String, Object> singletonObjects = new HashMap<>();
+        public static void main(String[] args) {
+            String packageName = "com.java.bean";
+            //turn package name into file path
+            String packagePath = packageName.replaceAll("\\.","/");
+    //        System.out.println(packagePath);
+            URL url = ClassLoader.getSystemClassLoader().getResource(packagePath);
+            String path = url.getPath();
+            //get file from url
+            File file = new File(path);
+            File[] files = file.listFiles();
+            Arrays.stream(files).forEach(f -> {
+                String className = packageName + "." + f.getName().split("\\.")[0];
+    //            System.out.println(className);
+                try {
+                    Class<?> clazz = Class.forName(className);
+                    if(clazz.isAnnotationPresent(Component.class)){
+                        Component component = clazz.getDeclaredAnnotation(Component.class);
+                        String id = component.value();
+                        //instantiate the bean if the bean has the annotation
+                        Object obj = clazz.getDeclaredConstructor().newInstance();
+                        //put into cache
+                        singletonObjects.put(id, obj);
+                    }
+    
+                } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException |
+                         InvocationTargetException e) {
+                    throw new RuntimeException(e);
+                }
+    
+            });
+            System.out.println(singletonObjects);
+        }
+    }
+    ```
+
+    首先是我们将报名转化为路径名，然后使用类加载器获取系统类加载器，从而获得类的Url，然后我们从url获得类的文件地址，通过包名的拼接来判断包是否存在注解，如果存在则进行实例化并放入缓存中，这就是spring的实现方法
+
+
+
+### 2.Bean的注解的解读
+
+bean的注解有四种：
+
++ Component
++ Repository
++ Controller
++ Service
+
+
+
+下面我们来看一下他们的源码:
+
+```java
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Indexed
+public @interface Component {
+
+	/**
+	 * The value may indicate a suggestion for a logical component name,
+	 * to be turned into a Spring bean in case of an autodetected component.
+	 * @return the suggested component name, if any (or empty String otherwise)
+	 */
+	String value() default "";
+
+}
+```
+
+```java
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Component
+public @interface Repository {
+
+	/**
+	 * The value may indicate a suggestion for a logical component name,
+	 * to be turned into a Spring bean in case of an autodetected component.
+	 * @return the suggested component name, if any (or empty String otherwise)
+	 */
+	@AliasFor(annotation = Component.class)
+	String value() default "";
+
+}
+```
+
+我们会发现这四个注解的源码都是一样的，除了Component，其他三个多了一个注解，别名为Component，这意思非常明显了，其实这四个注解的作用是完全一致的，只不过spring框架为了更好的区分每个层，使用了不同的别名：
+
++ 最上面的表示层使用`Controller`
++ 中间的业务层使用`Service`
++ 下面的DAO层使用`Repository`
++ 其他的Bean就使用`Component`
+
+
+
+### 3.注解的使用
+
+学习了注解的定义之后，那就是注解的使用了，使用注解有以下几点要求：
+
++ 引入了AOP的依赖
++ 在配置文件中引入context命名空间
++ 在配置文件中指定要扫描的包名
++ 在bean类上使用注解
+
+
+
+下面就从配置文件中的步骤讲起：
+
++ 我们要指定扫描的包名
+
+    ```xml
+    <context:component-scan base-package="com.framework.spring.bean"/>
+    ```
+
++ 然后就在bean上使用注解即可
+
+    ```java
+    @Component("user")
+    public class User {
+    
+    }
+    ```
+
++ 然后就像之前一样从ApplicationContext中获得Bean实例就可以了
+
+
+
+**注意：**在注解中的value属性会作为Bean的id，但是如果缺省的话，spring会给bean取一个默认的名字，就是类名的首字母小写
+
+
+
+**多个包的指定方法**
+
+当我们需要指定多个包为扫描的对象时，我们有两种解决方案：
+
++ 指定多个包名，每个包名用逗号隔开
++ 指定一个相同的父包名
+
+
+
+### 4.选择性实例化Bean
+
+假设包下有很多bean，每个bean使用了不同注解进行标注，当我们只想要一部分注解生效该怎么做呢？两种方案
+
++ 选择的方式，在context标签中添加属性`use-default-filters="false"`
+
+    ```xml
+    <context:component-scan base-package="com..." use-default-filters="false">
+    	<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:include-filter type="annotation" expression="org.sprinframework.stereotype.Contronller"/>
+    </context:component-scan>
+    ```
+
+    当我们设置属性`use-defautl-filters`为`false`时，所有的注解都会失效，但是当我们在下面include标签内填入的标签都会生效
+
++ 反选的方式，因为`use-default-filters`的默认属性是`true`，所以我们直接在exzclude标签中填入我们不想生效的注解即可 
