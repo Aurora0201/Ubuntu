@@ -13,6 +13,8 @@
         <option value="$PROJECT_DIR$/spring-006-circular-dependency/pom.xml" />
         <option value="$PROJECT_DIR$/review-reflex-machenism/pom.xml" />
         <option value="$PROJECT_DIR$/spring-007-myspring/pom.xml" />
+        <option value="$PROJECT_DIR$/review-annotation/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-008-annotation/pom.xml" />
       </list>
     </option>
   </component>

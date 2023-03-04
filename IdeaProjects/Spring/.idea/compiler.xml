@@ -7,12 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="spring-004-bean-instantiation" />
+        <module name="review-annotation" />
         <module name="spring-005-bean-lifecycle" />
         <module name="review-reflex-machenism" />
         <module name="spring-003-simple-factory" />
         <module name="spring-001-revelation" />
         <module name="spring-002-DI" />
         <module name="spring-006-circular-dependency" />
+        <module name="spring-008-annotation" />
         <module name="spring-007-myspring" />
       </profile>
     </annotationProcessing>
