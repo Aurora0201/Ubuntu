@@ -1,6 +1,7 @@
 package com.javaweb.bank.web;
 
 import com.javaweb.bank.exceptions.MoneyNotEnoughException;
+import com.javaweb.bank.service.AccountService;
 import com.javaweb.bank.service.impl.AccountServiceImpl;
 import com.javaweb.bank.service.proxy.ProxyUtil;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,17 +19,16 @@ import java.io.IOException;
  */
 @WebServlet("/transfer")
 public class AccountServlet extends HttpServlet {
-    AccountServiceImpl accountService = new AccountServiceImpl();
-
+    //    AccountServiceImpl accountService = new AccountServiceImpl();
+    AccountService accountService;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String fromAct = request.getParameter("fromAct");
         String toAct = request.getParameter("toAct");
         double money = Double.parseDouble(request.getParameter("money"));
-
+        accountService = (AccountService) ProxyUtil.getProxy(new AccountServiceImpl());
         try {
-//            accountService.transfer(fromAct, toAct, money);
-            ProxyUtil.doProxy(fromAct, toAct, money);
+            accountService.transfer(fromAct, toAct, money);
             response.sendRedirect(request.getContextPath() + "/success.jsp");
         }  catch (MoneyNotEnoughException e) {
             response.sendRedirect(request.getContextPath() + "/MoneyNotEnough.jsp");

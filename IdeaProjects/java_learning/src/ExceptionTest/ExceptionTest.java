@@ -47,7 +47,7 @@ class ExceptionTest02{
     }
     public static void m2() throws Exception {
         System.out.println("m2 start");
-        FileInputStream fileInputStream = new FileInputStream("/usr/test.txt");
+        FileInputStream fileInputStream = new FileInputStream("/usr/test.py.txt");
         System.out.println(fileInputStream.read());
         System.out.println("m2 end");
     }
@@ -91,7 +91,7 @@ class ExceptionTest03 {
     public static void main(String[] args) {
         FileInputStream fis = null;
         try {
-            fis = new FileInputStream("/usr/test.txt");
+            fis = new FileInputStream("/usr/test.py.txt");
             String txt = null;
             txt.toString();
         } catch (FileNotFoundException | NullPointerException e) {

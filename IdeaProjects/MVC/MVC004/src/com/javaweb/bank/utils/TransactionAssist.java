@@ -1,7 +1,5 @@
 package com.javaweb.bank.utils;
 
-import com.javaweb.bank.utils.DBTool;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -19,7 +17,7 @@ public class TransactionAssist {
         conn.commit();
     }
 
-    public static void rollabck() throws SQLException {
+    public static void rollback() throws SQLException {
         conn = DBTool.getConnection();
         conn.rollback();
     }

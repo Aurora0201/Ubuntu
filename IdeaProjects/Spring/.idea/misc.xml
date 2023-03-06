@@ -15,6 +15,10 @@
         <option value="$PROJECT_DIR$/spring-007-myspring/pom.xml" />
         <option value="$PROJECT_DIR$/review-annotation/pom.xml" />
         <option value="$PROJECT_DIR$/spring-008-annotation/pom.xml" />
+        <option value="$PROJECT_DIR$/dynamic-proxy/pom.xml" />
+        <option value="$PROJECT_DIR$/dynamic-proxy-jdk/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-009-AOP/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-010-mybatis/pom.xml" />
       </list>
     </option>
   </component>

@@ -10,71 +10,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df539d8a-bbcb-4e47-8afb-b6af56428b25" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/src/main/java/com/emotion/analysis/bean/Content.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/src/main/java/com/emotion/analysis/mapper/ContentMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/src/main/java/com/emotion/analysis/service/ContentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/src/main/java/com/emotion/analysis/service/impl/ContentServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/src/main/java/com/emotion/analysis/util/CsvReadUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/src/main/java/com/emotion/analysis/util/SqlSessionUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/src/main/resources/com/emotion/analysis/mapper/ContentMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/src/main/resources/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/src/main/resources/jdbc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/src/main/resources/logback-test.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/src/main/resources/mybatis-config.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/src/main/webapp/index.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/src/test/java/ServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/src/test/java/UtilTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/src/test/resources/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/target/classes/com/emotion/analysis/util/SqlSessionUtil.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/target/classes/jdbc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/target/classes/logback-test.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/target/classes/mybatis-config.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/target/surefire-reports/TEST-UtilTest.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/target/surefire-reports/UtilTest.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis/target/test-classes/UtilTest.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MyBatis/javassist-001/Carmapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MyBatis/javassist-001/mybatis-config.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/java/com/java/framework/bean/Student.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/java/com/java/framework/mapper/StudentMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/java/com/java/framework/util/SqlSessionUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/resources/com/java/framework/mapper/StudentMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/resources/jdbc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/resources/logback-test.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/main/resources/mybatis-config.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MyBatis/mybatis-005/src/test/java/TypeTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../java_learning/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../java_learning/resources/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../PycharmProjects/Reptiles/.idea/PythonProject.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../JavaWeb/oa3/src/com/javaweb/oa/Utils/JDBCUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaWeb/oa3/src/com/javaweb/oa/Utils/JDBCUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../JavaWeb/out/artifacts/oa3_war_exploded/WEB-INF/classes/com/javaweb/oa/Utils/JDBCUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaWeb/out/artifacts/oa3_war_exploded/WEB-INF/classes/com/javaweb/oa/Utils/JDBCUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../JavaWeb/out/production/oa3/com/javaweb/oa/Utils/JDBCUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaWeb/out/production/oa3/com/javaweb/oa/Utils/JDBCUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MyBatis/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MyBatis/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MyBatis/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MyBatis/mybatis-001/src/main/resources/logback-test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/mybatis-001/src/main/resources/logback-test.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MyBatis/mybatis-004/src/main/resources/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyBatis/mybatis-004/src/main/resources/mybatis-config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java_learning/MyFile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java_learning/UserInformation.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java_learning/log" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/MVC004/src/com/javaweb/bank/service/proxy/TransactionInvocation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Spring/dynamic-proxy-jdk/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Spring/dynamic-proxy-jdk/src/main/java/com/java/proxy/client/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Spring/dynamic-proxy-jdk/src/main/java/com/java/proxy/client/TimeInvocationHandle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Spring/dynamic-proxy-jdk/src/main/java/com/java/proxy/service/OrderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Spring/dynamic-proxy-jdk/src/main/java/com/java/proxy/service/OrderServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Spring/spring-008-annotation/src/main/java/cn/java/bean/Vip.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Spring/spring-008-annotation/src/main/java/com/framework/spring/bean/SpringConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Spring/spring-009-AOP/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Spring/spring-009-AOP/src/main/java/com/framework/spring/aop/LogAspect.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Spring/spring-009-AOP/src/main/java/com/framework/spring/config/SpringConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Spring/spring-009-AOP/src/main/java/com/framework/spring/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Spring/spring-009-AOP/src/main/resources/spring.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Spring/spring-009-AOP/src/test/java/com/framework/spring/test/AOPTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../java_learning/resources/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MVC004/src/com/javaweb/bank/service/proxy/ProxyUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/MVC004/src/com/javaweb/bank/service/proxy/ProxyUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MVC004/src/com/javaweb/bank/utils/TransactionAssist.java" beforeDir="false" afterPath="$PROJECT_DIR$/MVC004/src/com/javaweb/bank/utils/TransactionAssist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MVC004/src/com/javaweb/bank/web/AccountServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/MVC004/src/com/javaweb/bank/web/AccountServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Spring/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Spring/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Spring/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Spring/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Spring/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Spring/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Spring/spring-008-annotation/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Spring/spring-008-annotation/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Spring/spring-008-annotation/src/main/java/com/framework/spring/bean/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Spring/spring-008-annotation/src/main/java/com/framework/spring/bean/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Spring/spring-008-annotation/src/main/resources/spring.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Spring/spring-008-annotation/src/main/resources/spring.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Spring/spring-008-annotation/src/test/java/com/framework/spring/IoCTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Spring/spring-008-annotation/src/test/java/com/framework/spring/IoCTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java_learning/out/production/java_learning/ExceptionTest/ExceptionTest02.class" beforeDir="false" afterPath="$PROJECT_DIR$/../java_learning/out/production/java_learning/ExceptionTest/ExceptionTest02.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java_learning/out/production/java_learning/ExceptionTest/ExceptionTest03.class" beforeDir="false" afterPath="$PROJECT_DIR$/../java_learning/out/production/java_learning/ExceptionTest/ExceptionTest03.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../java_learning/out/production/java_learning/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../java_learning/out/production/java_learning/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java_learning/resources/data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java_learning/src/ExceptionTest/ExceptionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java_learning/src/ExceptionTest/ExceptionTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../java_learning/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java_learning/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Notes/JavaWeb.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Notes/JavaWeb.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Notes/MyBatisLearning.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Notes/MyBatisLearning.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Notes/SpringLearning.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Notes/SpringLearning.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -251,6 +219,7 @@
       <workItem from="1676202102306" duration="9166000" />
       <workItem from="1676452657770" duration="22000" />
       <workItem from="1677076874653" duration="734000" />
+      <workItem from="1678092085247" duration="718000" />
     </task>
     <servers />
   </component>
