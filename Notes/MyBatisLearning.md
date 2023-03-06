@@ -1441,16 +1441,14 @@ MyBatis逆向工程是指通过识别数据库表字段来生成mapper接口和`
                             password="root">
             </jdbcConnection>
             <!-- ⽣成pojo包名和位置 -->
-            <javaModelGenerator targetPackage="com.powernode.mybatis.pojo" tar
-                                getProject="src/main/java">
+            <javaModelGenerator targetPackage="com.powernode.mybatis.pojo" targetProject="src/main/java">
                 <!--是否开启⼦包-->
                 <property name="enableSubPackages" value="true"/>
                 <!--是否去除字段名的前后空⽩-->
                 <property name="trimStrings" value="true"/>
             </javaModelGenerator>
             <!-- ⽣成SQL映射⽂件的包名和位置 -->
-            <sqlMapGenerator targetPackage="com.powernode.mybatis.mapper" targ
-                             etProject="src/main/resources">
+            <sqlMapGenerator targetPackage="com.powernode.mybatis.mapper" targetProject="src/main/resources">
                 <!--是否开启⼦包-->
                 <property name="enableSubPackages" value="true"/>
             </sqlMapGenerator>
@@ -1466,7 +1464,7 @@ MyBatis逆向工程是指通过识别数据库表字段来生成mapper接口和`
         </context>
     </generatorConfiguration>
     ```
-
+    
 + 然后运行插件即可，在maven菜单 -> plugins -> mybatis-generator
 
 
@@ -1543,3 +1541,5 @@ MyBatis逆向工程是指通过识别数据库表字段来生成mapper接口和`
         System.out.println(pageInfo);
     }
     ```
+    
+    

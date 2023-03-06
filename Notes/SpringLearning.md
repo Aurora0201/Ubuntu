@@ -1454,7 +1454,7 @@ bean的生命周期有五步：
 
 
 
-### 2.Bean的注解的解读
+### 2.Bean的实例化注解
 
 bean的注解有四种：
 
@@ -1511,7 +1511,7 @@ public @interface Repository {
 
 
 
-### 3.注解的使用
+### 3.实例化注解的使用
 
 学习了注解的定义之后，那就是注解的使用了，使用注解有以下几点要求：
 
@@ -1571,4 +1571,828 @@ public @interface Repository {
 
     当我们设置属性`use-defautl-filters`为`false`时，所有的注解都会失效，但是当我们在下面include标签内填入的标签都会生效
 
-+ 反选的方式，因为`use-default-filters`的默认属性是`true`，所以我们直接在exzclude标签中填入我们不想生效的注解即可 
++ 反选的方式，因为`use-default-filters`的默认属性是`true`，所以我们直接在exclude标签中填入我们不想生效的注解即可 
+
+
+
+### 5.bean的注入注解
+
+**简单属性注解**
+
+bean的注入注解之一为`@value`，但是他只能用来注入简单属性，并且只能用在三个地方：
+
++ 类的属性上
++ 类的构造器形参前
++ 类的set方法上
+
+
+
+来看下面的例子
+
+```java
+@Value("Bin JunKai")
+private String name;
+```
+
+```java
+@Value("Bin")
+public void setName(String name) {
+    this.name = name;
+}
+```
+
+```java
+public User(@Value("Bin1") String name) {
+    this.name = name;
+}
+```
+
+
+
+**注意：**在属性上使用注解时，即使没有set方法也可以，只有在构造方法的形参前才能加注解
+
+
+
+**非简单属性注解**
+
+对非简单属性的注入我们需要两个注解，分别是`@Autowire|@Qualifier`，他们只能被用在下面的地方：
+
++ 方法上
++ 属性上
++ 参数上
++ 类上
++ 构造器上（只有Autowire）
+
+
+
+在属性上使用注解的前提下，来看下面的例子
+
++ 假如说我们提供了一个Dao的接口，然后提供了一个实现类，这时，我们只要用一个`@Autowire`标注在属性就可以实现属性的自动注入
++ 但是如果我们提供了两个或者更多的实现类，那`@Autowire`显然是不够用的，这个时候就需要`@Qualifier`出场了，在被注入的属性上使用`@Autowire`的前提下，在这个属性上再加上`@Qualifier("id")`来指定需要注入类
+
+
+
+**注意：**`@Autowire`使用的是基于类型的自动注入，只有配合了`@Qualifier`才是基于名字的自动注入
+
+
+
+### 6.@Resource注解
+
+`@Resource`注解同样能完成非简单类型的注入，那它与`@Autowire`有什么区别呢？
+
++ Resource注解是JDK扩展包中的一员，而Autowire是spring框架中的一员，所以Resource更有通用性，建议使用Resource注解
+
++ Resource注解是基于name自动装配的，当我们指定名字后，会根据名字进行装配，如果我们省略了名字，就会根据属性的名字去查找，是否存在与属性名相同的bean，如果存在则直接进行注入，如果不存在才会切换到基于类型的自动装配
+
++ Resource只能用在属性，setter方法上
+
++ 使用Resource注解需要引入依赖，如果是spring6，因为spring6只支持Jakarta，所以要引入下面的依赖
+
+    ```xml
+    <dependency>
+        <groupId>jakarta.annotation</groupId>
+        <artifactId>jakarta.annotation-api</artifactId>
+        <version>2.1.1</version>
+    </dependency>
+    ```
+
+    如果是spring5及以下，需要引入javax的依赖
+
+    ```xml
+    <dependency>
+        <groupId>javax.annotation</groupId>
+        <artifactId>javax.annotation-api</artifactId>
+        <version>1.3.2</version>
+    </dependency>
+    ```
+
+
+
+### 7.全注解式开发
+
+即使使用了上文我们所学的注解，还是有一样东西没有被替换--spring配置文件，所以这里我们将学习配置注解的使用，主要使用下面的注解：
+
++ @Configuration：用来指定配置类
++ ComponentScan：用来指定需要扫描的包
+
+
+
+**配置注解的使用**
+
++ 替换掉配置文件的原理其实就是使用一个类来代替配置文件，所以首先我们提供一个配置类，并加上配置类的注解
+
+    ```java
+    @Configuration
+    @ComponentScan({"cn","com"})
+    public class SpringConfig {
+    
+    }
+    ```
+
++ 对于配置的读取也跟使用配置文件时有所不同
+
+    ```java
+    public void classConfigTest() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
+        Object vip = context.getBean("vip");
+        System.out.println(vip);
+    }
+    ```
+
+    不再使用`ApplicationContext`接口而是改用`AnnotationConfigApplicationContext`接口，使用的实现类也从`ClassPathXmlApplicationContext`改为`AnnnotationConfigApplicationContext`，传入的参数也变成了配置类
+
+
+
+## 11.GoF之代理模式
+
+
+
+### 1.代理模式初步
+
+**什么是代理？**
+
++ 假设有一个演员需要完成一个高难度的表演动作，但是它无法完成，但是为了不让观众察觉，它找了一个替身演员来替他完成这个任务
++ 那么上面的这个行为就叫做代理
+
+
+
+**Java中代理模式的作用**
+
++ 当一个对象需要保护的时候，可以考虑使用代理对象去完成这个行为
++ 需要给一个对象的功能进行增强的时候，可以使用代理去增强
++ A对象无法与B对象进行交互时，使用代理模式来解决
+
+
+
+**代理三步骤**
+
++ 创建目标对象`target`
++ 创建代理对象`proxy`
++ 运行代理对象方法
+
+### 2.静态代理
+
+假设现在有一个业务需求，我们需要计算每个函数的执行时间，那么有多少种方法能实现我们的需求，业务中有一个接口和一个实现类：
+
++ 第一种方法，编写一个子类来继承这个类，重写父类方法时，在调用父类方法的前后编写计时的程序
+
+    ```java
+    public class SubClass extends ..{
+        public void generate(){
+            //counting code
+            super.generate();
+     		//counting code       
+        }
+    }
+    ```
+
+    上面的程序的缺点有：1.使用了继承关系耦合度很高 2.代码重复，冗余
+
++ 第二种方法，编写一个接口的实现类，对目标类进行代理，降低了耦合度
+
+    ```java
+    public class OrderProxy implements ...{
+        private OrderService target;
+        //..
+    }
+    ```
+
+    尽管使用接口编程降低了耦合度，但是仍然没有解决代码冗余的问题
+
+
+
+### 3.动态代理
+
+动态代理技术原理是动态的生成字节码，不再需要我们编写具体的实现类，程序员只要对增强的代码进行负责即可，大大提高了程序员测试的效率，目前动态代理有三种实现方式：
+
++ JDK自带的代理类，只能代理接口，并且需要至少一个实现类
++ CGLIB--(Code Generate Library)，是一个开源项，强大的，高性能，高质量的代码生成库，可以在运行期间扩展Java类与实现Java接口，既可以代理接口，又可以代理类，底层通过继承的方式实现，效率比JDK的代理类高
++ Javassist动态代理技术，是一个，开源，分析，编辑Java字节码的类库
+
+
+
+**JDK代理**
+
+先来学习一下的JDK的代理类，先准备下面的类
+
+```java
+public interface OrderService {
+    void generate();
+
+    String details();
+
+    String modify(String content);
+}
+```
+
+```java
+public class OrderServiceImpl implements OrderService{
+    @Override
+    public void generate() {
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("generate done");
+    }
+
+    @Override
+    public String details() {
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return "ZhangSan";
+    }
+
+    @Override
+    public String modify(String content) {
+        return "Modify done" + content;
+    }
+}
+```
+
+
+
+下面使用动态代理来计算每个方法执行的时间
+
++ 使用JDK的动态代理首先要使用的是`Proxy.newProxyInstance()`静态方法，这个方法有三个参数
+
+    + `ClassLoader loader`：这个类加载参数必须传入目标对象的类加载
+    + `Class<?>[] interfaces`：这个参数代表目标对象实现的接口，是一个数组
+    + `invocationHandler h`：调用处理器，这个一个接口，我们必须编写一个实现类并在里面编写增强代码
+
++ 下面就是编写调用处理器的实现类了，我们可以发现这个接口中只有一个方法`invoke()`，并且里面有三个参数
+
+    + `Object proxy`：代理对象，一般来说不会使用
+
+    + `Method method`：目标对象的方法
+
+    + `Object[] args`：目标对象方法的参数
+
+        也就是说，我们只要在invoke方法中调用目标对象的方法，并且在目标对象方法的前后添加增强代码即可
+
++ 下面是代理类的实现
+
+    ```java
+    public static void main(String[] args) {
+        //create target program
+        OrderService target = new OrderServiceImpl();
+        //create proxy program
+        OrderService orderService = (OrderService) Proxy.newProxyInstance(
+            target.getClass().getClassLoader(),
+            target.getClass().getInterfaces(),
+            new TimeInvocationHandle(target)
+        );
+        orderService.generate();
+        String details = orderService.details();
+        String modify = orderService.modify("123");
+    }
+    ```
+
+    ```java
+    public class TimeInvocationHandle implements InvocationHandler {
+        private Object target;
+    
+        public TimeInvocationHandle(Object target) {
+            this.target = target;
+        }
+        @Override
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            //enhancement code here
+            Object retValue = method.invoke(target, args);
+            
+            return retValue;
+        }
+    }
+    ```
+
+**注意：**如果说，我们想要调用目标方法，还是需要将目标对象传入调用处理器，也就是`target`，我们这里通过构造器传入了对象
+
+
+
+**CGLIB代理**
+
+既能代理接口，又能代理类，因为是通过子类继承的方式，所以被代理的类不能被final修饰
+
+
+
+**Javassist代理**
+
+在MyBatis的章节中已经学习过
+
+
+
+## 12.面向切面AOP编程	
+
+### 1.AOP的初步
+
+**什么是AOP？**
+
++ AOP（Aspect Oriented Programming）面向切面编程，是一种编程技术，AOP是对OOP的延伸
++ AOP一般是那些跟业务逻辑不挂钩，但是重复使用的概率比较高的代码，比如数据库的事务操作
+
+
+
+**交叉业务**
+
++ 一般一个系统当中都会有一些系统服务，如：日志，事务，安全管理等，这些与业务逻辑无关的系统服务被称为**交叉业务**，而这些交叉业务都是通用的，如果我们在每个业务中都去重复的编写，会造成代码的冗余，耦合度变高
+
+
+
+**一句话总结AOP**
+
++ 将与核心业务无关的代码抽取出来，形成一个独立的组件，然后以横向交叉的方式应用到业务流程中的过程叫做AOP
+
+
+
+**AOP的优点**
+
++ 代码复用性强
++ 代码易于维护
++ 使开发者更专注于业务逻辑
+
+
+
+### 2.AOP七大术语
+
+AOP中存在七大术语：
+
++ **连接点 JoinPoint**
+    + 在整个的执行过程中，可以织入切面的地方，方法的前后，抛出异常的前后
++ **切点 PointCut**
+    + 在执行过程中，真正织入切面的方法
++ **通知 Advice**
+    + 通知又叫增强，就是负责增强的代码，根据所处的位置不同又有下面几种叫法
+        + 在方法前，前置通知
+        + 在方法后，后置通知
+        + 前后都有，环绕通知
+        + 抛出异常的语句前，异常通知
+        + 在finally子句中，最终通知
++ **切面 Aspect**
+    + 切点 + 通知
++ 织入 Weaving
+    + 把通知应用到目标对象上的过程
++ 代理对象 Proxy
+    + 目标对象织入后产生的对象
++ 目标对象 Target
+    + 被织入的对象
+
+
+
+### 3.切点表达式
+
+切点表达式用来定义通知往哪些方法上切入
+
+
+
+**语法格式**
+
+```
+execution([访问控制修饰符] 返回值类型 [全限定类名]方法名(参数列表) [异常])
+```
+
++ 访问修饰控制符
+    + 可选
+    + 缺省就是4个权限都包括
+    + 写public就是只包括公开的方法
++ 返回值类型
+    + 必填项
+    + `*`就是返回类型任意
++ 全限定类名
+    + 可选项
+    + `..`表示当前包已经子包下的所有类
+    + 缺省表示所有类
++ 方法名
+    + 必填项
+    + `*`表示所有方法
+    + `set*`表示所有set方法
++ 参数列表
+    + 必填项
+    + `()`表示没有参数的方法
+    + `(..)`表示参数类型和个数随意的方法
+    + `(*)`只有一个参数的方法
+    + `(*, String)`第一个类型随意，第二个类型是String的方法
++ 异常
+    + 可选项
+    + 缺省表示任意异常
+
+
+
+**例子**
+
+```
+execution(public * com.powernode.mall.service.*.delete*(..))
+#service包下所有以delete开始的方法
+```
+
+```
+execution(* com.powernode.mall..*(..)))
+#mall包下所有的方法
+```
+
+```
+execution(* *(..))
+#所有类的所有方法
+```
+
+
+
+### 4.Spring中的AOP
+
+spring框架对于AOP的实现有下面三种方式：
+
++ **Spring结合AspectJ框架实现的AOP，基于注解的方式**
++ **Spring结合AspectJ框架实现的AOP，基于XML配置文件的方式**
++ Spring自己实现的AOP，基于XML配置文件的方式
+
+​	
+
+### 5.AOP注解式开发
+
+**准备环境**
+
++ 引入所需的依赖
+
+    ```xml
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>6.0.5</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-aspects -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aspects</artifactId>
+        <version>6.0.5</version>
+    </dependency>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.2</version>
+        <scope>test</scope>
+    </dependency>
+    ```
+
++ 在spring配置文件中引入context和aop命名空间，并设置扫描的包，开启自动代理
+
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans xmlns="http://www.springframework.org/schema/beans"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:context="http://www.springframework.org/schema/context"
+           xmlns:aop="http://www.springframework.org/schema/aop"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    	<context:component-scan base-package="com.framework.spring"/>
+        <aop:aspectj-autoproxy proxy-target-class="true"/>
+    </beans>
+    ```
+
+    其中的`<aop:aspectj-autoproxy>`代表自动代理开启，属性值proxy-target-class有两个值，false和true，false是默认值，代表使用JDK代理，true则代表强制使用GCLIB代理
+
+
+
+**添加前置通知**
+
++ 编写Userservice类，提供一个切点
+
+    ```java
+    @Service
+    public class UserService {
+        public void login() {
+            System.out.println("user login!");
+        }
+    
+        public void logout() {
+            System.out.println("user logout!");
+        }
+    }
+    ```
+
++ 编写切面，织入通知
+
+    ```java
+    @Component
+    @Aspect
+    public class LogAspect {
+        @Before("execution(* com.framework.spring.service..*())")
+        public void enhance() {
+            System.out.println("enhancement done!");
+        }
+    }
+    ```
+
+    首先我们要把所有的类交给spring来管理，也就是使用注解进行标注，对于切面来说，我们还需要额外的增加一个注解`@Aspect`，当添加这个注解时，spring就会自动的将这个类作为一个切面，然后编写通知，假如我想要添加前置通知，需要用到`@Before`注解，里面添加切点表达式，用来匹配目标类中的方法
+
+
+
+**通知的类型**
+
+通知包括下面几种
+
++ 前置通知：@Before
++ 后置通知：@AfterReturning
++ 环绕通知：@Around
++ 异常通知：@AfterThrowing
++ 最终通知：@After
+
+
+
+**通知的运行顺序**
+
+通知的运行顺序如下
+
++ 一般情况下的运行顺序，前环绕 -> 前置 -> 后置 -> 后环绕
++ 如果出现了异常，那么就会直接进入**异常通知**并且后面的通知都不会执行，除了**最终通知**
+
+
+
+**切面的顺序**
+
+当我们有多个切面时，我们如何去组织切面的顺序呢？
+
++ 使用`@Order`注解，我们可以为注解分配一个数字，数字越小，优先级越高
+
+
+
+**通用切点表达式**
+
+当我们的切点都相同时，可以自己定义一个通用切wsdasd////点表达式：
+
++ 首先在切面内定义一个方法，方法名随意，方法体中不需要内容，加上注解`@PointCut(execution(..))`，使用时，只需要在表达式中调用方法名接口，当同时使用多个自定义通用切点时，每个切点方法使用`||`隔开
+
+    ```java
+    @Pointcut("execution(* com.framework.spring.service..*())")
+    public void generic() {
+    
+    }
+    
+    @Before("generic()")
+    public void beforeAdvice() {
+        System.out.println("before");
+    }
+    ```
+
+    
+
+**连接点 JoinPoint**
+
+但我们对目标方法进行织入时，可以选择一个连接点，其实我们的方法可以有一个形参`ProceedingJoinPoint`，它可以作为方法中的一个连接点，我们可以通过他做下面的事情：
+
++ 执行方法 `joinPoint.proceed()`
++ 获取方法的签名 `jointPoint.getSignature()`
+
+```java
+@Around("generic()")
+public void around(ProceedingJoinPoint joinPoint) throws Throwable {
+    System.out.println("around before");
+    joinPoint.proceed();
+    joinPoint.getSignature();
+    System.out.println("around after");
+}
+```
+
+
+
+**全注解式开发**
+
+与Spring一样，我们使用一个类来代替配置文件
+
+```java
+@Configuration
+@ComponentScan("com.framework.spring")
+@EnableAspectAutoProxy(proxyTargetClass = true)
+public class SpringConfig{
+    
+}
+```
+
+
+
+## 13.Spring对Junit的支持
+
+虽然我们之前一直在使用Junit进行单元测试，但是实际上Spring框架对Junit进行了支持，为了方便我们的测试，使用注解式测试会使得单元测试更加方便
+
+
+
+**Junit4的支持**
+
++ 引入依赖
+
+    ```xml
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>6.0.6</version>
+        <scope>test</scope>
+    </dependency>
+    ```
+
++ 创建测试类
+
+    ```java
+    @RunWith(SpringJUnit4ClassRunner.class)
+    @ContextConfiguration("classpath:spring.xml")
+    public class AOPTest {
+        @Autowired
+     	private UserService userService;
+        @Test
+        public void IoCTest(){
+            userService.login();
+        }
+    }
+    ```
+
+    可以看到，我们不再每次都要创建ApplicationContext对象，也不用getBean，直接使用基于类型的自动装配即可，极大的方便了了我们代码调试的效率，但是需要注意的点是，在测试类的上面要加上两个注解`RunWith(SpringJUnit4ClassRunner.class), @ContextConfiguration("classpath:spring.xml")`，才能正常运行，而且只支持配置文件
+
+
+
+**JUnit5的支持**
+
++ 引入依赖
+
+    ```xml
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>5.9.2</version>
+        <scope>test</scope>
+    </dependency>
+    ```
+
++ 创建测试类
+
+    ```java
+    @ExtendWith(SpringExtension.class)
+    @ContextConfiguration("classpath:spring.xml")
+    public class JUnit5Test {
+        @Autowired
+        private UserService userService;
+        @Test
+        public void test1() {
+            userService.logout();
+        }
+    }
+    ```
+
+    这次与上面不一样的是
+
+    + Test注解使用的junit-jupiter的包
+    + 不再使用RunWith而是使用ExtendWith
+
+
+
+## 14.Spring集成MyBatis框架
+
+
+
+**引入依赖**
+
+需要引入的依赖有：
+
++ spring-context
++ spring-jdbc
++ spring-test
++ mysql-connector-java
++ mybatis
++ mybatis-spring
++ druid
++ junit
+
+
+
+**前期准备工作**
+
++ 准备数据库表
++ 创建包
+    + com.framework.sm.service
+    + com.framework.sm.mapper
+    + com.framework.sm.pojo
+    + com.framework.sm.service.impl
+
+
+
+**初步工作**
+
++ 提供Account类
++ 提供AccountMapper接口
++ 提供AccountService接口
++ 提供AccountServiceImpl实现类
+
+
+
+**配置文件**
+
+虽然说MyBatis大部分的配置文件都可以迁移至Spring的配置文件，但是关键的setting属性还是需要用到MyBatis的核心配置文件，所以最好还是创建MyBatis的配置文件
+
++ 创建MyBatis核心配置文件，启用MyBatis的标准日志格式
+
+    ```xml
+    <?xml version="1.0" encoding="UTF-8" ?>
+    <!DOCTYPE configuration
+            PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+            "http://mybatis.org/dtd/mybatis-3-config.dtd">
+    <configuration>
+        <settings>
+            <setting name="logImpl" value="STDOUT_LOGGING"/>
+        </settings>
+    </configuration>
+    ```
+
++ 创建jdbc连接配置
+
+    ```properties
+    jdbc.driver=com.mysql.cj.jdbc.Driver
+    jdbc.url=jdbc:mysql://localhost:3306/mybatis
+    jdbc.username=root
+    jdbc.password=root1234
+    ```
+
++ 创建spring核心配置文件:
+
+    + 配置需要扫描的包
+    + 引入外部配置文件（数据库连接配置）
+    + 配置数据源
+    + 配置`SqlSessionFactoryBean`工厂bean
+    + 配置`MapperScannerConfigurer`mapper文件扫描
+    + 配置`DataSourceTransactionManager`数据源事务管理器
+    + 配置`transactionManager`事务管理注解
+
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans xmlns="http://www.springframework.org/schema/beans"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+        <context:component-scan base-package="com.framework.ss"/>
+        <context:property-placeholder location="jdbc.properties"/>
+    
+        <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+            <property name="driverClassName" value="${jdbc.driver}"/>
+            <property name="url" value="${jdbc.url}"/>
+            <property name="username" value="${jdbc.username}"/>
+            <property name="password" value="${jdbc.password}"/>
+        </bean>
+    
+        <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+            <property name="dataSource" ref="dataSource"/>
+            <property name="configLocation" value="mybatis-config.xml"/>
+            <property name="typeAliasesPackage" value="com.framework.ss.pojo"/>
+        </bean>
+    
+        <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+            <property name="basePackage" value="com.framework.ss.mapper"/>
+        </bean>
+    
+        <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+            <property name="dataSource" ref="dataSource"/>
+        </bean>
+    
+        <tx:annotation-driven transaction-manager="txManager"/>
+    </beans>
+    ```
+
++ 将AccountServiceImpl纳入spring管理并启用事务，属性自动装配
+
+    ```java
+    @Service("accountService")
+    @Transactional
+    public class AccountServiceImpl implements AccountService {
+    
+        @Autowired
+        AccountMapper accountMapper;
+     	//...   
+    }
+    ```
+
++ 测试阶段
+
+    ```java
+    @RunWith(SpringJUnit4ClassRunner.class)
+    @ContextConfiguration("classpath:spring.xml")
+    public class SSTest {
+        @Autowired
+        AccountService accountService;
+        @Test
+        public void transferTest() {
+            accountService.transfer("binjunkai","zhangsan",100);
+        }
+    }
+    ```
+
+    
+
+**主配置文件引入副配置文件**
+
+在大型的项目中，mapper和service会非常多，一般来说会一个mapper对应一个xml，一个service对应一个xml，所以我们需要在主配置文件中引入这些配置文件
+
+```xml
+<import resouce="common.xml"/>
+```
+
+
+
