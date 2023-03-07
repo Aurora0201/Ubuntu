@@ -152,8 +152,36 @@ signature 签
 
 dispatch 调度，转发，派遣
 
-from the very beginning 从一开始
+
+
+
+
+## 2023.3.6
 
 former 从前的，前者
 
 formal 正式的，正规的
+
+from the very beginning 从一开始
+
+delegate 代表，委托
+
+diverse 多种多样的，不同的
+
+preference 偏好
+
+convention 习俗，习惯，常规
+
+bypass 绕过，跳过
+
+approach 方法，方式，接近，走进，靠近
+
+concise 简约，简明的，简洁的
+
+patcher 补丁程序
+
+patch 补丁
+
+unstable 不稳定的，不稳固的
+
+batch 一批，批处理
