@@ -185,3 +185,11 @@ patch 补丁
 unstable 不稳定的，不稳固的
 
 batch 一批，批处理
+
+
+
+## 2023.3.7
+
+legible 清晰的，清楚的
+
+badge 徽章
