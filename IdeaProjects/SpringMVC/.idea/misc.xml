@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/spring-001-first" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm-001" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm-002" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm-003" />
+    <file type="web" url="file://$PROJECT_DIR$/untitled" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/spring-001-first/pom.xml" />
+        <option value="$PROJECT_DIR$/ssm-001/pom.xml" />
+        <option value="$PROJECT_DIR$/ssm-002/pom.xml" />
+        <option value="$PROJECT_DIR$/ssm-003/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
