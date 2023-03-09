@@ -6,7 +6,7 @@ anonymous 匿名的
 
 consistency 连续，一致，连贯
 
-hierarchy 等级制度，层次体系
+hierarchy 等级制度，层次结构，体系
 
 sufficient 不足的
 
@@ -148,9 +148,9 @@ tutorials 教程，教学，指南
 
 proceed 继续，接着走，前往
 
-signature 签
+signature 签名
 
-dispatch 调度，转发，派遣
+dispatch 调度，转发，派遣，控制
 
 
 
@@ -164,7 +164,7 @@ formal 正式的，正规的
 
 from the very beginning 从一开始
 
-delegate 代表，委托
+delegate 代表，委托，代理
 
 diverse 多种多样的，不同的
 
@@ -193,3 +193,25 @@ batch 一批，批处理
 legible 清晰的，清楚的
 
 badge 徽章
+
+assume 假设
+
+ultimate 最终的，最后的，极限的，最好的
+
+in turn 依次，轮流，相应的，反过来
+
+programmatic 计划的，按计划的，编程的
+
+expect 期望，要求，需求
+
+plain 平的，平原，朴素的，普通的
+
+look up 查找
+
+suffice 够的
+
+equivalent 同等的，平等的，对应物，对应关系
+
+appropriate 适当的，相应的
+
+contract 合同，契约，规范
