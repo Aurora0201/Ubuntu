@@ -949,3 +949,7 @@ public ModelAndView redirectTest() {
 **拦截器的执行顺序**
 
 + 当有多个拦截器声明时，他们的执行顺序并不像servlet中的过滤器一样，而是像一个层层包装的盒子
+
+![interceptor](https://img.noobzone.ru/getimg.php?url=https://cdn.jsdelivr.net/gh/Aurora0201/ImageStore@main/img/interceptor.png)
+
++ 会先经过外层的盒子，然后经过内层的盒子，所以拦截器的执行顺序为，preHandle1 -> preHandle2 -> postHandle2 -> postHandle1 -> afterCompletion2 -> afterCompletion1
