@@ -1,15 +1,15 @@
 package com.emotion.analysis.web;
 
+import com.emotion.analysis.util.AndroidUtil;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
+import java.util.Arrays;
 
 @WebServlet({"/scan", "/getQR"})
 public class AndroidServlet extends HttpServlet {
@@ -30,22 +30,22 @@ public class AndroidServlet extends HttpServlet {
     }
 
     private void getQR(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println("getQR");
-        response.sendRedirect("login.html");
+        response.setContentType("application/octet-stream");
+        ServletOutputStream out = response.getOutputStream();
+//        File file = AndroidUtil.QR.png();
+        FileInputStream fis = new FileInputStream("QR.png");
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[2<<10];
+        int len;
+        while ((len = fis.read(buffer)) != -1) {
+            bos.write(buffer, 0, len);
+        }
+        out.write(bos.toByteArray());
     }
 
 
     protected void doScan(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        System.out.println("doScan done!");
-//        Process exec = Runtime.getRuntime().exec("python3 /home/binjunkai/repo/IdeaProjects/EmotionAnalysis-VM/src/main/webapp/static/reptile.py");
-//        Thread.sleep(20000);
-        response.sendRedirect("login.html");
-        /*BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(exec.getInputStream()));
-        String line = null;
-        while ((line = bufferedReader.readLine()) != null) {
-            out.print(line);
-        }*/
+
     }
 }

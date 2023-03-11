@@ -28,11 +28,9 @@ public class AndroidUtil {
         }
     }
 
-    public static void main(String[] args) {
-        getQR(driver);
-    }
 
-    public static File getQR(AppiumDriver driver){
+
+    public static File getQR(){
         File sourcefile = null;
         try {
             driver.findElementByXPath("//*[@text=\"平板和手机同时登录\"]").click();
@@ -51,7 +49,7 @@ public class AndroidUtil {
             BufferedImage img = image.getSubimage(left, right, width, height);
             ImageIO.write(img, "png", sourcefile);
             String filePath = "QR.png";
-            FileUtils.copyFile(sourcefile,new File(filePath));
+            FileUtils.copyFile(sourcefile, new File(filePath));
             System.out.println("二维码爬取成功!");
         }catch(Exception e){
             System.out.println("getQR失败");
@@ -59,13 +57,14 @@ public class AndroidUtil {
         }
         return sourcefile;
     }
+
     public static boolean isLogin(AppiumDriver driver){
         try {
             Thread.sleep(30000);
             driver.findElementByXPath("//*[@text=\"发现\"]");
             System.out.println("登陆成功!");
             return true;
-//
+
 //            System.out.println("第一步完成");
 //            Thread.sleep(2000);
 //            driver.findElementByXPath("//*[@text=\"朋友圈\"]").click();

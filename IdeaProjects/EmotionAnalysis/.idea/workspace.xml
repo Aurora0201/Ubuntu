@@ -10,29 +10,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7951248-af1b-4ad6-a876-b5436b2a70bc" name="Changes" comment="update SpringLearning.md">
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/src/main/java/com/emotion/analysis/service/AndroidService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/src/main/java/com/emotion/analysis/web/AndroidServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/src/main/resources/reptile.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/src/main/webapp/index.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/target/classes/reptile.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SpringMVC/SpringMVC.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SpringMVC/spring-001-first/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SpringMVC/spring-001-first/src/main/java/com/framework/springmvc/initializer/MyWebApplicationInitializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SpringMVC/spring-001-first/src/main/java/com/framework/web/servlet/DispatcherServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SpringMVC/spring-001-first/src/main/webapp/WEB-INF/app1-context.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SpringMVC/spring-001-first/src/main/webapp/WEB-INF/root-context.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SpringMVC/spring-001-first/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SpringMVC/spring-001-first/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Notes/SpringMVCLearning.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Notes/SpringMVCLearning.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Notes/Word.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Notes/Word.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../HTML/HTML-001-revelation/src/resource/test.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EmotionAnalysis-VM/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EmotionAnalysis-VM/src/main/java/com/emotion/analysis/web/AndroidServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/src/main/java/com/emotion/analysis/web/AndroidServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EmotionAnalysis-VM/src/main/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/src/main/webapp/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HTML/HTML-001-revelation/src/resource/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTML/HTML-001-revelation/src/resource/test.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -293,6 +277,8 @@
       <workItem from="1677638396920" duration="43000" />
       <workItem from="1677926984499" duration="59000" />
       <workItem from="1678183207314" duration="602000" />
+      <workItem from="1678407640232" duration="25000" />
+      <workItem from="1678407673145" duration="47000" />
     </task>
     <task id="LOCAL-00001" summary="update markdown">
       <created>1677078173983</created>

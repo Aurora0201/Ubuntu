@@ -8,9 +8,14 @@
     <context:component-scan base-package="top.pr1grim.controller"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/static/html/"/>
+        <property name="prefix" value="WEB-INF/static/html/"/>
         <property name="suffix" value=".html"/>
     </bean>
     <mvc:annotation-driven/>
-
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="top.pr1grim.handlerInterceptor.MyInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>
