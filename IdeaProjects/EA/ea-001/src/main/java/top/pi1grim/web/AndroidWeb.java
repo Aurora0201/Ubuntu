@@ -45,8 +45,6 @@ public class AndroidWeb extends HttpServlet {
 
         out = response.getOutputStream();
         out.write(bos.toByteArray());
-        //detect login
-        long begin = System.currentTimeMillis();
     }
 
     public void isLogin(HttpServletRequest request, HttpServletResponse response){

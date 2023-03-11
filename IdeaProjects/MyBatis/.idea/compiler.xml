@@ -11,6 +11,7 @@
         <module name="mybatis-001" />
         <module name="parse-xml" />
         <module name="javassist-001" />
+        <module name="mybatis-007-muti-insert" />
         <module name="mybatis-002" />
         <module name="mybatis-005-dynamic" />
         <module name="mybatis-003" />
