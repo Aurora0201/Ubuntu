@@ -215,3 +215,17 @@ equivalent 同等的，平等的，对应物，对应关系
 appropriate 适当的，相应的
 
 contract 合同，契约，规范
+
+
+
+## 2023.3.10
+
+terminate 终止
+
+
+
+## 2023.3.11
+
+inspect 检查
+
+intercept 拦截

@@ -22,6 +22,25 @@
 
 
 
+### 4.网络消失
+
+重启网络管理器
+
+```
+sudo nmcli network off
+sudo nmcli network on
+```
+
+删除缓存文件
+
+```
+sudo service NetworkManager stop 
+sudo rm /var/lib/NetworkManager/NetworkManager.state 
+sudo service NetworkManager start
+```
+
+
+
 ## 2.常用软件的安装
 
 ### 1.数据库

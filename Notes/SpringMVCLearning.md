@@ -357,10 +357,6 @@ tomcat9及以下的版本使用post请求发送中文时会造成乱码，因为
 
 
 
-
-
-
-
 ### 4.@RequestParam注解的使用
 
 当前前后端分离时，前段传过来的参数很可能与后端的参数名字不一致，这时我们可以用@RequestParam注解来解决这个问题，但是这个注解只能使用在基础数据类型上：
@@ -455,7 +451,7 @@ tomcat9及以下的版本使用post请求发送中文时会造成乱码，因为
 
 
 
-### 6.url-pattern的设置
+### 6.静态资源和内部资源的访问
 
 **tomcat的defaultServlet**
 
@@ -490,29 +486,57 @@ tomcat9及以下的版本使用post请求发送中文时会造成乱码，因为
 
 
 
-**DispatcherServlet的url-pattern设置**
+**静态资源与内部资源的区别**
+
++ 静态资源
+    + 静态资源一般是指用户在浏览器上输入地址就可以访问到的资源，如html页面，图片等
+    + 静态资源一般放在webapp/static下
++ 内部资源
+    + 内部资源一般是用户在浏览器上输入地址无法直接进行访问的资源，如视图等，内部资源是受保护的资源
+    + 内部资源一般放在WEB-INF下，内部资源的访问需要配置`内部资源视图解析器`
+
+
+
+**静态资源的访问**
 
 + 在上面我们的几个例子使用的都是`**.do, **.action`等格式的url-pattern，这样的的话DispatcherServlet就很难处理所有的请求
 
-+ 如果说此时我们把DispatcherServlet的url-pattern设置为`/`那么我们就可以处理所有的请求了，但是就会导致我们所有的静态资源访问失效，那这个该怎么处理呢？
++ 如果说此时我们把DispatcherServlet的url-pattern设置为`/`那么我们就可以处理所有的请求了，但是就会导致我们所有的静态资源访问失效，下面是常用解决方案
 
-    + 首先将所有的静态资源都放到`static`下，注意不要使用`WEB-INF`及其子目录
++ 首先将所有的静态资源都放到`static`下，注意不要使用`WEB-INF`及其子目录
 
-        ```
-        webapp/static
-        	|--image
-        	|--html
-        	|--js
-        	|--css
-        ```
+    ```
+    webapp/static
+        |--image
+        |--html
+        |--js
+        |--css
+    ```
 
-    + 使用标签`<mvc:resources mapping="" location="">`来指定静态资源的位置，使用这个的前提是启动注解驱动`<mvc:annotation-driver/>`
++ 使用标签`<mvc:resources mapping="" location="">`来指定静态资源的位置，使用这个的前提是启动注解驱动`<mvc:annotation-driver/>`
 
-        ```xml
-        <mvc:resources mapping="/static/**" location="/static/"
-        ```
+    ```xml
+    <mvc:resources mapping="/static/**" location="/static/"
+    ```
 
-        上面表示的是只要url是以`static`开头的，就会直接到`/static`目录下查找
+	上面表示的是只要url是以`static`开头的，就会直接到`/static`目录下查找
+
+
+
+**内部资源的访问**
+
++ 对于视图，一般要在用户有一定的前提操作之后，才能访问，所以一般视图资源要作为受保护的资源存放在WEB-INF下
+
++ 访问视图的操作第一步就是配置内部资源视图解析器
+
+    ```xml
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="WEB-INF/static/html/"/>
+        <property name="suffix" value=".html"/>
+    </bean>
+    ```
+
++ 第二步就是在Controller中的对应方法中指定对应的视图名称，使用`ModelAndView`或者直接返回视图名
 
 
 
@@ -750,3 +774,178 @@ tomcat9及以下的版本使用post请求发送中文时会造成乱码，因为
     + 如果在项目中出现了无法启动监听器的情况，很有可能是出现了没有引入依赖的情况，有可能是上面的做饭造成的
     + 可以打开项目的结构，通过
 
+
+
+## 5.转发和重定向
+
+之前我们已经学习过servlet中的转发和重定向
+
+```java
+request.getDispatcher().forward("");
+reponse.sendRedirect("")
+```
+
+但是springMVC框架对他们进行了包装，能让我们更加方便的使用
+
+
+
+### 1.转发
+
+转发向与servlet的中的重定向功能一致，只是实现形式略有区别
+
+```java
+@RequestMapping("/c.do")
+public ModelAndView forwardTest() {
+    ModelAndView mv = new ModelAndView();
+    mv.setViewName("forward:forward.html");
+    return mv;
+}
+```
+
+
+
+### 2.重定向
+
+同样是实现形式略有区别
+
+```java
+@RequestMapping("/d.do")
+public ModelAndView redirectTest() {
+    ModelAndView mv = new ModelAndView();
+    mv.setViewName("redirect:forward.html");
+    return mv;
+}
+```
+
+但是如果说我们在ModelAndView中存储了数据，重定向时参数会以get请求的形式携带
+
+
+
+**注意**
+
++ 使用这两个功能就无法使用视图解析器，这个两个功能一般使用来访问视图解析器无法解析的位置
++ 重定向无法访问`WEB-INF`下的资源
+
+
+
+## 6.异常集中处理机制
+
+在springMVC中，框架基于AOP编程实现了异常的集中处理机制，不再需要程序员进行繁杂的异常捕捉操作，实现只需要下面的几步：
+
++ 首先创建一个全局异常处理类，重写有参和无参构造方法，这个类是其他自定异常的父类
+
+    ```java
+    public class UserException extends Exception{
+        public UserException() {
+        }
+    
+        public UserException(String message) {
+            super(message);
+        }
+    }
+    ```
+
++ 然后创建异常类，同样重写构造方法
+
+    ```java
+    public class NameErrorException extends UserException{
+        public NameErrorException() {
+        }
+    
+        public NameErrorException(String message) {
+            super(message);
+        }
+    }
+    ```
+
++ 在需要进行异常处理的方法中直接抛出异常，抛出全局异常即可
+
+    ```java
+    @RequestMapping("/c.do")
+    public ModelAndView forwardTest() throws UserException {
+        ModelAndView mv = new ModelAndView();
+        if (true) {
+            throw new NameErrorException("Illegal Name");
+        }
+        return mv;
+    }
+    ```
+
++ 编写异常处理类
+
+    ```java
+    @ControllerAdvice
+    public class UserExceptionHandler {
+        @ExceptionHandler(NameErrorException.class)
+        public ModelAndView nameException() {
+            ModelAndView mv = new ModelAndView();
+            mv.setViewName("error");
+            return mv;
+        }
+    }
+    ```
+
+    这里需要注意的是，异常处理类必须使用`@ControllerAdvice`标注，并且指定包扫描，同时负责处理对应异常的方法要使用`@ExceptionHandler`标注，并在注解中指定处理的异常类型
+
+
+
+## 7.拦截器
+
+拦截器是springMVC实现的一个类似于过滤器的组件，但是功能更为强大，提供了更多的特殊时机来给程序员操作的机会
+
+
+
+**拦截器的实现**
+
++ 首先创建一个类并实现HandlerInterceptor接口，重写接口中的三个方法
+
+    ```java
+    public class MyInterceptor implements HandlerInterceptor {
+    
+        @Override
+        public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+            return HandlerInterceptor.super.preHandle(request, response, handler);
+        }
+    
+        @Override
+        public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+            HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
+        }
+    
+        @Override
+        public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+            HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
+        }
+    }
+    ```
+
++ 这个三个方法执行顺序为 preHandle -> controller -> postHandle -> afterCompletion
+
++ preHandel方法一般是执行过滤的操作如用户登录等，如果返回值为真，则继续向下执行，如果返回假，后面的所有方法都不会执行
+
++ postHandle方法一般是用来修正视图的操作，也就是说这个方法会在controller方法执行过后执行
+
++ afterCompletion一般用来释放资源，在postHandle方法之后执行
+
+
+
+**拦截器的声明**
+
++ 创建拦截器后还需要在DispatcherServlet的配置文件中对拦截器进声明
+
+    ```xml
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="top.pr1grim.handlerInterceptor.MyInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    ```
+
+    mapping代表拦截的路径，class代表拦截器的类
+
+
+
+**拦截器的执行顺序**
+
++ 当有多个拦截器声明时，他们的执行顺序并不像servlet中的过滤器一样，而是像一个层层包装的盒子
