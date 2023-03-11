@@ -967,4 +967,14 @@ public ModelAndView redirectTest() {
 5. 过滤器是tomcat服务器创建的对象，拦截器是springmva容器中创建的对象
 6. 过滤器是一个执行时间点。拦截器有三个执行时间点
 7. 过滤器可以处理jsp, is, html等等
-  拦截器是侧重拦截对controller的对象。如果你的请求不能被DispathcerSErvlet接收，这个诸求不会执行拦截器内容
+    拦截器是侧重拦截对controller的对象。如果你的请求不能被DispathcerSErvlet接收，这个诸求不会执行拦截器内容
+
+
+
+## 8.SpringMVC请求处理过程
+
+SpringMVC的请求过程可以用一张图来表示
+
+![MVCRequest](https://img.noobzone.ru/getimg.php?url=https://cdn.jsdelivr.net/gh/Aurora0201/ImageStore@main/img/MVCRequest.png)
+
+主要的过程可以这样解释，浏览器发送了请求到中央处理器，中央处理器会将请求交给处理映射器进行处理，然后映射器器根据请求路径得到处理器执行链并返回给中央处理器，中央处理器将处理器执行链交给处理器适配器来执行处理器中的方法，并将得到的ModelAndView返回给中央处理器，中央处理器将ModelAndView交给视图解析器得到View并显示出来，最后响应给浏览器
