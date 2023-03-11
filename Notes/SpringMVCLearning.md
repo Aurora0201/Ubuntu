@@ -527,7 +527,7 @@ tomcat9及以下的版本使用post请求发送中文时会造成乱码，因为
 
 + 对于视图，一般要在用户有一定的前提操作之后，才能访问，所以一般视图资源要作为受保护的资源存放在WEB-INF下
 
-+ 访问视图的操作第一步就是配置内部资源视图解析器
++ 访问视图的操作第一步就是配置内部资源视图解析器，视图解析器是由`中央处理器DispatcherServlet来负责的`
 
     ```xml
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -895,6 +895,8 @@ public ModelAndView redirectTest() {
 
 
 
+### 1.拦截器的声明和使用
+
 **拦截器的实现**
 
 + 首先创建一个类并实现HandlerInterceptor接口，重写接口中的三个方法
@@ -921,11 +923,11 @@ public ModelAndView redirectTest() {
 
 + 这个三个方法执行顺序为 preHandle -> controller -> postHandle -> afterCompletion
 
-+ preHandel方法一般是执行过滤的操作如用户登录等，如果返回值为真，则继续向下执行，如果返回假，后面的所有方法都不会执行
++ preHandel方法一般是执行过滤的操作如用户登录等，如果返回值为真，则继续向下执行，如果返回假，后面的所有方法都不会执行，这个方法的执行时机是在controller之前
 
-+ postHandle方法一般是用来修正视图的操作，也就是说这个方法会在controller方法执行过后执行
++ postHandle方法一般是用来修正视图的操作，也就是说这个方法会在controller方法执行过后，视图解析器工作之前执行
 
-+ afterCompletion一般用来释放资源，在postHandle方法之后执行
++ afterCompletion一般用来释放资源，在视图解析器工作之后执行
 
 
 
@@ -953,3 +955,16 @@ public ModelAndView redirectTest() {
 ![interceptor](https://img.noobzone.ru/getimg.php?url=https://cdn.jsdelivr.net/gh/Aurora0201/ImageStore@main/img/interceptor.png)
 
 + 会先经过外层的盒子，然后经过内层的盒子，所以拦截器的执行顺序为，preHandle1 -> preHandle2 -> postHandle2 -> postHandle1 -> afterCompletion2 -> afterCompletion1
+
+
+
+### 2.拦截器与过滤器的区别
+
+1. 过滤器是servlet中的对象，拦截器是框架中的对象
+2. 过滤器实现Filter接口的对象，拦截器是实现HandlerInterceptor
+3. 过滤器是用来设置recuest，response的参数，属性的，侧重对数据过滤的。拦截器是用来验证请求的，能截断请求。
+4. 过滤器是在拦截器之前先执行的。
+5. 过滤器是tomcat服务器创建的对象，拦截器是springmva容器中创建的对象
+6. 过滤器是一个执行时间点。拦截器有三个执行时间点
+7. 过滤器可以处理jsp, is, html等等
+  拦截器是侧重拦截对controller的对象。如果你的请求不能被DispathcerSErvlet接收，这个诸求不会执行拦截器内容
