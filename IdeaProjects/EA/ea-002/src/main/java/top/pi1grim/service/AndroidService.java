@@ -10,5 +10,5 @@ public interface AndroidService {
 
     void crawlData(int len);
 
-    void invokePython();
+    void invokePython() throws IOException;
 }

@@ -10,13 +10,60 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7951248-af1b-4ad6-a876-b5436b2a70bc" name="Changes" comment="update SpringLearning.md">
-      <change afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../HTML/HTML-001-revelation/src/resource/test.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EmotionAnalysis-VM/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EmotionAnalysis-VM/src/main/java/com/emotion/analysis/web/AndroidServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/src/main/java/com/emotion/analysis/web/AndroidServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EmotionAnalysis-VM/src/main/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../EmotionAnalysis-VM/src/main/webapp/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/classes/com/emotion/analysis/bean/Content.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/classes/com/emotion/analysis/mapper/ContentMapper.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/classes/com/emotion/analysis/mapper/ContentMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/classes/com/emotion/analysis/service/ContentService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/classes/com/emotion/analysis/service/impl/ContentServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/classes/com/emotion/analysis/util/DataParseUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/classes/com/emotion/analysis/util/SqlSessionUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/classes/com/emotion/analysis/web/ContentServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/classes/jdbc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/classes/logback-test.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/classes/mybatis-config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/lib/fastjson2-2.0.23.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/lib/jakarta.servlet-api-5.0.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/lib/logback-classic-1.2.11.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/lib/logback-core-1.2.11.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/lib/mybatis-3.5.11.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/lib/mysql-connector-java-8.0.30.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/lib/protobuf-java-3.19.4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/lib/slf4j-api-1.7.32.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/WEB-INF/web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/index.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/EmotionAnalysis-1.0/test.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/emotion/analysis/bean/Content.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/emotion/analysis/mapper/ContentMapper.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/emotion/analysis/mapper/ContentMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/emotion/analysis/service/ContentService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/emotion/analysis/service/impl/ContentServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/emotion/analysis/util/DataParseUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/emotion/analysis/util/SqlSessionUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/emotion/analysis/web/ContentServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/jdbc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/logback-test.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/mybatis-config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/ServiceTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/UtilTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/data.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../HTML/JS/src/resources/ajax/ajax.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../HTML/JS/src/resources/ajax/test.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../HTML/JS/src/resources/event/event.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../HTML/JS/src/resources/function/function.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../HTML/JS/src/resources/object/object.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EA/ea-002/src/main/java/top/pi1grim/controller/AndroidController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EA/ea-002/src/main/java/top/pi1grim/controller/AndroidController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EA/ea-002/src/main/java/top/pi1grim/service/AndroidService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EA/ea-002/src/main/java/top/pi1grim/service/AndroidService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EA/ea-002/src/main/java/top/pi1grim/service/impl/AndroidServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EA/ea-002/src/main/java/top/pi1grim/service/impl/AndroidServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HTML/HTML-001-revelation/src/resource/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTML/HTML-001-revelation/src/resource/test.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HTML/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../HTML/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HTML/HTML-001-revelation/src/resource/test/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTML/HTML-001-revelation/src/resource/test/test.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HTML/HTML-001-revelation/src/resource/web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTML/HTML-001-revelation/src/resource/web/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HTML/JS/src/resources/first/first.html" beforeDir="false" afterPath="$PROJECT_DIR$/../HTML/JS/src/resources/first/first.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Notes/HTMLLearning.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Notes/HTMLLearning.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Notes/JavaScriptSummary.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Notes/JavaScriptSummary.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Notes/MavenLearning.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Notes/MavenLearning.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Notes/Word.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Notes/Word.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +156,7 @@
       <recent name="$PROJECT_DIR$/src/main/resources/com.emotion.analysis/mapper" />
     </key>
   </component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat 10.0.27">
+  <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.7">
     <configuration name="ServiceTest.getAllTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="EmotionAnalysis" />
       <option name="PACKAGE_NAME" value="" />
@@ -150,7 +197,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tomcat 10.0.27" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.0.27" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+    <configuration name="Tomcat 10.1.7" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.7" ALTERNATIVE_JRE_ENABLED="false">
       <option name="BROWSER_ID" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
@@ -243,7 +290,7 @@
       <item itemvalue="JUnit.ServiceTest.getAllTest" />
       <item itemvalue="JUnit.UtilTest.openTest" />
       <item itemvalue="JUnit.UtilTest.readTest" />
-      <item itemvalue="Tomcat Server.Tomcat 10.0.27" />
+      <item itemvalue="Tomcat Server.Tomcat 10.1.7" />
     </list>
     <recent_temporary>
       <list>
@@ -279,6 +326,7 @@
       <workItem from="1678183207314" duration="602000" />
       <workItem from="1678407640232" duration="25000" />
       <workItem from="1678407673145" duration="47000" />
+      <workItem from="1678628544760" duration="1201000" />
     </task>
     <task id="LOCAL-00001" summary="update markdown">
       <created>1677078173983</created>

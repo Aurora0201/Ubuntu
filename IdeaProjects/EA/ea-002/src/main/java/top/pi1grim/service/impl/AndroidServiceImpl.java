@@ -51,7 +51,7 @@ public class AndroidServiceImpl implements AndroidService {
     }
 
     @Override
-    public void invokePython() {
-
+    public void invokePython() throws IOException {
+        Runtime.getRuntime().exec("python3 /home/binjunkai/codes/predict.py");
     }
 }

@@ -42,4 +42,10 @@ public class AndroidController {
         service.crawlData(5);
         return "view";
     }
+
+    @RequestMapping("/predict")
+    public void predict() throws IOException {
+        service.invokePython();
+    }
+
 }

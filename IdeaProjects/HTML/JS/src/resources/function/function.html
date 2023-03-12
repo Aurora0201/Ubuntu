@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div class="msgBox">
+    <p>This is a message box</p>
+    <button>x</button>
+  </div>
+
+  <script>
+    function displayMessage(msgText, msgType) {
+      const html = document.querySelector('html');
+
+      const panel = document.createElement('div');
+      panel.setAttribute('class', 'msgBox');
+      html.appendChild(panel);
+
+      const msg = document.createElement('p');
+      msg.textContent = msgText;
+
+      panel.appendChild(msg);
+
+      const closeBtn = document.createElement('button');
+      closeBtn.textContent = 'x';
+      panel.appendChild(closeBtn);
+
+      closeBtn.onclick = function() {
+        panel.parentNode.removeChild(panel);
+      }
+    }
+    const btn = document.querySelector('button');
+    // btn.onclick = btn.onclick = function() {
+    //   displayMessage('Woo, this is a different message!');
+    // };
+
+
+
+
+  </script>
+</body>
+</html>
