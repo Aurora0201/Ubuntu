@@ -229,3 +229,35 @@ terminate 终止
 inspect 检查
 
 intercept 拦截
+
+
+
+## 2023.3.12
+
+prompt 促使，导致，激起，鼓励，提示
+
+idle 空闲的，懈怠的，散漫的
+
+duplicate 复制，副本
+
+kernel 内核，核心
+
+conform 符合，相一致，顺应
+
+critical 关键的，及其重要的，批评的，严重的
+
+minus 减，负值
+
+eviction 驱逐，赶出，（租房等）收回
+
+expire 过期，失效
+
+validate 证实，使合法化，使生效
+
+invalidate 使失效，使作废
+
+valid 有效的
+
+invalid 无效的
+
+minor 较小的，少数的

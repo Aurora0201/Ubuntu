@@ -324,3 +324,13 @@
 + 创建web项目时，使用的依赖为`jakarta.servlet 4.0.0`但是在源码中却不能引入`jakarta`的包
     + 使用`javax.servlet.*`引入包
 + tomcat10建议使用`jakarta.servlet 5.0.0`
+
+
+
+## 4.Maven多模块管理
+
+### 1.创建父工程
+
++ 随便创建一个maven项目
++ 把src文件夹删除
++ 打包方式设置为pom
