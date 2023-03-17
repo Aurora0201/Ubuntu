@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/HTML.iml" filepath="$PROJECT_DIR$/HTML.iml" />
       <module fileurl="file://$PROJECT_DIR$/HTML-001-revelation/HTML-001-revelation.iml" filepath="$PROJECT_DIR$/HTML-001-revelation/HTML-001-revelation.iml" />
       <module fileurl="file://$PROJECT_DIR$/JS/JS.iml" filepath="$PROJECT_DIR$/JS/JS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/css/css.iml" filepath="$PROJECT_DIR$/css/css.iml" />
     </modules>
   </component>
 </project>

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface DataMapper {
     void insert(Data data);
+
+    List<Data> selectAll();
 }

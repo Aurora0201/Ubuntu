@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/spring-002-web" />
+    <file type="web" url="file://$PROJECT_DIR$/springboot-002-web" />
+    <file type="web" url="file://$PROJECT_DIR$/springboot-003-ssm" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/springboot-001-revelation/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-002-web/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-003-ssm/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="MavenRunner">
-    <option name="jreName" value="17" />
-    <option name="vmOptions" value="-DarchetypeCatalog=internal" />
-  </component>
-  <component name="ProjectRootManager">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

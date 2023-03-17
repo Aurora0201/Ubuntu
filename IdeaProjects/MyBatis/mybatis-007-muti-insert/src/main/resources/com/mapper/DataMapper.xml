@@ -6,4 +6,7 @@
     <insert id="insert">
         insert into t_data values (#{nickname}, #{content})
     </insert>
+    <select id="selectAll" resultType="Data">
+        select * from t_data
+    </select>
 </mapper>

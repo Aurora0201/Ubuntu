@@ -2,6 +2,11 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="">
-
+<mapper namespace="top.pi1grim.mapper.UserMapper">
+    <select id="selectById" resultType="User">
+        select id, actno, balance from t_user where id = #{id}
+    </select>
+    <insert id="insert" >
+        insert into t_user values (null, #{actno}, #{balance})
+    </insert>
 </mapper>

@@ -6,8 +6,20 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="spring-002-web" />
         <module name="springboot-001-revelation" />
+        <module name="springboot-003-ssm" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="springboot-002-web" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="spring-002-web" options="-parameters" />
+      <module name="springboot-002-web" options="-parameters" />
+      <module name="springboot-003-ssm" options="-parameters" />
+    </option>
   </component>
 </project>
