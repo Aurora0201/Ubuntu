@@ -261,3 +261,13 @@ valid 有效的
 invalid 无效的
 
 minor 较小的，少数的
+
+
+
+## 2023.3.12
+
+subtract 减去，作差
+
+hint 暗示，提示
+
+intersect 交集，相交，交叉 

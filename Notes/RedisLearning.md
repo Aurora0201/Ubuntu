@@ -328,3 +328,278 @@ scan 0 match *a* count 2 type string
 **注意**
 
 使用负数，超出范围或者其他非正常的游标来执行增量式迭代不会造成服务器崩溃，当数据量很大时，count指定的数量可能会不起作用，Redis会自动调整每次遍历的数目
+
+
+
+## 4.不同Value类型操作命令
+
+### 1.String型Value操作命令
+
+**set命令**
+
+先来看*set*命令的参数
+
+```
+set key value [NX|XX] [GET] [EX second|PX millisecond]
+```
+
+带括号的参数都是可选的，基础的set命令只需要包含key和value，NX代表的是不存在，XX代表的是已经存在，GET表示先获取原先的值再设置新的值， EX和PX是设置过期时间
+
+
+
+**setex, psetex命令**
+
+直接来看参数
+
+```
+setex key seconds value
+```
+
+设置值的同时设置生命
+
+
+
+**getset命令**
+
+相当于set命令的简化版
+
+```
+getset key value
+```
+
+
+
+**mset, msetnx命令**
+
+一次插入多个key value
+
+```
+mset key value [key value..]
+```
+
+
+
+**mget命令**
+
+一次获取多个key value
+
+```
+mget key [key..]
+```
+
+
+
+**append命令**
+
+在原先的value后添加字符
+
+```
+append key value
+```
+
+
+
+**incr和incrby命令**
+
+自增命令，只能对Integer类型起作用
+
+```
+incr key
+```
+
+
+
+**strlen命令**
+
+获取字符串的长度
+
+```
+strlen key
+```
+
+
+
+**getrange命令**
+
+获取一个区间的子串
+
+```
+getrange key start end
+```
+
+
+
+**setrange命令**
+
+对一部分子串设置
+
+```
+setrange key start value
+```
+
+start超出原有的部分会以/*0x00*填充
+
+
+
+### 2.Hash型Value操作命令
+
+**hset命令**
+
+
+
+**hget命令**
+
+
+
+**hmset命令**
+
+
+
+**hmget命令**
+
+
+
+**hgetall命令**
+
+
+
+**hsetnx命令**
+
+
+
+**hdel命令**
+
+
+
+**hexits命令**
+
+
+
+**hincrby命令**
+
+
+
+**hkeys, hvals命令**
+
+
+
+**hlen命令**
+
+
+
+**hstrlen命令**
+
+
+
+### 3.List型Value操作命令
+
+**lpush/rpush**
+
+
+
+**llen**
+
+
+
+**lindex**
+
+
+
+**lset**
+
+
+
+**lrange**
+
+
+
+**lpushx**
+
+
+
+**rpushx**
+
+
+
+**linsert**
+
+
+
+**lpop/rpop**
+
+
+
+**blpop/brpop**
+
+
+
+**lrem**
+
+
+
+**ltrim**
+
+
+
+**应用场景**
+
++ 栈：可以使用List模拟栈
++ 队列：可以使用List模拟队列
++ 阻塞消息队列：使用*lpush, brpop*实现阻塞消息队列
++ 动态有限集合：使用*lpush, ltrim*可以实现动态有限集合
+
+
+
+### 4.Set型Value操作命令
+
+**sadd**
+
+
+
+**smember**
+
+
+
+**scard**
+
+
+
+**sismember**
+
+
+
+**smove**
+
+
+
+**srem**
+
+
+
+**srandmember**
+
+
+
+**spop**
+
+
+
+**sdiff**
+
+
+
+**应用场景**
+
++ 动态黑白名单
++ 有限随机数
++ 用户画像
+
+
+
+### 5.ZSet型Value操作命令
+
+通过*help @sorted-set*来查询
+
+
+
+## 5.SDS简单动态字符串

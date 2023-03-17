@@ -106,13 +106,13 @@ update 表名 set 字段1 = 值, 字段2 = 值,... where(case)#不加where就是
 > ```mysql
 > create table t_class(
 > 	stu_class int,
->     class_name varchar(10)
+>    	class_name varchar(10)
 > );
 > 
 > create table t_stu(
 > 	stu_id int primary key,
->     stu_name varchar(10),
->     stu_class int,
+>        stu_name varchar(10),
+>        stu_class int,
 >     foreign key(stu_class) references t_class(stu_class)
 > );
 > ```
