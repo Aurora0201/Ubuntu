@@ -18,7 +18,6 @@ public class AndroidController {
     private AndroidService service;
     @RequestMapping("/getQR")
     public void getQR(HttpServletResponse response) throws IOException {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080"); // 允许某个
         response.setHeader("Access-Control-Allow-Origin", "*"); // 允许所有
         response.setContentType("application/octet-stream");
 

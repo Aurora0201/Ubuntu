@@ -679,7 +679,7 @@
         async function login_part(){
           var xmlhttp;
           xmlhttp=new XMLHttpRequest();
-          xmlhttp.open("GET","http://localhost:8080/ea_002/getQR",true);
+          xmlhttp.open("GET","http://localhost/python/GET/qr",true);
           xmlhttp.responseType = "blob";
           xmlhttp.onload = function(){
             console.log(this);
