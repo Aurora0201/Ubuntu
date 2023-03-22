@@ -277,3 +277,35 @@ intersect 交集，相交，交叉
 ## 2023.3.20
 
 credential 资质，证书，可信任的，证明有权利的
+
+
+
+## 2023.3.21
+
+stock 库存，股票
+
+reversion 复原，恢复，继承
+
+comparison 对照
+
+precise 准确的，精密的，精确的
+
+mandatory 强制的，命令的，义务的
+
+confused 困惑的，混淆的，迷糊不清的
+
+remedies 补救方法，改正，纠正
+
+progress 进步
+
+snippet 一小段
+
+superior 优越的
+
+
+
+## 2023.3.21
+
+implicit 含蓄的，不直接言明的，成为一部分的，内含的，完全的，无疑问的
+
+strategy 策略，方案

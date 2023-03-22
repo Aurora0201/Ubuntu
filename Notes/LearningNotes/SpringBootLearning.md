@@ -316,7 +316,7 @@
 
 + *Spring Web*
 + *MySQL Driver*
-+ *Mybatis Framework*
++ *Mybatis Framework* 
 
 
 
@@ -365,7 +365,7 @@
 
 
 
-## 6.REST
+## 6.RESTful
 
 ### 1.REST的概念
 
@@ -390,3 +390,25 @@ REST是一种互联网软件架构设计的风格，但他并不是标准，它�
 
 
 
+### 3.使用方式
+
+RESTful风格的接口使用名词来区分url，用请求方式来区分动作，假如我想通过一个url来完成添加和删除的操作，应该如下编写API
+
+```java
+@GetMapping("/{id}")
+public void GetGoods(@PathVariable int id) {
+
+}
+
+@PostMapping("/{id}")
+public void addGoods(@PathVariable int id) {
+
+}
+```
+
+类似的请求方式如下
+
++ GET 获取资源
++ POST 添加资源
++ DELETE 删除资源
++ PUT 修改资源

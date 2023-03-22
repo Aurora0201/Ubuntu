@@ -175,6 +175,6 @@
 
 **uwsgi的启动**
 
-+ 使用命令`uwsgi --socket 127.0.0.1:3031 --wsgi-file myflaskapp.py --callable app --processes 2 --threads 1 --stats 127.0.0.1:9191`
++ 使用命令`uwsgi --socket 127.0.0.1:3031 --wsgi-file 1.py --callable app --processes 1 --threads 1 --stats 127.0.0.1:9191`
 + 上面的命令表示，使用socket模式启动，并指定了作为*Application*的Python文件，可以作为*app*被调用，4个进程，每个进程2个线程
 + 可选，*--stats 127.0.0.1:9191*则是表示可以访问这个地址来获得内部的调试数据，但是需要使用*uwsgitop*来管理，使用`pip install uwsgitop`来安装

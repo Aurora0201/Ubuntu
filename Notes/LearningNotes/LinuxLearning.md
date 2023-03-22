@@ -197,3 +197,7 @@ vim中有三个模式：
 
 + `chown -R [newuser]:[newgroup]`，`-R`递归的修改目录中的文件，可以只改所有者不改组
 + `chgrp -R [newgroup]`只修改组
+
+
+
+![截图 2023-01-27 14-55-43](/home/binjunkai/Pictures/截图/截图 2023-01-27 14-55-43.png)

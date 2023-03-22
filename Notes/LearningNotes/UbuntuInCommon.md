@@ -39,6 +39,12 @@ sudo rm /var/lib/NetworkManager/NetworkManager.state
 sudo service NetworkManager start
 ```
 
+### 5.无法启动AppImage应用
+
++ 首先确定给予了执行权限
++ 缺少库的情况下，先安装库`sudo apt install libfuse2`
++ 在命令行执行时如果出现了`GPU process isn't usable. Goodbye.`，加上参数`--no-sandbox`执行
+
 
 
 ## 2.常用软件的安装

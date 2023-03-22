@@ -209,7 +209,7 @@ update 表名 set 字段1 = 值, 字段2 = 值,... where(case)#不加where就是
 >
 > 在表中存在有一个版本号
 >
-> > ename		job		sal		version
+> > ename		job				  sal			  version
 > >
 > > ---
 > >
