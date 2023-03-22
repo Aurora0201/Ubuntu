@@ -309,3 +309,5 @@ superior 优越的
 implicit 含蓄的，不直接言明的，成为一部分的，内含的，完全的，无疑问的
 
 strategy 策略，方案
+
+inspection 检查，检验

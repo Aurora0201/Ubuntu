@@ -553,6 +553,20 @@ tomcat9及以下的版本使用post请求发送中文时会造成乱码，因为
 
 
 
+### 8.跨域问题的解决
+
+当前的项目大多采用了前后端分离的的模式，前端向后端发送AJAX请求，后端向前端返回数据，此时就会产生跨域问题
+
+**跨域问题**
+
+![cross_origin.drawio](https://cdn.jsdelivr.net/gh/Aurora0201/ImageStore@main/img/upgit_20230322_1679489825.png)
+
+**跨域问题的解决**
+
+在SpringMVC中提供了一个注解`@CrossOrigin`，只要在Controller上添加即可解决问题
+
+
+
 ## 4.SSM整合开发
 
 ### 1.每个框架负责的部分
