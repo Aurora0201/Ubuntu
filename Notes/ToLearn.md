@@ -15,7 +15,7 @@
 - [ ] Guava 谷歌常用库
 - [ ] Lucene 全文检索
 - [ ] Shiro 安全框架
-- [ ] JWT Java Web Token安全验证
+- [x] JWT JSON Web Token安全验证
 - [ ] JPA Java Persistence API持久化框架
 - [ ] WebSocket 前端信息交互
 - [ ] flyway 数据库迁移工具
