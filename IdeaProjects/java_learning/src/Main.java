@@ -1,41 +1,56 @@
-import java.util.Objects;
+import java.util.*;
 
 public class Main{
     public static void main(String[] args) throws Exception {
-        Content content = Content.ABC;
-        System.out.println(content.name());
-//        Content.getContent();
+        List<ReturnVO> list = new ArrayList<>();
+        ReturnVO returnVO = list.get(0);
 
     }
+
+    public static void type(Status status) {
+        Arrays.stream(Status.values())
+                .filter(s -> s.equals(status))
+                .forEach(System.out::println);
+    }
+
 
 }
 
-enum Content {
-    ABC("123"), AB("12"), C("3");
+enum Status{
+    OK(10, "连接成功"), NO(15, "连接失败");
 
-    private final String content;
 
-    Content(String content) {
-        this.content = content;
+    private final int code;
+    private final String msg;
+
+    Status(int code, String msg){
+        this.code = code;
+        this.msg = msg;
     }
 
-//    public static String getContent(Content content) {
-//        Content[] values = values();
-//        for (Content item : values) {
-//            item.getContent();
-//        }
-//    }
+    public int getCode() {
+        return code;
+    }
 
-    public static String getUrl(Content contentType) {
-        if (Objects.isNull(contentType)) {
-            return null;
-        }
-        Content[] values = values();
-        for (Content tmp : values) {
-            if (tmp.equals(contentType)) {
-                return tmp.getUrl();
-            }
-        }
+    public String getMsg() {
+        return msg;
+    }
+
+//    public static int getCodeByMsg(Status status){
+//        return Arrays.stream(values())
+//                .filter(t -> t.getMsg().equals(status))
+//                .map(Status::getMsg)
+//                .findFirst()
+//                .get()
+//    }
+}
+
+class ReturnVO{
+    private int code;
+    private String msg;
+
+    public static ReturnVO getByStatus(Status status) {
+        
         return null;
     }
 }

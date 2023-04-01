@@ -412,3 +412,68 @@ public void addGoods(@PathVariable int id) {
 + POST 添加资源
 + DELETE 删除资源
 + PUT 修改资源
+
+
+
+## 7.整合Redis
+
+前提是系统中已经安装了redis
+
+### 1.引入redis的依赖
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
+```
+
+
+
+### 2.Redis的配置
+
+默认情况下不用配置
+
+
+
+### 3.Redis的使用
+
+Redis提供了一个对象StringRedisTemplate用于执行Redis的各种操作，下面提供一个业务层的缓存例子
+
+```java
+@Resource
+private StringRedisTemplate template;
+
+@Override
+public ProductDetailDTO productDetail(int productId) {
+    //先从Redis查询
+    String productInfoString = (String) template.boundHashOps("product").get(String.valueOf(productId));
+    //有就直接返回
+    if(productInfoString != null) return JSON.parseObject(productInfoString, ProductDetailDTO.class);
+    //没有就从数据查询
+    Product product = productMapper.selectOne(new LambdaQueryWrapper<Product>().eq(Product::getProductId, productId));
+    //如果数据库没有就证明不存在商品
+    if (product == null) {
+        return null;
+    }
+    ProductDetailDTO productDetail = ProductDetailDTO.builder()
+        .product(product)
+        .productImgs(productImgMapper.selectProductImgById(productId))
+        .productSkus(productSkuMapper.selectList(new LambdaQueryWrapper<ProductSku>().eq(ProductSku::getProductId, productId)))
+        .build();
+    //有就放入Redis中，并设置过期时间
+    template.boundHashOps("product").put(String.valueOf(productId), JSON.toJSONString(productDetail));
+    template.boundHashOps("product").expire(1, TimeUnit.HOUR);
+    //返回商品信息
+    return productDetail;
+}
+```
+
+
+
+### 4.Redis缓存的数据
+
+Redis缓存的数据一般来说有下面的特点：
+
++ 写的次数较少或者几乎不写，但是读的次数相当多的数据
++ 对于数据一致性要求较低，读次数较多的数据
