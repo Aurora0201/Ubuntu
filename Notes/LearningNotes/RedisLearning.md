@@ -982,13 +982,19 @@ Redis的集群是一个“一主多从”的读写分离集群，集群中的Mas
 + 将端口为6381和6382的服务器设置为6380的子节点
 
     ```
-    slaveof localhost 6380
+    replicaof localhost 6380
     ```
     
 + 当我们不想让节点作为其他节点的子节点时可以使用命令
 
     ```
-    slaveof no one
+    replicaof no one
+    ```
+
++ 5.0之前的版本使用
+
+    ```
+    slaveof localhost port
     ```
 
     
@@ -1016,4 +1022,14 @@ Redis的集群是一个“一主多从”的读写分离集群，集群中的Mas
 
 
 ### 4.主从复制详解
+
+主从复制的问题在Redis的版本迭代中经历了多次改进，大致可以分为下面三个时间点：
+
++ Redis2.8之前的 SYNC 方案
++ Redis2.8 PSYNC 方案
++ Redis4.0 PSYNC2.0 方案
+
+
+
+**SYCN方案**
 
