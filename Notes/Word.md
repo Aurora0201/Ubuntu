@@ -317,3 +317,23 @@ inspection 检查，检验
 ## 2023.3.22
 
 asset 资产
+
+
+
+## 2023.3.30
+
+compromise 妥协，折中，和解
+
+duration 期间，持续时间
+
+stock 库存，股票，存货
+
+collaborator 协作者，合作者
+
+isolated 孤独的，单独的
+
+
+
+## 2023.3.30
+
+replica 复制品
